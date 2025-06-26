@@ -21,3 +21,5 @@
 
 ## Demo Video
 [Click Here](https://datacoresystemsin-my.sharepoint.com/:v:/g/personal/abhigyan_sen_datacoresystems_co_in/EZhoLi9HUDtGiwf0md8mLxkBNqLw7AfIVJ7AQhA-6EzH4w?e=eh0Vmj) to access the Reference Video to Start the Project.
+
+[![Video Title](https://akm-img-a-in.tosshub.com/indiatoday/images/story/201808/omr_sheet_cbse.jpeg?size=690:388)](https://datacoresystemsin-my.sharepoint.com/:v:/g/personal/abhigyan_sen_datacoresystems_co_in/EZhoLi9HUDtGiwf0md8mLxkBNqLw7AfIVJ7AQhA-6EzH4w?e=eh0Vmj)

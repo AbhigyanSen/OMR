@@ -4,7 +4,9 @@
 
 
 ## Phases
-1. Work on an Annotation Tool
+
+Section 1: **ANNOTATION TOOL** 
+1. Work on an Annotation Tool _(LabelImg for now)_
     * Make the Annotation tool as user friendly as possible.
     * Try to implement LabelImg if possible as its very simple and easy to use
     * **KNOWN ERRORS:** 
@@ -13,3 +15,19 @@
 2. Testing The Annotation Tool
     * Test the annotation tool such that whwn required the tool can map the bounding boxes on the image as well.
 3. *(High Level Step)* Implement the Way or WorkFlow to Extract the Answer marked by the Candidate.
+
+<br>
+
+Section 2: <ins>**MAIN JOB**</ins>
+1. Detect the **Anchors** on the OMR sucessfully.
+2. After Successful Anchor Detection, Find the **Skew Angle**.
+   * Pair consecutive anchors to detect the anchor
+   * Set a Skew Threshold, which of exceeded, place the Image inside **Warning** Folder.
+
+
+<br>
+
+**NOTES**:
+1. LabelImg was sucessfully setup on 27th June
+2. Anchor Detection and Skewness was completed on 30th June.
+   * Testing on **Different Type of OMR** left. 

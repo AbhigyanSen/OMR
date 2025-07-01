@@ -1,0 +1,6 @@
+.env/
+
+# For Now
+*.jpg
+*.jpeg
+*.png

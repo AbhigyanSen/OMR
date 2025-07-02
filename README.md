@@ -35,3 +35,10 @@ Section 2: <ins>**MAIN JOB**</ins>
    * Currently working on the Pipeline with **Square Anchors**.
 3. **Anchor Detection testing for Square Anchors** was successfully coompleted on 01st June *(upon the provided data)*
 4. Working on Successfull Detection of **Question and Answers**.
+
+<br>
+
+**HOW TO USE**:
+There are two Phases:
+1. `Phase1` contains the code for Anchor Detection
+2. `Phase2` integrates the code for Anchor Detection and Relative BBOX mapping.

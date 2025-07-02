@@ -396,53 +396,68 @@ class OMRProcessor:
 # Main execution
 if __name__ == "__main__":
 
-    # # Define paths
-    # folder_path = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\100_Series"
-    # annotations_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\100418.txt"  # Use appropriate annotation file
-    # classes_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\classes.txt"
-
-    # # Create output directory based on folder name
-    # folder_name = os.path.basename(folder_path.rstrip("\\/"))
-    # output_dir = os.path.join("output_" + folder_name)
-    # os.makedirs(output_dir, exist_ok=True)
-
-    # # Process each image in the folder
-    # for filename in os.listdir(folder_path):
-    #     if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-    #         image_path = os.path.join(folder_path, filename)
-    #         print(f"\nProcessing {image_path}...")
-
-    #         try:
-    #             processor = OMRProcessor(image_path, annotations_file, classes_file)
-    #             detected_anchors = processor.detect_anchor_points()
-    #             output_image_path = os.path.join(output_dir, filename)
-    #             processor.visualize_results(detected_anchors, output_image_path)
-
-    #             # Optional: Print summary of detections
-    #             print("\n--- Detected Anchor Details ---")
-    #             for anchor in detected_anchors:
-    #                 print(f"Class: {anchor['class_name']}")
-    #                 print(f"  Bounding Box (x1, y1, x2, y2): {anchor['bbox']}")
-    #                 print(f"  Center (x, y): {anchor['center']}")
-    #                 print(f"  Area: {anchor['area']:.2f}")
-    #                 print("-" * 30)
-
-    #         except Exception as e:
-    #             print(f"Error processing {filename}: {e}")
-
-
-    print("\n--- Testing with original 100418.jpg (circular anchors) ---")
-    image_file_old = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\100_Series\100418.jpg"
-    annotations_file_old = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\100418.txt"
+    # Define paths
+    folder_path = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\Test_Series"
+    annotations_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\BLANK001.txt"  # Use appropriate annotation file
     classes_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\classes.txt"
 
-    processor_old = OMRProcessor(image_file_old, annotations_file_old, classes_file)
-    detected_anchors_old = processor_old.detect_anchor_points()
-    processor_old.visualize_results(detected_anchors_old, "detected_anchors_output_100418.jpg")
-    print("\n--- Detected Anchor Details for 100418.jpg ---")
-    for anchor in detected_anchors_old:
-        print(f"Class: {anchor['class_name']}")
-        print(f"  Bounding Box (x1, y1, x2, y2): {anchor['bbox']}")
-        print(f"  Center (x, y): {anchor['center']}")
-        print(f"  Area: {anchor['area']:.2f}")
-        print("-" * 30)
+    # Create output directory based on folder name
+    folder_name = os.path.basename(folder_path.rstrip("\\/"))
+    output_dir = os.path.join("output_" + folder_name)
+    warning_dir = os.path.join(output_dir, "warnings")
+    os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(warning_dir, exist_ok=True)
+
+    # Process each image in the folder
+    for filename in os.listdir(folder_path):
+        if filename.lower().endswith((".jpg", ".jpeg", ".png")):
+            image_path = os.path.join(folder_path, filename)
+            print(f"\nProcessing {image_path}...")
+
+            try:
+                processor = OMRProcessor(image_path, annotations_file, classes_file)
+                detected_anchors = processor.detect_anchor_points()
+
+                if len(detected_anchors) < 4:
+                    print("⚠️ Not all anchors detected. Moving to warnings folder.")
+                    warning_path = os.path.join(warning_dir, filename)
+                    cv2.imwrite(warning_path, processor.image)
+                    continue  # Skip visualization
+                else:
+                    output_image_path = os.path.join(output_dir, filename)
+                    processor.visualize_results(detected_anchors, output_image_path)
+
+                    print("\n--- Detected Anchor Details ---")
+                    for anchor in detected_anchors:
+                        print(f"Class: {anchor['class_name']}")
+                        print(f"  Bounding Box (x1, y1, x2, y2): {anchor['bbox']}")
+                        print(f"  Center (x, y): {anchor['center']}")
+                        print(f"  Area: {anchor['area']:.2f}")
+                        print("-" * 30)
+
+            except Exception as e:
+                print(f"❌ Error processing {filename}: {e}")
+                try:
+                    error_img = cv2.imread(image_path)
+                    if error_img is not None:
+                        warning_path = os.path.join(warning_dir, filename)
+                        cv2.imwrite(warning_path, error_img)
+                except Exception as img_err:
+                    print(f"⚠️ Could not save error image: {img_err}")
+
+
+    # print("\n--- Testing with original 100418.jpg (circular anchors) ---")
+    # image_file_old = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\100_Series\100418.jpg"
+    # annotations_file_old = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\100418.txt"
+    # classes_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\classes.txt"
+
+    # processor_old = OMRProcessor(image_file_old, annotations_file_old, classes_file)
+    # detected_anchors_old = processor_old.detect_anchor_points()
+    # processor_old.visualize_results(detected_anchors_old, "detected_anchors_output_100418.jpg")
+    # print("\n--- Detected Anchor Details for 100418.jpg ---")
+    # for anchor in detected_anchors_old:
+    #     print(f"Class: {anchor['class_name']}")
+    #     print(f"  Bounding Box (x1, y1, x2, y2): {anchor['bbox']}")
+    #     print(f"  Center (x, y): {anchor['center']}")
+    #     print(f"  Area: {anchor['area']:.2f}")
+    #     print("-" * 30)

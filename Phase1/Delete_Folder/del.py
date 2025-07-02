@@ -83,20 +83,26 @@ def visualize_yolo_annotations(image_path, annotations_data, classes_data, outpu
 
 # --- Main Execution ---
 if __name__ == "__main__":
-    # The content of classes.txt provided by the user
-    classes_content = """anch1
-anch2
-anch3
-anch4"""
+    # Load classes from classes.txt
+    classes_file_path = r"D:\Projects\OMR\new_abhigyan\Phase1\Options\classes.txt"                   # CLASSES.TXT
+    try:
+        with open(classes_file_path, 'r') as f:
+            classes_content = f.read()
+    except FileNotFoundError:
+        print(f"Error: {classes_file_path} not found.  Please check the path.")
+        exit()
 
-    # The content of 100418.txt provided by the user
-    annotations_content = """0 0.059481 0.054152 0.015097 0.010702
-1 0.962862 0.053296 0.015097 0.010702
-2 0.057065 0.976027 0.013889 0.010274
-3 0.960145 0.977954 0.014493 0.010702"""
+    # Load annotations from annotations.txt
+    annotations_file_path = r"D:\Projects\OMR\new_abhigyan\Phase1\Options\BE23-01-01003.txt"        # ANNOTATIONS.TXT
+    try:
+        with open(annotations_file_path, 'r') as f:
+            annotations_content = f.read()
+    except FileNotFoundError:
+        print(f"Error: {annotations_file_path} not found. Please check the path.")
+        exit()
 
     # --- IMPORTANT: Replace this with the actual path to YOUR image ---
     # Example: image_to_visualize_path = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\images\100418.jpg"
-    image_to_visualize_path = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\100_Series\100418.jpg" # <--- **CHANGE THIS LINE**
+    image_to_visualize_path = r"D:\Projects\OMR\new_abhigyan\Phase1\Options\BE23-01-01003.jpg"              # IMAGE
 
     visualize_yolo_annotations(image_to_visualize_path, annotations_content, classes_content)

@@ -1,0 +1,25 @@
+{
+  "BE23-01-01003.jpg": {
+    "anchors": {
+      "Anch1": [
+        69,
+        243
+      ],
+      "Anch2": [
+        1194,
+        239
+      ],
+      "Anch3": [
+        73,
+        1712
+      ],
+      "Anch4": [
+        1199,
+        1710
+      ]
+    },
+    "M_transform": null,
+    "deskewed_width": 1245,
+    "deskewed_height": 1794
+  }
+}

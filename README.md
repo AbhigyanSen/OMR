@@ -31,3 +31,7 @@ Section 2: <ins>**MAIN JOB**</ins>
 1. LabelImg was sucessfully setup on 27th June
 2. Anchor Detection and Skewness was completed on 30th June.
    * Testing on **Different Type of OMR** left. 
+   * Test Results for **Different Types of OMR**, it was found that, for Square Anchors, it was working fine, but with OMR having **Circular Anchors**, it was performing Badly.
+   * Currently working on the Pipeline with **Square Anchors**.
+3. **Anchor Detection testing for Square Anchors** was successfully coompleted on 01st June *(upon the provided data)*
+4. Working on Successfull Detection of **Question and Answers**.

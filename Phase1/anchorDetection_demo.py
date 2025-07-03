@@ -212,7 +212,7 @@ class OMRProcessor:
         
         # Define the anchor class IDs. These map to the *index* in your classes.txt
         # Based on your provided classes.txt, 'anch1' is index 0, 'anch2' is index 1, etc.
-        anchor_class_names = ['anch1', 'anch2', 'anch3', 'anch4']
+        anchor_class_names = ['Anch1', 'Anch2', 'Anch3', 'Anch4']
         
         # Perform deskewing first. This will update self.M_transform and deskewed dimensions
         # We work on the original_image to find the contour for deskewing
@@ -397,8 +397,8 @@ class OMRProcessor:
 if __name__ == "__main__":
 
     # Define paths
-    folder_path = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\Test_Series"
-    annotations_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\BLANK001.txt"  # Use appropriate annotation file
+    folder_path = r"D:\Projects\OMR\new_abhigyan\Phase1\testData\BE23_Series"
+    annotations_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\labels\BE23-01-01003.txt"  # Use appropriate annotation file
     classes_file = r"D:\Projects\OMR\new_abhigyan\Phase1\Data\classes.txt"
 
     # Create output directory based on folder name

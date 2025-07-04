@@ -29,6 +29,7 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
 
     flat_results = {}
     summary_results = {}
+    global_option_score_map = {}
 
     for img_name, annotations in mapped_data.items():
         if (
@@ -38,13 +39,14 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
         ):
             print(f"⛔ Skipping {img_name}: invalid or not marked for processing.")
             continue
-        
+
         image_path = os.path.join(image_folder, img_name)
         image = cv2.imread(image_path)
         if image is None:
             continue
 
         question_groups = defaultdict(list)
+        option_score_map = {}
         for label, data in annotations.items():
             if not isinstance(data, dict) or "bbox" not in data:
                 continue
@@ -52,6 +54,7 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
             question_groups[qid].append((label, data["bbox"]))
 
         summary_results[img_name] = {}
+        global_option_score_map[img_name] = {}
 
         print(f"\n[📄] Results for: {img_name}")
         for qid in sorted(question_groups.keys(), key=lambda x: int(x.replace('Q', '').replace('q', ''))):
@@ -61,16 +64,18 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
 
             for label, bbox in options:
                 _, score = is_filled_option(image, bbox)
+                option_score_map[label] = round(score, 2)
+
                 if score < best_score:
                     best_score = score
                     marked_label = label
                     best_score_value = score
 
             if marked_label:
-                print(f"{qid}: {qid} (score: {best_score_value:.2f})")
-                print(f"{qid.replace('Q', '')}: {marked_label} (score: {best_score_value:.2f})")
                 flat_results[f"{img_name}_{qid}"] = marked_label
                 summary_results[img_name][qid] = marked_label
+
+        global_option_score_map[img_name] = option_score_map
 
     with open(output_text_json_path, 'w') as f:
         json.dump(flat_results, f, indent=2)
@@ -80,6 +85,7 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
 
     print(f"\n✅ Summary saved to:\n{summary_json_path}")
     print(f"✅ Flat mapping saved to:\n{output_text_json_path}")
+    return global_option_score_map
 
 def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv_path):
     with open(marked_options_path, 'r') as f:
@@ -90,25 +96,23 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
     for full_key, value in flat_data.items():
         if '_' not in full_key or not value:
             continue
-        
+
         img_name, q_key = full_key.split("_", 1)
 
-        # Only process keys like "_1", "_2", etc. (not "_Q1")
+        # Only process "_1", "_2", etc.
         if re.match(r'^\d+$', q_key):
-            qnum = q_key  # "1"
-            if len(value) >= 2 and value[:-1] == qnum:  # e.g., "1C"
+            qnum = q_key
+            if len(value) >= 2 and value[:-1] == qnum:
                 selected_option = value[-1]
                 question_label = f"Q{qnum}"
                 summary_dict[img_name][question_label] = selected_option
 
-    # Save JSON
     with open(summary_json_path, 'w') as f:
         json.dump(summary_dict, f, indent=2)
     print(f"✅ Cleaned summary saved to: {summary_json_path}")
 
-    # Save CSV
     all_questions = sorted({q for q_data in summary_dict.values() for q in q_data.keys()},
-                           key=lambda x: int(x[1:]))  # Q1, Q2, etc.
+                           key=lambda x: int(x[1:]))
 
     with open(summary_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
@@ -120,14 +124,58 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
 
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
+def export_verification_csv(option_score_map, flat_results_path, output_csv_path):
+    with open(flat_results_path, 'r') as f:
+        flat_data = json.load(f)
 
+    image_to_question_map = defaultdict(dict)
+    for full_key, value in flat_data.items():
+        if '_' not in full_key or not value:
+            continue
+        img_name, q_key = full_key.split("_", 1)
+        if re.match(r'^\d+$', q_key):
+            qnum = q_key
+            if len(value) >= 2 and value[:-1] == qnum:
+                question_label = f"Q{qnum}"
+                image_to_question_map[img_name][question_label] = value[-1]
+
+    all_question_ids = sorted(set(
+        q for q_data in image_to_question_map.values() for q in q_data.keys()
+    ), key=lambda x: int(x[1:]))
+
+    all_columns = []
+    for q in all_question_ids:
+        qnum = q[1:]
+        for opt in ["A", "B", "C", "D"]:
+            all_columns.append(f"{qnum}{opt}")
+
+    with open(output_csv_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["Image Name"] + all_columns)
+
+        for img_name in image_to_question_map.keys():
+            row = [img_name]
+            for col in all_columns:
+                row.append(option_score_map.get(img_name, {}).get(col, ""))
+            writer.writerow(row)
+
+    print(f"🧾 Verification CSV saved to: {output_csv_path}")
 
 if __name__ == "__main__":
     mapped_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\mapped_annotations.json"
     image_folder = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
+
     output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\marked_options.json"
     summary_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.json"
     summary_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.csv"
+    verification_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\verification.csv"
 
-    detect_marked_options(mapped_json_path, image_folder, output_text_json_path, summary_json_path)
+    option_score_map = detect_marked_options(
+        mapped_json_path,
+        image_folder,
+        output_text_json_path,
+        summary_json_path
+    )
+
     clean_and_export_summary(output_text_json_path, summary_json_path, summary_csv_path)
+    export_verification_csv(option_score_map, output_text_json_path, verification_csv_path)

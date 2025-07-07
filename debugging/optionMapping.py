@@ -182,8 +182,8 @@ def process_folder(folder_path, annotations_file, classes_file, anchor_data_json
 
 if __name__ == "__main__":
     folder_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
-    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\detailed_annotations\Test_Series\TEST-01003.txt"
-    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\detailed_annotations\Test_Series\classes.txt"
+    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\more_detailed_annotations\Test_Series\TEST-01003.txt"
+    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\more_detailed_annotations\Test_Series\classes.txt"
     anchor_data_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\anchor_Test_Series\anchor_centers.json"
 
     process_folder(folder_path, annotations_file, classes_file, anchor_data_json_path)

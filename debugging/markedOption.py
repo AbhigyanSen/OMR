@@ -2,9 +2,10 @@ import os
 import cv2
 import json
 import numpy as np
-from collections import defaultdict
-import re
 import csv
+import re
+from collections import defaultdict
+
 
 def is_filled_option(image, bbox, threshold=100):
     x1, y1, x2, y2 = bbox
@@ -15,13 +16,30 @@ def is_filled_option(image, bbox, threshold=100):
     mean_intensity = np.mean(gray)
     return mean_intensity < threshold, mean_intensity
 
+
 def extract_question_id(label):
-    for i in range(len(label)):
-        if label[i].isdigit():
-            while i < len(label) and label[i].isdigit():
-                i += 1
-            return label[:i]
-    return label
+    match = re.match(r"q(\d+)", label.lower())
+    return f"Q{match.group(1)}" if match else None
+
+
+def extract_option_code(label):
+    match = re.match(r"q(\d+)_([a-d])", label.lower())
+    return match.group(2).upper() if match else None
+
+
+def is_registration_digit_option(label):
+    return bool(re.match(r"reg_no_d\d{1,2}_\d", label))
+
+
+def extract_digit_group(label):
+    match = re.match(r"reg_no_d(\d{1,2})_\d", label)
+    return f"reg_no_d{match.group(1)}" if match else None
+
+
+def extract_digit_value(label):
+    match = re.match(r"reg_no_d\d{1,2}_(\d)", label)
+    return match.group(1) if match else None
+
 
 def detect_marked_options(mapped_json_path, image_folder, output_text_json_path, summary_json_path):
     with open(mapped_json_path, 'r') as f:
@@ -46,18 +64,27 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
             continue
 
         question_groups = defaultdict(list)
+        regno_groups = defaultdict(list)
         option_score_map = {}
-        for label, data in annotations.items():
-            if not isinstance(data, dict) or "bbox" not in data:
-                continue
-            qid = extract_question_id(label)
-            question_groups[qid].append((label, data["bbox"]))
 
         summary_results[img_name] = {}
         global_option_score_map[img_name] = {}
 
-        print(f"\n[📄] Results for: {img_name}")
-        for qid in sorted(question_groups.keys(), key=lambda x: int(x.replace('Q', '').replace('q', ''))):
+        # Grouping
+        for label, data in annotations.items():
+            if not isinstance(data, dict) or "bbox" not in data:
+                continue
+            if label.startswith("q") and "_" in label:
+                qid = extract_question_id(label)
+                if qid:
+                    question_groups[qid].append((label, data["bbox"]))
+            elif is_registration_digit_option(label):
+                digit_group = extract_digit_group(label)
+                if digit_group:
+                    regno_groups[digit_group].append((label, data["bbox"]))
+
+        # Process Questions
+        for qid in sorted(question_groups.keys(), key=lambda x: int(x[1:])):
             options = question_groups[qid]
             marked_label = None
             best_score = float("inf")
@@ -69,13 +96,36 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
                 if score < best_score:
                     best_score = score
                     marked_label = label
-                    best_score_value = score
 
             if marked_label:
                 flat_results[f"{img_name}_{qid}"] = marked_label
-                summary_results[img_name][qid] = marked_label
+                option = extract_option_code(marked_label)
+                summary_results[img_name][qid] = option
+
+        # Process Registration Number
+        reg_digits = []
+        for i in range(1, 11):
+            group_key = f"reg_no_d{i}"
+            options = regno_groups.get(group_key, [])
+            best_score = float("inf")
+            marked_digit = ""
+
+            for label, bbox in options:
+                _, score = is_filled_option(image, bbox)
+                option_score_map[label] = round(score, 2)
+                if score < best_score:
+                    best_score = score
+                    marked_digit = extract_digit_value(label)
+
+            flat_results[f"{img_name}_{group_key}"] = marked_digit
+            reg_digits.append(marked_digit or "")
+
+        reg_number = "".join(reg_digits)
+        summary_results[img_name]["RegistrationNumber"] = reg_number
 
         global_option_score_map[img_name] = option_score_map
+
+        print(f"✅ Processed: {img_name} | Reg. No: {reg_number}")
 
     with open(output_text_json_path, 'w') as f:
         json.dump(flat_results, f, indent=2)
@@ -87,6 +137,7 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
     print(f"✅ Flat mapping saved to:\n{output_text_json_path}")
     return global_option_score_map
 
+
 def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv_path):
     with open(marked_options_path, 'r') as f:
         flat_data = json.load(f)
@@ -97,38 +148,39 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
         if '_' not in full_key or not value:
             continue
 
-        img_name, q_key = full_key.split("_", 1)
+        img_name, label = full_key.split("_", 1)
+        if label.startswith("q") and "_" not in label:
+            qnum = label[1:]
+            if len(value) >= 2 and value.startswith(f"q{qnum}_"):
+                summary_dict[img_name][f"Q{qnum}"] = value.split("_")[-1].upper()
+        elif label.startswith("reg_no_d") and "_" not in label:
+            summary_dict[img_name][label] = value
 
-        # Only process "_1", "_2", etc.
-        if re.match(r'^\d+$', q_key):
-            qnum = q_key
-            if len(value) >= 2 and value[:-1] == qnum:
-                selected_option = value[-1]
-                question_label = f"Q{qnum}"
-                summary_dict[img_name][question_label] = selected_option
+    # Build Reg Number
+    for img_name in summary_dict.keys():
+        digits = [summary_dict[img_name].get(f"reg_no_d{i}", "") for i in range(1, 11)]
+        summary_dict[img_name]["RegistrationNumber"] = "".join(digits)
 
     with open(summary_json_path, 'w') as f:
         json.dump(summary_dict, f, indent=2)
+
     print(f"✅ Cleaned summary saved to: {summary_json_path}")
 
-    all_questions = sorted({q for q_data in summary_dict.values() for q in q_data.keys()},
-                           key=lambda x: int(x[1:]))
+    all_questions = sorted({q for q_data in summary_dict.values() for q in q_data.keys()
+                            if q.startswith("Q")}, key=lambda x: int(x[1:]))
 
     with open(summary_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(["Image Name"] + all_questions)
+        writer.writerow(["Image Name"] + all_questions + ["RegistrationNumber"])
 
         for img_name, q_answers in summary_dict.items():
-            row = [img_name] + [q_answers.get(q, "") for q in all_questions]
+            row = [img_name] + [q_answers.get(q, "") for q in all_questions] + [q_answers.get("RegistrationNumber", "")]
             writer.writerow(row)
 
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
-def export_verification_csv(option_score_map, flat_results_path, output_csv_path):
-    import csv
-    import re
-    from collections import defaultdict
 
+def export_verification_csv(option_score_map, flat_results_path, output_csv_path):
     with open(flat_results_path, 'r') as f:
         flat_data = json.load(f)
 
@@ -136,12 +188,9 @@ def export_verification_csv(option_score_map, flat_results_path, output_csv_path
     for full_key, value in flat_data.items():
         if '_' not in full_key or not value:
             continue
-        img_name, q_key = full_key.split("_", 1)
-        if re.match(r'^\d+$', q_key):
-            qnum = q_key
-            if len(value) >= 2 and value[:-1] == qnum:
-                question_label = f"Q{qnum}"
-                image_to_question_map[img_name][question_label] = value[-1]
+        img_name, qid = full_key.split("_", 1)
+        if qid.startswith("Q"):
+            image_to_question_map[img_name][qid] = value.split("_")[-1].upper()
 
     all_question_ids = sorted(set(
         q for q_data in image_to_question_map.values() for q in q_data.keys()
@@ -150,62 +199,49 @@ def export_verification_csv(option_score_map, flat_results_path, output_csv_path
     all_columns = []
     for q in all_question_ids:
         qnum = q[1:]
-        for opt in ["A", "B", "C", "D"]:
-            all_columns.append(f"{qnum}{opt}")
-            all_columns.append(f"Result {qnum}{opt}")
+        for opt in ["a", "b", "c", "d"]:
+            all_columns.append(f"{qnum.upper()}{opt.upper()}")
+            all_columns.append(f"Result {qnum.upper()}{opt.upper()}")
 
     with open(output_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(["Image Name"] + all_columns)
 
-        for img_name in image_to_question_map.keys():
+        for img_name, q_answers in image_to_question_map.items():
             row = [img_name]
-            scores = option_score_map.get(img_name, {})
-
+            score_map = option_score_map.get(img_name, {})
             for q in all_question_ids:
                 qnum = q[1:]
-                option_scores = {}
-                for opt in ["A", "B", "C", "D"]:
-                    key = f"{qnum}{opt}"
-                    option_scores[opt] = scores.get(key, "")
+                intensities = []
+                for opt in ["a", "b", "c", "d"]:
+                    label = f"q{qnum}_{opt}"
+                    score = score_map.get(label, "")
+                    intensities.append((label, score))
 
-                sorted_opts = sorted(
-                    [(opt, val) for opt, val in option_scores.items() if isinstance(val, (int, float))],
-                    key=lambda x: x[1]
-                )
+                valid_intensities = [(lbl, sc) for lbl, sc in intensities if isinstance(sc, (int, float))]
+                sorted_intensities = sorted(valid_intensities, key=lambda x: x[1])
 
-                for opt in ["A", "B", "C", "D"]:
-                    key = f"{qnum}{opt}"
-                    score = option_scores.get(opt, "")
-                    row.append(score)
-
-                    if not isinstance(score, (int, float)):
+                for i, (label, score) in enumerate(intensities):
+                    row.append(score if isinstance(score, (int, float)) else "")
+                    if not isinstance(score, (int, float)) or len(sorted_intensities) < 2:
                         row.append("")
-                        continue
-
-                    idx = next((i for i, (o, _) in enumerate(sorted_opts) if o == opt), -1)
-                    if idx == -1:
-                        row.append("")
-                        continue
-
-                    if idx + 1 < len(sorted_opts):
-                        next_opt, next_score = sorted_opts[idx + 1]
-                        percentage = round((score / next_score) * 100, 2) if next_score else 100.0
-                        row.append(f"{percentage} ({next_opt})")
                     else:
-                        row.append(f"100.0 ({opt})")  # highest score, compared with itself
+                        current = score
+                        next_best = sorted_intensities[1][1] if label == sorted_intensities[0][0] else sorted_intensities[0][1]
+                        pct = round((current / next_best) * 100, 2) if next_best else 100.0
+                        alt_opt = sorted_intensities[1][0].split("_")[-1].upper() if label == sorted_intensities[0][0] else sorted_intensities[0][0].split("_")[-1].upper()
+                        row.append(f"{pct} ({alt_opt})")
 
             writer.writerow(row)
 
     print(f"🧾 Verification CSV saved to: {output_csv_path}")
 
 
-
 if __name__ == "__main__":
     mapped_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\mapped_annotations.json"
     image_folder = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
 
-    output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\marked_options.json"
+    output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\marked_options.json"
     summary_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.json"
     summary_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.csv"
     verification_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\verification.csv"

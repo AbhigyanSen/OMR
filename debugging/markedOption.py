@@ -137,8 +137,10 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
     print(f"✅ Flat mapping saved to:\n{output_text_json_path}")
     return global_option_score_map
 
-
 def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv_path):
+    from collections import defaultdict
+    import json, csv
+
     with open(marked_options_path, 'r') as f:
         flat_data = json.load(f)
 
@@ -149,21 +151,22 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
             continue
 
         img_name, label = full_key.split("_", 1)
-        if label.startswith("Q"):
+
+        if label.startswith("Q") and "_" not in label:
             qnum = label[1:]
             if len(value) >= 2 and value.startswith(f"q{qnum}_"):
                 summary_dict[img_name][f"Q{qnum}"] = value.split("_")[-1].upper()
-        elif label.startswith("reg_no_d") and "_" not in label:
+
+        elif label.startswith("reg_no_d") and value.isdigit():
             summary_dict[img_name][label] = value
 
-    # Build Reg Number
+    # Build Registration Number
     for img_name in summary_dict.keys():
         digits = [summary_dict[img_name].get(f"reg_no_d{i}", "") for i in range(1, 11)]
         summary_dict[img_name]["RegistrationNumber"] = "".join(digits)
 
     with open(summary_json_path, 'w') as f:
         json.dump(summary_dict, f, indent=2)
-
     print(f"✅ Cleaned summary saved to: {summary_json_path}")
 
     all_questions = sorted({q for q_data in summary_dict.values() for q in q_data.keys()
@@ -172,110 +175,10 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
     with open(summary_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(["Image Name"] + all_questions + ["RegistrationNumber"])
-
         for img_name, q_answers in summary_dict.items():
             row = [img_name] + [q_answers.get(q, "") for q in all_questions] + [q_answers.get("RegistrationNumber", "")]
             writer.writerow(row)
-
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
-
-
-# def export_verification_csv_raw_scores_only(option_score_map, output_csv_path):
-#     import csv
-
-#     # Assume Q1–Q10 and options A–D
-#     question_ids = [f"Q{i}" for i in range(1, 11)]
-#     options = ["A", "B", "C", "D"]
-
-#     # Prepare header: Image Name, 1A, 1B, 1C, 1D, ..., 10D
-#     header = ["Image Name"]
-#     for q in question_ids:
-#         qnum = q[1:]
-#         for opt in options:
-#             header.append(f"{qnum}{opt}")
-
-#     # Write CSV
-#     with open(output_csv_path, "w", newline="") as f:
-#         writer = csv.writer(f)
-#         writer.writerow(header)
-
-#         for img_name in sorted(option_score_map.keys()):
-#             row = [img_name]
-#             score_map = option_score_map[img_name]
-
-#             for q in question_ids:
-#                 qnum = q[1:]
-#                 for opt in options:
-#                     label = f"q{qnum}_{opt.lower()}"
-#                     score = score_map.get(label, "")
-#                     row.append(score if isinstance(score, (int, float)) else "")
-#             writer.writerow(row)
-
-#     print(f"🧾 Raw score-only verification CSV saved to: {output_csv_path}")
-
-
-# DISCARDED AS WAS SORTING IN DESCENDING ORDER
-# def export_verification_csv(option_score_map, output_csv_path):
-#     import csv
-
-#     question_ids = [f"Q{i}" for i in range(1, 11)]
-#     options = ["A", "B", "C", "D"]
-
-#     # CSV header
-#     header = ["Image Name"]
-#     for q in question_ids:
-#         qnum = q[1:]
-#         for opt in options:
-#             header.append(f"{qnum}{opt}")
-#             header.append(f"Result {qnum}{opt}")
-
-#     with open(output_csv_path, "w", newline="") as f:
-#         writer = csv.writer(f)
-#         writer.writerow(header)
-
-#         for img_name in sorted(option_score_map.keys()):
-#             row = [img_name]
-#             score_map = option_score_map[img_name]
-
-#             for q in question_ids:
-#                 qnum = q[1:]
-#                 intensities = []
-#                 for opt in options:
-#                     label = f"q{qnum}_{opt.lower()}"
-#                     score = score_map.get(label, "")
-#                     intensities.append((opt, score))
-
-#                 # Prepare lookup dict: {A: 244.15, B: 242.19, ...}
-#                 opt_scores = {opt: score for opt, score in intensities if isinstance(score, (int, float))}
-
-#                 # Sorted options by score descending (brightest to darkest)
-#                 sorted_opts = sorted(opt_scores.items(), key=lambda x: x[1], reverse=True)
-
-#                 for opt in options:
-#                     score = opt_scores.get(opt, "")
-#                     row.append(score)
-
-#                     if not isinstance(score, (int, float)) or len(sorted_opts) < 2:
-#                         row.append("")
-#                         continue
-
-#                     # Find next lower intensity
-#                     current_idx = next((i for i, (o, _) in enumerate(sorted_opts) if o == opt), None)
-
-#                     if current_idx is None or current_idx + 1 >= len(sorted_opts):
-#                         # This is the darkest (lowest) option → 100%
-#                         row.append(f"100.0 ({opt})")
-#                     else:
-#                         next_opt, next_score = sorted_opts[current_idx + 1]
-#                         if next_score == 0:
-#                             row.append(f"100.0 ({opt})")
-#                         else:
-#                             pct = round((score / next_score) * 100, 2)
-#                             row.append(f"{pct} ({next_opt})")
-
-#             writer.writerow(row)
-
-#     print(f"✅ Fixed verification CSV saved to: {output_csv_path}")
 
 def export_verification_csv(option_score_map, output_csv_path):
     import csv

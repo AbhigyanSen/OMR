@@ -10,7 +10,17 @@
     "Q8": "D",
     "Q9": "D",
     "Q10": "D",
-    "RegistrationNumber": ""
+    "reg_no_d1": "8",
+    "reg_no_d2": "8",
+    "reg_no_d3": "4",
+    "reg_no_d4": "8",
+    "reg_no_d5": "8",
+    "reg_no_d6": "8",
+    "reg_no_d7": "8",
+    "reg_no_d8": "8",
+    "reg_no_d9": "8",
+    "reg_no_d10": "8",
+    "RegistrationNumber": "8848888888"
   },
   "TEST-01001.jpg": {
     "Q1": "C",
@@ -23,7 +33,17 @@
     "Q8": "C",
     "Q9": "A",
     "Q10": "D",
-    "RegistrationNumber": ""
+    "reg_no_d1": "8",
+    "reg_no_d2": "6",
+    "reg_no_d3": "1",
+    "reg_no_d4": "7",
+    "reg_no_d5": "6",
+    "reg_no_d6": "4",
+    "reg_no_d7": "0",
+    "reg_no_d8": "1",
+    "reg_no_d9": "3",
+    "reg_no_d10": "3",
+    "RegistrationNumber": "8617640133"
   },
   "TEST-01002.jpg": {
     "Q1": "C",
@@ -36,7 +56,17 @@
     "Q8": "D",
     "Q9": "A",
     "Q10": "C",
-    "RegistrationNumber": ""
+    "reg_no_d1": "1",
+    "reg_no_d2": "3",
+    "reg_no_d3": "4",
+    "reg_no_d4": "5",
+    "reg_no_d5": "5",
+    "reg_no_d6": "7",
+    "reg_no_d7": "6",
+    "reg_no_d8": "2",
+    "reg_no_d9": "0",
+    "reg_no_d10": "3",
+    "RegistrationNumber": "1345576203"
   },
   "TEST-01003.jpg": {
     "Q1": "A",
@@ -49,7 +79,17 @@
     "Q8": "B",
     "Q9": "D",
     "Q10": "B",
-    "RegistrationNumber": ""
+    "reg_no_d1": "9",
+    "reg_no_d2": "4",
+    "reg_no_d3": "0",
+    "reg_no_d4": "1",
+    "reg_no_d5": "0",
+    "reg_no_d6": "3",
+    "reg_no_d7": "0",
+    "reg_no_d8": "0",
+    "reg_no_d9": "2",
+    "reg_no_d10": "0",
+    "RegistrationNumber": "9401030020"
   },
   "TEST-01004.jpg": {
     "Q1": "A",
@@ -62,7 +102,17 @@
     "Q8": "C",
     "Q9": "A",
     "Q10": "D",
-    "RegistrationNumber": ""
+    "reg_no_d1": "0",
+    "reg_no_d2": "1",
+    "reg_no_d3": "2",
+    "reg_no_d4": "5",
+    "reg_no_d5": "1",
+    "reg_no_d6": "9",
+    "reg_no_d7": "9",
+    "reg_no_d8": "7",
+    "reg_no_d9": "9",
+    "reg_no_d10": "8",
+    "RegistrationNumber": "0125199798"
   },
   "TEST-01005.jpg": {
     "Q1": "A",
@@ -75,7 +125,17 @@
     "Q8": "D",
     "Q9": "D",
     "Q10": "B",
-    "RegistrationNumber": ""
+    "reg_no_d1": "4",
+    "reg_no_d2": "4",
+    "reg_no_d3": "2",
+    "reg_no_d4": "5",
+    "reg_no_d5": "9",
+    "reg_no_d6": "0",
+    "reg_no_d7": "1",
+    "reg_no_d8": "4",
+    "reg_no_d9": "5",
+    "reg_no_d10": "7",
+    "RegistrationNumber": "4425901457"
   },
   "TEST-01006.jpg": {
     "Q1": "A",
@@ -88,7 +148,17 @@
     "Q8": "D",
     "Q9": "A",
     "Q10": "B",
-    "RegistrationNumber": ""
+    "reg_no_d1": "4",
+    "reg_no_d2": "3",
+    "reg_no_d3": "5",
+    "reg_no_d4": "1",
+    "reg_no_d5": "2",
+    "reg_no_d6": "3",
+    "reg_no_d7": "1",
+    "reg_no_d8": "0",
+    "reg_no_d9": "7",
+    "reg_no_d10": "9",
+    "RegistrationNumber": "4351231079"
   },
   "TEST-01007.jpg": {
     "Q1": "A",
@@ -101,6 +171,16 @@
     "Q8": "C",
     "Q9": "B",
     "Q10": "D",
-    "RegistrationNumber": ""
+    "reg_no_d1": "1",
+    "reg_no_d2": "2",
+    "reg_no_d3": "3",
+    "reg_no_d4": "4",
+    "reg_no_d5": "5",
+    "reg_no_d6": "6",
+    "reg_no_d7": "7",
+    "reg_no_d8": "8",
+    "reg_no_d9": "9",
+    "reg_no_d10": "0",
+    "RegistrationNumber": "1234567890"
   }
 }

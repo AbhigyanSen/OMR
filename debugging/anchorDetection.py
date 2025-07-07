@@ -382,7 +382,6 @@ if __name__ == "__main__":
 
     # Define paths
     folder_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
-    # If the layout (and thus anchor positions) changes per image, you might need dynamic annotation loading.
     annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\anchor_annotations\Test_Series\labels\BLANK001.txt"  
     classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\anchor_annotations\Test_Series\classes.txt"
 

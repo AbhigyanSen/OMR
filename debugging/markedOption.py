@@ -125,6 +125,10 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
 def export_verification_csv(option_score_map, flat_results_path, output_csv_path):
+    import csv
+    import re
+    from collections import defaultdict
+
     with open(flat_results_path, 'r') as f:
         flat_data = json.load(f)
 
@@ -148,6 +152,7 @@ def export_verification_csv(option_score_map, flat_results_path, output_csv_path
         qnum = q[1:]
         for opt in ["A", "B", "C", "D"]:
             all_columns.append(f"{qnum}{opt}")
+            all_columns.append(f"Result {qnum}{opt}")
 
     with open(output_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
@@ -155,17 +160,52 @@ def export_verification_csv(option_score_map, flat_results_path, output_csv_path
 
         for img_name in image_to_question_map.keys():
             row = [img_name]
-            for col in all_columns:
-                row.append(option_score_map.get(img_name, {}).get(col, ""))
+            scores = option_score_map.get(img_name, {})
+
+            for q in all_question_ids:
+                qnum = q[1:]
+                option_scores = {}
+                for opt in ["A", "B", "C", "D"]:
+                    key = f"{qnum}{opt}"
+                    option_scores[opt] = scores.get(key, "")
+
+                sorted_opts = sorted(
+                    [(opt, val) for opt, val in option_scores.items() if isinstance(val, (int, float))],
+                    key=lambda x: x[1]
+                )
+
+                for opt in ["A", "B", "C", "D"]:
+                    key = f"{qnum}{opt}"
+                    score = option_scores.get(opt, "")
+                    row.append(score)
+
+                    if not isinstance(score, (int, float)):
+                        row.append("")
+                        continue
+
+                    idx = next((i for i, (o, _) in enumerate(sorted_opts) if o == opt), -1)
+                    if idx == -1:
+                        row.append("")
+                        continue
+
+                    if idx + 1 < len(sorted_opts):
+                        next_opt, next_score = sorted_opts[idx + 1]
+                        percentage = round((score / next_score) * 100, 2) if next_score else 100.0
+                        row.append(f"{percentage} ({next_opt})")
+                    else:
+                        row.append(f"100.0 ({opt})")  # highest score, compared with itself
+
             writer.writerow(row)
 
     print(f"🧾 Verification CSV saved to: {output_csv_path}")
+
+
 
 if __name__ == "__main__":
     mapped_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\mapped_annotations.json"
     image_folder = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
 
-    output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\marked_options.json"
+    output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\marked_options.json"
     summary_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.json"
     summary_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.csv"
     verification_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\verification.csv"

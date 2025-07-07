@@ -1,3 +1,5 @@
+# ONLY CHANGE IN MAP AND DRAW FUNCTION, REST ALL ARE SAME
+
 import cv2
 import numpy as np
 import os
@@ -8,12 +10,12 @@ class OptionMapper:
         self.image_path = image_path
         self.annotations_path = annotations_path
         self.classes_path = classes_path
-        
         self.anchor_data = anchor_data
+
         self.original_image = cv2.imread(image_path)
         if self.original_image is None:
             raise FileNotFoundError(f"Image not found at {image_path}")
-            
+
         self.original_height, self.original_width = self.original_image.shape[:2]
         self.classes = self._load_classes()
         self.annotations = self._load_annotations()
@@ -50,17 +52,12 @@ class OptionMapper:
         return annotations
 
     def map_and_draw(self):
-        gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-        thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-                                       cv2.THRESH_BINARY_INV, 11, 4)
-
         anchors = self.anchor_data.get("anchors", {})
         anch1_x, anch1_y = anchors.get("Anch1", (None, None))
 
         for class_name, norm_x_center, norm_y_center, norm_width, norm_height in self.annotations:
             if "Anch" in class_name:
-                continue
+                continue  # skip anchor points
 
             original_x_center = norm_x_center * self.original_width
             original_y_center = norm_y_center * self.original_height
@@ -81,100 +78,53 @@ class OptionMapper:
                 ]).reshape(-1, 1, 2)
 
                 if np.isnan(original_pts).any() or np.isinf(original_pts).any():
-                    print(f"Warning: NaN or Inf in original_pts for {class_name}. Skipping transformation.")
+                    print(f"⚠️ Skipping {class_name}: invalid original points (NaN or Inf)")
                     continue
 
                 transformed_pts = cv2.perspectiveTransform(original_pts, self.M_transform).reshape(-1, 2)
 
                 if np.isnan(transformed_pts).any() or np.isinf(transformed_pts).any():
-                    print(f"Warning: NaN or Inf in transformed_pts for {class_name}. Skipping.")
+                    print(f"⚠️ Skipping {class_name}: invalid transformed points (NaN or Inf)")
                     continue
 
-                transformed_x1 = int(np.min(transformed_pts[:, 0]))
-                transformed_y1 = int(np.min(transformed_pts[:, 1]))
-                transformed_x2 = int(np.max(transformed_pts[:, 0]))
-                transformed_y2 = int(np.max(transformed_pts[:, 1]))
+                transformed_x1 = np.min(transformed_pts[:, 0])
+                transformed_y1 = np.min(transformed_pts[:, 1])
+                transformed_x2 = np.max(transformed_pts[:, 0])
+                transformed_y2 = np.max(transformed_pts[:, 1])
 
-            search_bbox_x1, search_bbox_y1, search_bbox_x2, search_bbox_y2 = \
-                int(transformed_x1), int(transformed_y1), int(transformed_x2), int(transformed_y2)
-
-            buffer_scale = 1.5
-            buffer_x = max(int((search_bbox_x2 - search_bbox_x1) * buffer_scale / 2), 15)
-            buffer_y = max(int((search_bbox_y2 - search_bbox_y1) * buffer_scale / 2), 15)
-
-            search_x1 = max(0, search_bbox_x1 - buffer_x)
-            search_y1 = max(0, search_bbox_y1 - buffer_y)
-            search_x2 = min(self.deskewed_width, search_bbox_x2 + buffer_x)
-            search_y2 = min(self.deskewed_height, search_bbox_y2 + buffer_y)
-
-            if search_x2 <= search_x1 or search_y2 <= search_y1:
-                print(f"Warning: Invalid search area for {class_name} after transformation. Skipping.")
+            # ✅ Final safety check before drawing
+            if None in [transformed_x1, transformed_y1, transformed_x2, transformed_y2]:
+                print(f"⚠️ Skipping {class_name}: some transformed coordinates are None")
                 continue
 
-            roi = thresh[search_y1:search_y2, search_x1:search_x2]
-            if roi.size == 0:
+            if np.isnan([transformed_x1, transformed_y1, transformed_x2, transformed_y2]).any():
+                print(f"⚠️ Skipping {class_name}: NaN values in transformed coordinates")
                 continue
 
-            contours, _ = cv2.findContours(roi.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            # ✅ Convert to int for drawing
+            x1 = int(transformed_x1)
+            y1 = int(transformed_y1)
+            x2 = int(transformed_x2)
+            y2 = int(transformed_y2)
 
-            found_bubble_bbox = None
-            max_contour_area = 0
+            # Save mapping info for downstream processing
+            center_x = (x1 + x2) // 2
+            center_y = (y1 + y2) // 2
+            delta_x = center_x - anch1_x if anch1_x is not None else None
+            delta_y = center_y - anch1_y if anch1_y is not None else None
 
-            expected_bubble_width = (transformed_x2 - transformed_x1)
-            expected_bubble_height = (transformed_y2 - transformed_y1)
-            min_area = 0.5 * (expected_bubble_width * expected_bubble_height)
-            max_area = 2.0 * (expected_bubble_width * expected_bubble_height)
-            min_aspect_ratio = 0.7
-            max_aspect_ratio = 1.3
+            self.mapped_annotations[class_name] = {
+                "bbox": [x1, y1, x2, y2],
+                "center": [center_x, center_y],
+                "delta_from_Anch1": [delta_x, delta_y]
+            }
 
-            for c in contours:
-                area = cv2.contourArea(c)
-                if area < min_area or area > max_area:
-                    continue
-
-                (cx_roi, cy_roi, cw_roi, ch_roi) = cv2.boundingRect(c)
-                aspect_ratio = cw_roi / float(ch_roi)
-
-                if not (min_aspect_ratio <= aspect_ratio <= max_aspect_ratio):
-                    continue
-
-                if area > max_contour_area:
-                    max_contour_area = area
-                    found_bubble_bbox = (search_x1 + cx_roi, search_y1 + cy_roi, 
-                                         search_x1 + cx_roi + cw_roi, search_y1 + cy_roi + ch_roi)
-
-            if found_bubble_bbox:
-                new_x1, new_y1, new_x2, new_y2 = map(int, found_bubble_bbox)
-                bubble_center_x = (new_x1 + new_x2) // 2
-                bubble_center_y = (new_y1 + new_y2) // 2
-                delta_x = bubble_center_x - anch1_x if anch1_x is not None else None
-                delta_y = bubble_center_y - anch1_y if anch1_y is not None else None
-
-                self.mapped_annotations[class_name] = {
-                    "bbox": [new_x1, new_y1, new_x2, new_y2],
-                    "center": [bubble_center_x, bubble_center_y],
-                    "delta_from_Anch1": [delta_x, delta_y]
-                }
-
-                cv2.rectangle(self.image, (new_x1, new_y1), (new_x2, new_y2), (0, 255, 0), 2)
-                cv2.putText(self.image, class_name, (new_x1, new_y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 2)
-            else:
-                fallback_x1, fallback_y1, fallback_x2, fallback_y2 = map(int, (transformed_x1, transformed_y1, transformed_x2, transformed_y2))
-                fallback_center_x = (fallback_x1 + fallback_x2) // 2
-                fallback_center_y = (fallback_y1 + fallback_y2) // 2
-                delta_x = fallback_center_x - anch1_x if anch1_x is not None else None
-                delta_y = fallback_center_y - anch1_y if anch1_y is not None else None
-
-                self.mapped_annotations[class_name] = {
-                    "bbox": [fallback_x1, fallback_y1, fallback_x2, fallback_y2],
-                    "center": [fallback_center_x, fallback_center_y],
-                    "delta_from_Anch1": [delta_x, delta_y]
-                }
-
-                cv2.rectangle(self.image, (fallback_x1, fallback_y1), (fallback_x2, fallback_y2), (0, 0, 255), 1)
-                cv2.putText(self.image, class_name + " (F)", (fallback_x1, fallback_y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 1)
+            # ✅ Draw bounding box and label
+            cv2.rectangle(self.image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            cv2.putText(self.image, class_name, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 2)
 
         return self.image, self.mapped_annotations
+
 
 def process_folder(folder_path, annotations_file, classes_file, anchor_data_json_path):
     folder_name = os.path.basename(folder_path.rstrip("\\/"))

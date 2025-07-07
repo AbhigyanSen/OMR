@@ -1,0 +1,21 @@
+26.06.2025: OMR Project Codebase Shared and Setup (No Transfer of Knowledge)
+
+02.07.2025: Working on OMR from Scratch
+            1. Codebase Setup
+            2. Anchor Detection Successfull
+            3. Referring to Option from Anchor1 Successfull.
+            4. Option Detection Successfull (need to work on the output JSON Format)
+            Suggestions:
+            1. Working on the Test Series OMR Format (Test01 Folder, I was testing on the BE23 Series)
+            2. Find a Buffer for Option Detection.
+            3. Discussed on approaching the Resgistration Number type columns (Vertical Columns) Row-wise.
+            Special Request:
+            1. Store the Anchor Centres of the OMR as a CSV
+
+03.07.2025: Working on Extracting Option Marked by Candidate
+            1. Option Detection upgraded for False Detections (still a PAINPOINT exists for option_marked !=1)
+            2. CSV for Anchor Centres generated
+            3. Output JSON Format structured as well as a CSV being generated.
+            Suggestions:
+            1. Find a Buffer (not yet successfull as the whole sheet has not been annotated yet)
+            2. Store the mean intensity for each option (previously stored just the min_mean_intensity i.e. the marked option)

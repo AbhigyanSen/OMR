@@ -149,7 +149,7 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
             continue
 
         img_name, label = full_key.split("_", 1)
-        if label.startswith("q") and "_" not in label:
+        if label.startswith("Q"):
             qnum = label[1:]
             if len(value) >= 2 and value.startswith(f"q{qnum}_"):
                 summary_dict[img_name][f"Q{qnum}"] = value.split("_")[-1].upper()
@@ -180,62 +180,38 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
 
-def export_verification_csv(option_score_map, flat_results_path, output_csv_path):
-    with open(flat_results_path, 'r') as f:
-        flat_data = json.load(f)
+def export_verification_csv_raw_scores_only(option_score_map, output_csv_path):
+    import csv
 
-    image_to_question_map = defaultdict(dict)
-    for full_key, value in flat_data.items():
-        if '_' not in full_key or not value:
-            continue
-        img_name, qid = full_key.split("_", 1)
-        if qid.startswith("Q"):
-            image_to_question_map[img_name][qid] = value.split("_")[-1].upper()
+    # Assume Q1–Q10 and options A–D
+    question_ids = [f"Q{i}" for i in range(1, 11)]
+    options = ["A", "B", "C", "D"]
 
-    all_question_ids = sorted(set(
-        q for q_data in image_to_question_map.values() for q in q_data.keys()
-    ), key=lambda x: int(x[1:]))
-
-    all_columns = []
-    for q in all_question_ids:
+    # Prepare header: Image Name, 1A, 1B, 1C, 1D, ..., 10D
+    header = ["Image Name"]
+    for q in question_ids:
         qnum = q[1:]
-        for opt in ["a", "b", "c", "d"]:
-            all_columns.append(f"{qnum.upper()}{opt.upper()}")
-            all_columns.append(f"Result {qnum.upper()}{opt.upper()}")
+        for opt in options:
+            header.append(f"{qnum}{opt}")
 
-    with open(output_csv_path, 'w', newline='') as f:
+    # Write CSV
+    with open(output_csv_path, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["Image Name"] + all_columns)
+        writer.writerow(header)
 
-        for img_name, q_answers in image_to_question_map.items():
+        for img_name in sorted(option_score_map.keys()):
             row = [img_name]
-            score_map = option_score_map.get(img_name, {})
-            for q in all_question_ids:
+            score_map = option_score_map[img_name]
+
+            for q in question_ids:
                 qnum = q[1:]
-                intensities = []
-                for opt in ["a", "b", "c", "d"]:
-                    label = f"q{qnum}_{opt}"
+                for opt in options:
+                    label = f"q{qnum}_{opt.lower()}"
                     score = score_map.get(label, "")
-                    intensities.append((label, score))
-
-                valid_intensities = [(lbl, sc) for lbl, sc in intensities if isinstance(sc, (int, float))]
-                sorted_intensities = sorted(valid_intensities, key=lambda x: x[1])
-
-                for i, (label, score) in enumerate(intensities):
                     row.append(score if isinstance(score, (int, float)) else "")
-                    if not isinstance(score, (int, float)) or len(sorted_intensities) < 2:
-                        row.append("")
-                    else:
-                        current = score
-                        next_best = sorted_intensities[1][1] if label == sorted_intensities[0][0] else sorted_intensities[0][1]
-                        pct = round((current / next_best) * 100, 2) if next_best else 100.0
-                        alt_opt = sorted_intensities[1][0].split("_")[-1].upper() if label == sorted_intensities[0][0] else sorted_intensities[0][0].split("_")[-1].upper()
-                        row.append(f"{pct} ({alt_opt})")
-
             writer.writerow(row)
 
-    print(f"🧾 Verification CSV saved to: {output_csv_path}")
-
+    print(f"🧾 Raw score-only verification CSV saved to: {output_csv_path}")
 
 if __name__ == "__main__":
     mapped_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\mapped_annotations.json"
@@ -254,4 +230,4 @@ if __name__ == "__main__":
     )
 
     clean_and_export_summary(output_text_json_path, summary_json_path, summary_csv_path)
-    export_verification_csv(option_score_map, output_text_json_path, verification_csv_path)
+    export_verification_csv_raw_scores_only(option_score_map, verification_csv_path)

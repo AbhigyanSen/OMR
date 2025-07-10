@@ -6,7 +6,6 @@ import csv
 import re
 from collections import defaultdict
 
-
 def is_filled_option(image, bbox, threshold=100):
     x1, y1, x2, y2 = bbox
     roi = image[y1:y2, x1:x2]
@@ -16,30 +15,24 @@ def is_filled_option(image, bbox, threshold=100):
     mean_intensity = np.mean(gray)
     return mean_intensity < threshold, mean_intensity
 
-
 def extract_question_id(label):
-    match = re.match(r"q(\d+)", label.lower())
+    match = re.match(r"(\d{1,2})([a-d])", label.lower())
     return f"Q{match.group(1)}" if match else None
 
-
 def extract_option_code(label):
-    match = re.match(r"q(\d+)_([a-d])", label.lower())
-    return match.group(2).upper() if match else None
+    match = re.match(r"\d{1,2}([a-d])", label.lower())
+    return match.group(1).upper() if match else None
 
+def is_digit_option(label, prefix):
+    return bool(re.match(rf"{prefix}_\d+_\d", label))
 
-def is_registration_digit_option(label):
-    return bool(re.match(r"reg_no_d\d{1,2}_\d", label))
-
-
-def extract_digit_group(label):
-    match = re.match(r"reg_no_d(\d{1,2})_\d", label)
-    return f"reg_no_d{match.group(1)}" if match else None
-
+def extract_digit_group(label, prefix):
+    match = re.match(rf"{prefix}_(\d+)_\d", label)
+    return f"{prefix}_{match.group(1)}" if match else None
 
 def extract_digit_value(label):
-    match = re.match(r"reg_no_d\d{1,2}_(\d)", label)
+    match = re.match(r".+_(\d)$", label)
     return match.group(1) if match else None
-
 
 def detect_marked_options(mapped_json_path, image_folder, output_text_json_path, summary_json_path):
     with open(mapped_json_path, 'r') as f:
@@ -65,67 +58,78 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
 
         question_groups = defaultdict(list)
         regno_groups = defaultdict(list)
-        option_score_map = {}
+        rollno_groups = defaultdict(list)
+        booklet_groups = defaultdict(list)
 
+        option_score_map = {}
         summary_results[img_name] = {}
         global_option_score_map[img_name] = {}
 
-        # Grouping
         for label, data in annotations.items():
             if not isinstance(data, dict) or "bbox" not in data:
                 continue
-            if label.startswith("q") and "_" in label:
+            bbox = data["bbox"]
+
+            if re.match(r"\d{1,2}[a-dA-D]$", label):  # <-- ✅ Match options like '1A', '10D', etc.
                 qid = extract_question_id(label)
                 if qid:
-                    question_groups[qid].append((label, data["bbox"]))
-            elif is_registration_digit_option(label):
-                digit_group = extract_digit_group(label)
-                if digit_group:
-                    regno_groups[digit_group].append((label, data["bbox"]))
+                    question_groups[qid].append((label, bbox))
+            elif is_digit_option(label, "reg_no"):
+                key = extract_digit_group(label, "reg_no")
+                regno_groups[key].append((label, bbox))
+            elif is_digit_option(label, "roll_no"):
+                key = extract_digit_group(label, "roll_no")
+                rollno_groups[key].append((label, bbox))
+            elif is_digit_option(label, "booklet_no"):
+                key = extract_digit_group(label, "booklet_no")
+                booklet_groups[key].append((label, bbox))
 
-        # Process Questions
+        # Detect marked options per question
         for qid in sorted(question_groups.keys(), key=lambda x: int(x[1:])):
             options = question_groups[qid]
-            marked_label = None
             best_score = float("inf")
+            marked_label = None
 
             for label, bbox in options:
                 _, score = is_filled_option(image, bbox)
                 option_score_map[label] = round(score, 2)
-
                 if score < best_score:
                     best_score = score
                     marked_label = label
 
             if marked_label:
                 flat_results[f"{img_name}_{qid}"] = marked_label
-                option = extract_option_code(marked_label)
-                summary_results[img_name][qid] = option
+                summary_results[img_name][qid] = extract_option_code(marked_label)
 
-        # Process Registration Number
-        reg_digits = []
-        for i in range(1, 11):
-            group_key = f"reg_no_d{i}"
-            options = regno_groups.get(group_key, [])
-            best_score = float("inf")
-            marked_digit = ""
+        def extract_final_number(group_dict, prefix, total_digits):
+            number_digits = []
+            for i in range(total_digits):
+                group_key = f"{prefix}_{i}"
+                options = group_dict.get(group_key, [])
+                best_score = float("inf")
+                marked_digit = ""
 
-            for label, bbox in options:
-                _, score = is_filled_option(image, bbox)
-                option_score_map[label] = round(score, 2)
-                if score < best_score:
-                    best_score = score
-                    marked_digit = extract_digit_value(label)
+                for label, bbox in options:
+                    _, score = is_filled_option(image, bbox)
+                    option_score_map[label] = round(score, 2)
+                    if score < best_score:
+                        best_score = score
+                        marked_digit = extract_digit_value(label)
 
-            flat_results[f"{img_name}_{group_key}"] = marked_digit
-            reg_digits.append(marked_digit or "")
+                flat_results[f"{img_name}_{group_key}"] = marked_digit
+                number_digits.append(marked_digit or "")
+            return "".join(number_digits)
 
-        reg_number = "".join(reg_digits)
+        reg_number = extract_final_number(regno_groups, "reg_no", 10)
+        roll_number = extract_final_number(rollno_groups, "roll_no", 10)
+        booklet_number = extract_final_number(booklet_groups, "booklet_no", 9)
+
         summary_results[img_name]["RegistrationNumber"] = reg_number
-
+        summary_results[img_name]["RollNumber"] = roll_number
+        summary_results[img_name]["BookletNumber"] = booklet_number
         global_option_score_map[img_name] = option_score_map
 
-        print(f"✅ Processed: {img_name} | Reg. No: {reg_number}")
+        print(f"✅ Processed: {img_name} | Reg: {reg_number}, Roll: {roll_number}, Booklet: {booklet_number}")
 
     with open(output_text_json_path, 'w') as f:
         json.dump(flat_results, f, indent=2)
@@ -133,14 +137,11 @@ def detect_marked_options(mapped_json_path, image_folder, output_text_json_path,
     with open(summary_json_path, 'w') as f:
         json.dump(summary_results, f, indent=2)
 
-    print(f"\n✅ Summary saved to:\n{summary_json_path}")
-    print(f"✅ Flat mapping saved to:\n{output_text_json_path}")
+    print(f"\n✅ Summary saved to: {summary_json_path}")
+    print(f"✅ Flat mapping saved to: {output_text_json_path}")
     return global_option_score_map
 
 def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv_path):
-    from collections import defaultdict
-    import json, csv
-
     with open(marked_options_path, 'r') as f:
         flat_data = json.load(f)
 
@@ -151,32 +152,44 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
             continue
 
         img_name, label = full_key.split("_", 1)
-
-        if label.startswith("Q") and "_" not in label:
-            qnum = label[1:]
-            if len(value) >= 2 and value.startswith(f"q{qnum}_"):
-                summary_dict[img_name][f"Q{qnum}"] = value.split("_")[-1].upper()
-
-        elif label.startswith("reg_no_d") and value.isdigit():
+        if label.startswith("Q"):
+            summary_dict[img_name][label] = value
+        elif label.startswith("reg_no") and value.isdigit():
+            summary_dict[img_name][label] = value
+        elif label.startswith("roll_no") and value.isdigit():
+            summary_dict[img_name][label] = value
+        elif label.startswith("booklet_no") and value.isdigit():
             summary_dict[img_name][label] = value
 
-    # Build Registration Number
     for img_name in summary_dict.keys():
-        digits = [summary_dict[img_name].get(f"reg_no_d{i}", "") for i in range(1, 11)]
-        summary_dict[img_name]["RegistrationNumber"] = "".join(digits)
+        summary_dict[img_name]["RegistrationNumber"] = "".join(
+            summary_dict[img_name].get(f"reg_no_{i}", "") for i in range(10)
+        )
+        summary_dict[img_name]["RollNumber"] = "".join(
+            summary_dict[img_name].get(f"roll_no_{i}", "") for i in range(10)
+        )
+        summary_dict[img_name]["BookletNumber"] = "".join(
+            summary_dict[img_name].get(f"booklet_no_{i}", "") for i in range(9)
+        )
 
     with open(summary_json_path, 'w') as f:
         json.dump(summary_dict, f, indent=2)
     print(f"✅ Cleaned summary saved to: {summary_json_path}")
 
-    all_questions = sorted({q for q_data in summary_dict.values() for q in q_data.keys()
-                            if q.startswith("Q")}, key=lambda x: int(x[1:]))
+    all_questions = sorted(
+        {q for q_data in summary_dict.values() for q in q_data.keys() if q.startswith("Q")},
+        key=lambda x: int(x[1:])
+    )
 
     with open(summary_csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(["Image Name"] + all_questions + ["RegistrationNumber"])
+        writer.writerow(["Image Name"] + all_questions + ["RegistrationNumber", "RollNumber", "BookletNumber"])
         for img_name, q_answers in summary_dict.items():
-            row = [img_name] + [q_answers.get(q, "") for q in all_questions] + [q_answers.get("RegistrationNumber", "")]
+            row = [img_name] + [q_answers.get(q, "") for q in all_questions] + [
+                q_answers.get("RegistrationNumber", ""),
+                q_answers.get("RollNumber", ""),
+                q_answers.get("BookletNumber", "")
+            ]
             writer.writerow(row)
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
@@ -205,14 +218,24 @@ def export_verification_csv(option_score_map, output_csv_path):
                 qnum = q[1:]
                 intensities = []
                 for opt in options:
-                    label = f"q{qnum}_{opt.lower()}"
-                    score = score_map.get(label, "")
+                    label = f"{qnum}{opt}"
+                    label_lower = f"{qnum.lower()}{opt.lower()}"
+                    label_full = f"question_{qnum}_{opt.lower()}"
+                    
+                    # Try multiple label formats
+                    score = (
+                        score_map.get(f"{qnum}{opt}") or
+                        score_map.get(label_lower) or
+                        score_map.get(label_full) or
+                        ""
+                    )
                     intensities.append((opt, score))
 
-                opt_scores = {opt: score for opt, score in intensities if isinstance(score, (int, float))}
+                opt_scores = {
+                    opt: score for opt, score in intensities if isinstance(score, (int, float))
+                }
 
-                # ✅ Sort in ascending order: darkest (lowest intensity) to brightest
-                sorted_opts = sorted(opt_scores.items(), key=lambda x: x[1])
+                sorted_opts = sorted(opt_scores.items(), key=lambda x: x[1])  # lowest score = darkest
 
                 for opt in options:
                     score = opt_scores.get(opt, "")
@@ -225,15 +248,14 @@ def export_verification_csv(option_score_map, output_csv_path):
                     current_idx = next((i for i, (o, _) in enumerate(sorted_opts) if o == opt), None)
 
                     if current_idx is None or current_idx + 1 >= len(sorted_opts):
-                        # This is the brightest → 100% of itself
                         row.append(f"100.0 ({opt})")
                     else:
-                        next_opt, next_score = sorted_opts[current_idx + 1]
+                        _, next_score = sorted_opts[current_idx + 1]
                         if next_score == 0:
                             row.append(f"100.0 ({opt})")
                         else:
                             pct = round((score / next_score) * 100, 2)
-                            row.append(f"{pct} ({next_opt})")
+                            row.append(f"{pct} ({sorted_opts[current_idx + 1][0]})")
 
             writer.writerow(row)
 
@@ -244,10 +266,10 @@ if __name__ == "__main__":
     mapped_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\mapped_annotations.json"
     image_folder = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
 
-    output_text_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\marked_options.json"
-    summary_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.json"
-    summary_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\summary.csv"
-    verification_csv_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series\verification.csv"
+    output_text_json_path = os.path.join(image_folder, "marked_options.json")
+    summary_json_path = os.path.join(image_folder, "summary.json")
+    summary_csv_path = os.path.join(image_folder, "summary.csv")
+    verification_csv_path = os.path.join(image_folder, "verification.csv")
 
     option_score_map = detect_marked_options(
         mapped_json_path,
@@ -257,5 +279,4 @@ if __name__ == "__main__":
     )
 
     clean_and_export_summary(output_text_json_path, summary_json_path, summary_csv_path)
-    # export_verification_csv_raw_scores_only(option_score_map, verification_csv_path)
     export_verification_csv(option_score_map, verification_csv_path)

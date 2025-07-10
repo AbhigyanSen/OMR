@@ -1,19 +1,19 @@
 {
   "BLANK001.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         139,
         205
       ],
-      "Anch2": [
+      "anchor_2": [
         1474,
         206
       ],
-      "Anch3": [
+      "anchor_3": [
         134,
         2111
       ],
-      "Anch4": [
+      "anchor_4": [
         1470,
         2128
       ]
@@ -39,21 +39,21 @@
   },
   "TEST-01001.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         165,
         231
       ],
-      "Anch2": [
+      "anchor_2": [
         1500,
         225
       ],
-      "Anch3": [
+      "anchor_3": [
         162,
         2131
       ],
-      "Anch4": [
+      "anchor_4": [
         1499,
-        2157
+        2160
       ]
     },
     "M_transform": null,
@@ -63,21 +63,21 @@
   },
   "TEST-01002.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         164,
         233
       ],
-      "Anch2": [
+      "anchor_2": [
         1500,
         228
       ],
-      "Anch3": [
+      "anchor_3": [
         161,
         2131
       ],
-      "Anch4": [
+      "anchor_4": [
         1499,
-        2155
+        2158
       ]
     },
     "M_transform": null,
@@ -87,21 +87,21 @@
   },
   "TEST-01003.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         165,
         230
       ],
-      "Anch2": [
+      "anchor_2": [
         1500,
         226
       ],
-      "Anch3": [
+      "anchor_3": [
         161,
         2129
       ],
-      "Anch4": [
+      "anchor_4": [
         1499,
-        2155
+        2158
       ]
     },
     "M_transform": null,
@@ -111,21 +111,21 @@
   },
   "TEST-01004.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         163,
         235
       ],
-      "Anch2": [
+      "anchor_2": [
         1498,
         229
       ],
-      "Anch3": [
+      "anchor_3": [
         160,
         2134
       ],
-      "Anch4": [
+      "anchor_4": [
         1498,
-        2158
+        2161
       ]
     },
     "M_transform": null,
@@ -135,21 +135,21 @@
   },
   "TEST-01005.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         161,
         232
       ],
-      "Anch2": [
+      "anchor_2": [
         1497,
         225
       ],
-      "Anch3": [
+      "anchor_3": [
         160,
         2132
       ],
-      "Anch4": [
+      "anchor_4": [
         1498,
-        2157
+        2159
       ]
     },
     "M_transform": null,
@@ -159,21 +159,21 @@
   },
   "TEST-01006.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         162,
         230
       ],
-      "Anch2": [
+      "anchor_2": [
         1497,
         224
       ],
-      "Anch3": [
+      "anchor_3": [
         159,
-        2127
+        2128
       ],
-      "Anch4": [
+      "anchor_4": [
         1496,
-        2153
+        2157
       ]
     },
     "M_transform": null,
@@ -183,21 +183,21 @@
   },
   "TEST-01007.jpg": {
     "anchors": {
-      "Anch1": [
+      "anchor_1": [
         162,
         234
       ],
-      "Anch2": [
+      "anchor_2": [
         1498,
         228
       ],
-      "Anch3": [
+      "anchor_3": [
         159,
         2133
       ],
-      "Anch4": [
+      "anchor_4": [
         1497,
-        2158
+        2162
       ]
     },
     "M_transform": null,

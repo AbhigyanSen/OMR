@@ -213,7 +213,7 @@ class OMRProcessor:
         detected_anchors = []
         
         # Define the anchor class IDs. These map to the *index* in your classes.txt
-        anchor_class_names = ['Anch1', 'Anch2', 'Anch3', 'Anch4']
+        anchor_class_names = ['anchor_1', 'anchor_2', 'anchor_3', 'anchor_4']
         
         # Perform deskewing first. This will update self.M_transform and deskewed dimensions
         # We work on the original_image to find the contour for deskewing
@@ -382,8 +382,8 @@ if __name__ == "__main__":
 
     # Define paths
     folder_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
-    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\anchor_annotations\Test_Series\labels\BLANK001.txt"  
-    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\anchor_annotations\Test_Series\classes.txt"
+    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\full_annotations\labels\TEST-01003.txt"  
+    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\full_annotations\classes.txt"
 
     # Create output directory based on folder name
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
@@ -475,7 +475,7 @@ if __name__ == "__main__":
     # csv_output_path = os.path.join(output_dir, "anchor_centers.csv")
 
     # Define CSV column headers
-    csv_headers = ["image_name", "Anch1", "Anch2", "Anch3", "Anch4"]
+    csv_headers = ["image_name", "anchor_1", "anchor_2", "anchor_3", "anchor_4"]
 
     with open(csv_output_path, mode='w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csv_headers)
@@ -485,10 +485,10 @@ if __name__ == "__main__":
             anchors = data.get("anchors", {})
             row = {
                 "image_name": image_name,
-                "Anch1": anchors.get("Anch1"),
-                "Anch2": anchors.get("Anch2"),
-                "Anch3": anchors.get("Anch3"),
-                "Anch4": anchors.get("Anch4")
+                "anchor_1": anchors.get("anchor_1"),
+                "anchor_2": anchors.get("anchor_2"),
+                "anchor_3": anchors.get("anchor_3"),
+                "anchor_4": anchors.get("anchor_4")
             }
             writer.writerow(row)
 

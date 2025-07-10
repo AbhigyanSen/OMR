@@ -1,5 +1,3 @@
-# ONLY CHANGE IN MAP AND DRAW FUNCTION, REST ALL ARE SAME
-
 import cv2
 import numpy as np
 import os
@@ -50,14 +48,23 @@ class OptionMapper:
                     norm_height = float(parts[4])
                     annotations.append((self.classes[class_id], norm_x_center, norm_y_center, norm_width, norm_height))
         return annotations
-
-    def map_and_draw(self):
+   
+    def map_and_draw(self, output_dir):
         anchors = self.anchor_data.get("anchors", {})
         anch1_x, anch1_y = anchors.get("Anch1", (None, None))
+        base_name = os.path.splitext(os.path.basename(self.image_path))[0]
+
+        # Create folders for cropped outputs
+        reg_path = os.path.join(output_dir, "OMR", "reg_no")
+        roll_path = os.path.join(output_dir, "OMR", "roll_no")
+        book_path = os.path.join(output_dir, "OMR", "booklet_no")
+        os.makedirs(reg_path, exist_ok=True)
+        os.makedirs(roll_path, exist_ok=True)
+        os.makedirs(book_path, exist_ok=True)
 
         for class_name, norm_x_center, norm_y_center, norm_width, norm_height in self.annotations:
             if "Anch" in class_name:
-                continue  # skip anchor points
+                continue
 
             original_x_center = norm_x_center * self.original_width
             original_y_center = norm_y_center * self.original_height
@@ -78,13 +85,11 @@ class OptionMapper:
                 ]).reshape(-1, 1, 2)
 
                 if np.isnan(original_pts).any() or np.isinf(original_pts).any():
-                    print(f"⚠️ Skipping {class_name}: invalid original points (NaN or Inf)")
                     continue
 
                 transformed_pts = cv2.perspectiveTransform(original_pts, self.M_transform).reshape(-1, 2)
 
                 if np.isnan(transformed_pts).any() or np.isinf(transformed_pts).any():
-                    print(f"⚠️ Skipping {class_name}: invalid transformed points (NaN or Inf)")
                     continue
 
                 transformed_x1 = np.min(transformed_pts[:, 0])
@@ -92,22 +97,17 @@ class OptionMapper:
                 transformed_x2 = np.max(transformed_pts[:, 0])
                 transformed_y2 = np.max(transformed_pts[:, 1])
 
-            # ✅ Final safety check before drawing
             if None in [transformed_x1, transformed_y1, transformed_x2, transformed_y2]:
-                print(f"⚠️ Skipping {class_name}: some transformed coordinates are None")
                 continue
 
             if np.isnan([transformed_x1, transformed_y1, transformed_x2, transformed_y2]).any():
-                print(f"⚠️ Skipping {class_name}: NaN values in transformed coordinates")
                 continue
 
-            # ✅ Convert to int for drawing
-            x1 = int(transformed_x1)
-            y1 = int(transformed_y1)
-            x2 = int(transformed_x2)
-            y2 = int(transformed_y2)
+            x1 = max(int(transformed_x1), 0)
+            y1 = max(int(transformed_y1), 0)
+            x2 = min(int(transformed_x2), self.image.shape[1])
+            y2 = min(int(transformed_y2), self.image.shape[0])
 
-            # Save mapping info for downstream processing
             center_x = (x1 + x2) // 2
             center_y = (y1 + y2) // 2
             delta_x = center_x - anch1_x if anch1_x is not None else None
@@ -119,12 +119,23 @@ class OptionMapper:
                 "delta_from_Anch1": [delta_x, delta_y]
             }
 
-            # ✅ Draw bounding box and label
+            # Draw on image
             cv2.rectangle(self.image, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.putText(self.image, class_name, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 2)
 
-        return self.image, self.mapped_annotations
+            # Save cropped image only if it's the main tag (no underscores)
+            crop = self.image[y1:y2, x1:x2]
+            if crop.size == 0:
+                continue
 
+            if class_name == "reg_no":
+                cv2.imwrite(os.path.join(reg_path, f"{base_name}.jpg"), crop)
+            elif class_name == "roll_no":
+                cv2.imwrite(os.path.join(roll_path, f"{base_name}.jpg"), crop)
+            elif class_name == "booklet_no":
+                cv2.imwrite(os.path.join(book_path, f"{base_name}.jpg"), crop)
+
+        return self.image, self.mapped_annotations
 
 def process_folder(folder_path, annotations_file, classes_file, anchor_data_json_path):
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
@@ -157,7 +168,7 @@ def process_folder(folder_path, annotations_file, classes_file, anchor_data_json
 
             try:
                 mapper = OptionMapper(image_path, annotations_file, classes_file, image_specific_anchor_data)
-                mapped_image, mapped_annotations = mapper.map_and_draw()
+                mapped_image, mapped_annotations = mapper.map_and_draw(output_dir)
                 save_path = os.path.join(output_dir, filename)
                 cv2.imwrite(save_path, mapped_image)
                 mapped_annotations["valid_for_marked_option"] = True  # ✅ Mark as valid
@@ -182,8 +193,8 @@ def process_folder(folder_path, annotations_file, classes_file, anchor_data_json
 
 if __name__ == "__main__":
     folder_path = r"D:\Projects\OMR\new_abhigyan\debugging\TestData\Test_Series"
-    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\more_detailed_annotations\Test_Series\TEST-01003.txt"
-    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\more_detailed_annotations\Test_Series\classes.txt"
+    annotations_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\full_annotations\labels\TEST-01003.txt"
+    classes_file = r"D:\Projects\OMR\new_abhigyan\debugging\Annotations\full_annotations\classes.txt"
     anchor_data_json_path = r"D:\Projects\OMR\new_abhigyan\debugging\anchor_Test_Series\anchor_centers.json"
 
     process_folder(folder_path, annotations_file, classes_file, anchor_data_json_path)

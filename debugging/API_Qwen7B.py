@@ -14,7 +14,7 @@ OUTPUT_JSON = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\outp
 
 client = InferenceClient(
     provider="hyperbolic",
-    api_key="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",
+    api_key="Removed_for_Github_Violation",
 )
 # ------------------------------------------------
 

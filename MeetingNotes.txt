@@ -19,3 +19,41 @@
             Suggestions:
             1. Find a Buffer (not yet successfull as the whole sheet has not been annotated yet)
             2. Store the mean intensity for each option (previously stored just the min_mean_intensity i.e. the marked option)
+07.07.2025: Working on Thresholding
+            1. Finding the Buffer Threshold
+                a. Hence, storing the intensity values for every option (wheather marked or unmarked)
+            2. Annotation Updates:
+                a. Annotation was done for only 10 questions and its options.
+                b. Now, the annotation was given to Wrishav for annotating the whole Sheet.
+            Suggestions:
+            1. Column wise marking for finding the values for "Resgistration Number", "Roll Number" and "QB Number"
+
+PHYSICAL MEETINGS
+09.07.2025: Working on Thresholding
+            1. Annotation Updates:
+                a. Wrishav had already provided the annotations for Registration Number and 10 Questions.
+                b. Annotation for 50 questions was received just before the meeting
+            2. Demonstation of the project was shown to everyone starting from: 
+                a. Annotation using LabelImg
+                b. Directory structure
+                c. Saving formats
+            3. Insights were discussed upon the Edge Cases with Rohit da
+            4. A small Demonstation of the current software was also shown.
+                a. The software fails when the spacing is uneven (10×10 demonstation)
+                b. Hence, by Pradeep Sir, it was SUGGESTED that we annotate every item manually instead of Copy Pasting.
+            5. Wrishav showed the results for all 40 Questions
+            Objective for the Next Metting:
+            1. In this meeting, a crucial point was in extracting the HANDWRITTEN SUBJECTS (Registration, Roll and QB)
+                a. More Preference is given to Handwritting as compared to OMR Markings
+            2. A slight suggestion from sir to superimpose the output results (questions and all) on an image to strealime the visualisation instead of Split Screen Mapping
+            3. Next meeting will be totally focussed upon Handwritten Values extraction as we are at a good stage in extracting the markings
+10.07.2025: Working on Handwritten Value Extraction
+            1. OCR, ICR were tested by me. Result: Both FAILED miserably
+            2. VLM was tried by Wrishv. Result: Extraction was on point for Registration Number (as it was manually cropped and tested on 1 field: 100% Accuracy)
+            3. Streamlined for Result visualisation
+            TO DO:
+            1. Update the Pipeline to now store the Images for the Handwritten Values (present inside "annotate_<series>/OMR)
+            2. Will make the Streamlined view more sothing to the eyes.
+            Next Meeting:
+            1. Demonstation to Leadership
+

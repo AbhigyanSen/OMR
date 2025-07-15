@@ -194,16 +194,20 @@ def clean_and_export_summary(marked_options_path, summary_json_path, summary_csv
             writer.writerow(row)
     print(f"📄 Summary CSV saved to: {summary_csv_path}")
 
+import csv
+import re
+from collections import defaultdict
+
 def export_verification_csv(option_score_map, output_csv_path):
     question_pattern = re.compile(r"^(\d{1,2})([A-Da-d])$")
-    digit_pattern = re.compile(r"^(reg_no|roll_no|booklet_no)_d(\d)_(\d)$")
+    digit_pattern = re.compile(r"^(reg_no|roll_no|booklet_no)_(\d)_(\d)$")
 
     all_labels = set()
     for score_map in option_score_map.values():
         all_labels.update(score_map.keys())
 
     question_map = defaultdict(list)
-    digit_map = defaultdict(list)
+    digit_map = defaultdict(lambda: defaultdict(list))  # {prefix: {digit_idx: [label]}}
 
     for label in all_labels:
         qmatch = question_pattern.match(label)
@@ -213,24 +217,29 @@ def export_verification_csv(option_score_map, output_csv_path):
             question_map[qnum].append(f"{qnum}{opt.upper()}")
         elif dmatch:
             prefix, digit_idx, val = dmatch.groups()
-            group_key = f"{prefix}_d{digit_idx}"
-            digit_map[group_key].append(label)
+            digit_map[prefix][int(digit_idx)].append(label)
 
     sorted_questions = sorted(question_map.keys(), key=lambda x: int(x))
-    sorted_digits = sorted(digit_map.keys(), key=lambda x: (x.split("_")[0], int(x.split("_d")[1])))
 
     header = ["Image Name"]
+
+    # Add question columns
     for q in sorted_questions:
         for opt in ["A", "B", "C", "D"]:
             label = f"{q}{opt}"
             header.append(label)
             header.append(f"Result {label}")
-    for group in sorted_digits:
-        for i in range(10):
-            label = f"{group}_{i}"
-            header.append(label)
-            header.append(f"Result {label}")
 
+    # Add digit columns for reg_no, roll_no, booklet_no
+    for prefix in ["reg_no", "roll_no", "booklet_no"]:
+        max_digits = 10 if prefix in ["reg_no", "roll_no"] else 9
+        for d in range(max_digits):
+            for val in range(10):
+                label = f"{prefix}_{d}_{val}"
+                header.append(label)
+                header.append(f"Result {label}")
+
+    # Write the CSV
     with open(output_csv_path, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(header)
@@ -239,47 +248,20 @@ def export_verification_csv(option_score_map, output_csv_path):
             row = [img_name]
             score_map = option_score_map[img_name]
 
-            # 🔹 Process questions
+            # Process Questions
             for q in sorted_questions:
                 scores = {}
                 for opt in ["A", "B", "C", "D"]:
                     label = f"{q}{opt}"
-                    score = score_map.get(label, "")
                     try:
-                        score = float(score)
-                        scores[opt] = score
-                    except:
-                        pass  # keep non-numeric blank
-
-                max_score = max(scores.values()) if scores else 1.0
-
-                for opt in ["A", "B", "C", "D"]:
-                    label = f"{q}{opt}"
-                    raw = score_map.get(label, "")
-                    row.append(raw)
-                    try:
-                        val = float(raw)
-                        pct = round((val / max_score) * 100, 2) if max_score else ""
-                        row.append(f"{pct}")
-                    except:
-                        row.append("")
-
-            # 🔹 Process digit scores
-            for group in sorted_digits:
-                scores = {}
-                for i in range(10):
-                    label = f"{group}_{i}"
-                    score = score_map.get(label, "")
-                    try:
-                        score = float(score)
-                        scores[i] = score
+                        scores[opt] = float(score_map.get(label, ""))
                     except:
                         pass
 
                 max_score = max(scores.values()) if scores else 1.0
 
-                for i in range(10):
-                    label = f"{group}_{i}"
+                for opt in ["A", "B", "C", "D"]:
+                    label = f"{q}{opt}"
                     raw = score_map.get(label, "")
                     row.append(raw)
                     try:
@@ -289,66 +271,80 @@ def export_verification_csv(option_score_map, output_csv_path):
                     except:
                         row.append("")
 
+            # Process Digit Columns (reg_no, roll_no, booklet_no)
+            for prefix in ["reg_no", "roll_no", "booklet_no"]:
+                max_digits = 10 if prefix in ["reg_no", "roll_no"] else 9
+                for d in range(max_digits):
+                    scores = {}
+                    for val in range(10):
+                        label = f"{prefix}_{d}_{val}"
+                        try:
+                            scores[val] = float(score_map.get(label, ""))
+                        except:
+                            pass
+
+                    max_score = max(scores.values()) if scores else 1.0
+
+                    for val in range(10):
+                        label = f"{prefix}_{d}_{val}"
+                        raw = score_map.get(label, "")
+                        row.append(raw)
+                        try:
+                            v = float(raw)
+                            pct = round((v / max_score) * 100, 2) if max_score else ""
+                            row.append(f"{pct}")
+                        except:
+                            row.append("")
+
             writer.writerow(row)
 
-    print(f"✅ verification.csv fixed and written to: {output_csv_path}")
-    
-# def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path):
-#     df = pd.read_csv(verification_csv_path)
-#     result_data = {}
+    print(f"✅ Final verification.csv written to: {output_csv_path}")
 
-#     # Identify all questions from header like '1A', '2B', etc.
-#     question_cols = [col for col in df.columns if re.match(r"^\d{1,2}[A-Da-d]$", col)]
-#     question_ids = sorted(set(col[:-1] for col in question_cols), key=lambda x: int(x))
+def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path):
+    df = pd.read_csv(verification_csv_path)
+    result_data = {}
 
-#     for idx, row in df.iterrows():
-#         image_name = row["Image Name"]
-#         result_data[image_name] = {}
+    # Identify all 'Result XX' columns like 'Result 1A', 'Result 2B', etc.
+    result_cols = [col for col in df.columns if re.match(r"^Result \d{1,2}[A-Da-d]$", col)]
+    question_ids = sorted(set(col.split()[1][:-1] for col in result_cols), key=lambda x: int(x))
 
-#         for qid in question_ids:
-#             label_scores = {}
-#             for opt in ['A', 'B', 'C', 'D']:
-#                 col = f"{qid}{opt}"
-#                 if col in row:
-#                     try:
-#                         score = float(row[col])
-#                         label_scores[opt] = score
-#                     except:
-#                         pass  # Ignore non-float values
+    for idx, row in df.iterrows():
+        image_name = row["Image Name"]
+        result_data[image_name] = {}
 
-#             if not label_scores:
-#                 result_data[image_name][f"Q{qid}"] = "Unmarked"
-#                 continue
+        for qid in question_ids:
+            marked_options = []
+            for opt in ['A', 'B', 'C', 'D']:
+                col = f"Result {qid}{opt}"
+                if col in row:
+                    try:
+                        pct = float(row[col])
+                        if pct < 90.0:
+                            marked_options.append(opt)
+                    except:
+                        continue
 
-#             # Sort by score (higher = lighter bubble)
-#             sorted_items = sorted(label_scores.items(), key=lambda x: x[1])
-#             lightest_val = sorted_items[-1][1]
+            if len(marked_options) == 0:
+                result_data[image_name][f"Q{qid}"] = ""
+            elif len(marked_options) == 1:
+                result_data[image_name][f"Q{qid}"] = marked_options[0]
+            else:
+                result_data[image_name][f"Q{qid}"] = "|".join(marked_options)
 
-#             # Mark all options within 10 units of the lightest as selected
-#             marked_options = [opt for opt, score in sorted_items if round(lightest_val - score, 2) <= 10.0]
+    # 🔸 Save to JSON
+    with open(output_json_path, "w") as f:
+        json.dump(result_data, f, indent=2)
+    print(f"✅ Edge results saved to JSON: {output_json_path}")
 
-#             if len(marked_options) == 1:
-#                 result_data[image_name][f"Q{qid}"] = marked_options[0]
-#             elif len(marked_options) > 1:
-#                 result_data[image_name][f"Q{qid}"] = "|".join(marked_options)
-#             else:
-#                 result_data[image_name][f"Q{qid}"] = "Unmarked"
-
-#     # 🔸 Save to JSON
-#     with open(output_json_path, "w") as f:
-#         json.dump(result_data, f, indent=2)
-#     print(f"✅ Edge results saved to JSON: {output_json_path}")
-
-#     # 🔸 Save to CSV
-#     all_qs = sorted({f"Q{qid}" for qid in question_ids}, key=lambda x: int(x[1:]))
-#     with open(output_csv_path, "w", newline="") as f:
-#         writer = csv.writer(f)
-#         writer.writerow(["Image Name"] + all_qs)
-#         for image_name, qmap in result_data.items():
-#             row = [image_name] + [qmap.get(q, "") for q in all_qs]
-#             writer.writerow(row)
-#     print(f"📄 Edge results saved to CSV: {output_csv_path}")
-
+    # 🔸 Save to CSV
+    all_qs = [f"Q{i}" for i in range(1, 41)]  # Fixed 40 questions
+    with open(output_csv_path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Image Name"] + all_qs)
+        for image_name, qmap in result_data.items():
+            row = [image_name] + [qmap.get(q, "") for q in all_qs]
+            writer.writerow(row)
+    print(f"📄 Edge results saved to CSV: {output_csv_path}")
 
 
 if __name__ == "__main__":
@@ -373,4 +369,4 @@ if __name__ == "__main__":
     edge_json_path = os.path.join(image_folder, "ed_results.json")
     edge_csv_path = os.path.join(image_folder, "ed_results.csv")
 
-    # evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path)
+    evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path)

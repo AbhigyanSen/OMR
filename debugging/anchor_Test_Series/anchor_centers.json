@@ -204,5 +204,77 @@
     "deskewed_width": 1640,
     "deskewed_height": 2312,
     "valid_for_option_mapping": true
+  },
+  "TEST-01008.jpg": {
+    "anchors": {
+      "anchor_1": [
+        165,
+        232
+      ],
+      "anchor_2": [
+        1500,
+        225
+      ],
+      "anchor_3": [
+        162,
+        2131
+      ],
+      "anchor_4": [
+        1500,
+        2159
+      ]
+    },
+    "M_transform": null,
+    "deskewed_width": 1643,
+    "deskewed_height": 2312,
+    "valid_for_option_mapping": true
+  },
+  "TEST-01009.jpg": {
+    "anchors": {
+      "anchor_1": [
+        164,
+        232
+      ],
+      "anchor_2": [
+        1500,
+        226
+      ],
+      "anchor_3": [
+        162,
+        2131
+      ],
+      "anchor_4": [
+        1500,
+        2156
+      ]
+    },
+    "M_transform": null,
+    "deskewed_width": 1642,
+    "deskewed_height": 2312,
+    "valid_for_option_mapping": true
+  },
+  "TEST-01010.jpg": {
+    "anchors": {
+      "anchor_1": [
+        169,
+        231
+      ],
+      "anchor_2": [
+        1505,
+        227
+      ],
+      "anchor_3": [
+        164,
+        2132
+      ],
+      "anchor_4": [
+        1502,
+        2161
+      ]
+    },
+    "M_transform": null,
+    "deskewed_width": 1642,
+    "deskewed_height": 2314,
+    "valid_for_option_mapping": true
   }
 }

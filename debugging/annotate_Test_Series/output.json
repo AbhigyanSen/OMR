@@ -1,13 +1,12 @@
 {
   "BLANK001.jpg": {
-    "Registration Number": "00",
-    "Roll Number": "12345",
-    "Question Booklet Number": "10902803"
+    "Registration Number": "None",
+    "Question Booklet Number": "None"
   },
   "TEST-01001.jpg": {
     "Registration Number": "8617640133",
     "Roll Number": "8145521201",
-    "Question Booklet Number": "73121686"
+    "Question Booklet Number": "03-1216864"
   },
   "TEST-01002.jpg": {
     "Registration Number": "1345576203",
@@ -17,26 +16,21 @@
   "TEST-01003.jpg": {
     "Registration Number": "2505003679",
     "Roll Number": "1509423624",
-    "Question Booklet Number": "16-2701985"
+    "Question Booklet Number": "46-2701985"
   },
   "TEST-01004.jpg": {
-    "Registration Number": "0124199798",
-    "Roll Number": "1024575782",
-    "Question Booklet Number": "83-9031259"
+    "Registration Number": "0124199798"
   },
   "TEST-01005.jpg": {
     "Registration Number": "4425901457",
-    "Roll Number": "4401210110",
-    "Question Booklet Number": "02-1110056"
+    "Roll Number": "4401210110"
   },
   "TEST-01006.jpg": {
     "Registration Number": "4351231079",
-    "Roll Number": "8740230041",
-    "Question Booklet Number": "68.0423912"
+    "Roll Number": "8740230041"
   },
   "TEST-01007.jpg": {
     "Registration Number": "1234567890",
-    "Roll Number": "2266560032",
-    "Question Booklet Number": "A0-3245610"
+    "Roll Number": "2266560032"
   }
 }

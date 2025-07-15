@@ -4,6 +4,7 @@ import json
 from huggingface_hub import InferenceClient
 
 # ------------------- SETTINGS -------------------
+
 PARENT_FOLDER = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\OMR"
 CATEGORIES = {
     "reg_no": "Registration Number",
@@ -12,9 +13,19 @@ CATEGORIES = {
 }
 OUTPUT_JSON = r"D:\Projects\OMR\new_abhigyan\debugging\annotate_Test_Series\output.json"
 
+# Read the API key from QWEN.txt (same folder as script)
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+API_KEY_PATH = os.path.join(SCRIPT_DIR, "QWEN.txt")
+
+try:
+    with open(API_KEY_PATH, "r") as f:
+        HF_API_KEY = f.read().strip()
+except FileNotFoundError:
+    raise RuntimeError(f"[ERROR] Could not find QWEN.txt at: {API_KEY_PATH}")
+
 client = InferenceClient(
     provider="hyperbolic",
-    api_key="Removed_for_Github_Violation",
+    api_key=HF_API_KEY,
 )
 # ------------------------------------------------
 

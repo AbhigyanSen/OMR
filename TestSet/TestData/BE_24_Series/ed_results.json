@@ -49,7 +49,10 @@
     "Q47": "D",
     "Q48": "B",
     "Q49": "B",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209201",
+    "BookletNumber": "00"
   },
   "BE24-05-01002.jpg": {
     "Q1": "B",
@@ -101,7 +104,10 @@
     "Q47": "D",
     "Q48": "B",
     "Q49": "A",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209202",
+    "BookletNumber": "00"
   },
   "BE24-05-01003.jpg": {
     "Q1": "A",
@@ -153,7 +159,10 @@
     "Q47": "D",
     "Q48": "B",
     "Q49": "",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209203",
+    "BookletNumber": "00"
   },
   "BE24-05-01004.jpg": {
     "Q1": "C",
@@ -205,7 +214,10 @@
     "Q47": "C",
     "Q48": "B",
     "Q49": "B",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209206",
+    "BookletNumber": "00"
   },
   "BE24-05-01005.jpg": {
     "Q1": "A",
@@ -257,7 +269,10 @@
     "Q47": "C",
     "Q48": "C",
     "Q49": "C",
-    "Q50": "A"
+    "Q50": "A",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209207",
+    "BookletNumber": "00"
   },
   "BE24-05-01006.jpg": {
     "Q1": "B",
@@ -309,7 +324,10 @@
     "Q47": "C",
     "Q48": "B",
     "Q49": "C",
-    "Q50": "C"
+    "Q50": "C",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209208",
+    "BookletNumber": "00"
   },
   "BE24-05-01007.jpg": {
     "Q1": "A",
@@ -327,7 +345,7 @@
     "Q13": "B",
     "Q14": "C",
     "Q15": "B",
-    "Q16": "",
+    "Q16": "C",
     "Q17": "B",
     "Q18": "C",
     "Q19": "A",
@@ -352,7 +370,7 @@
     "Q38": "D",
     "Q39": "D",
     "Q40": "A",
-    "Q41": "A|B",
+    "Q41": "A | B",
     "Q42": "D",
     "Q43": "A",
     "Q44": "C",
@@ -361,7 +379,10 @@
     "Q47": "D",
     "Q48": "C",
     "Q49": "C",
-    "Q50": "C"
+    "Q50": "C",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209210",
+    "BookletNumber": "00"
   },
   "BE24-05-01008.jpg": {
     "Q1": "A",
@@ -405,7 +426,7 @@
     "Q39": "B",
     "Q40": "D",
     "Q41": "C",
-    "Q42": "C|D",
+    "Q42": "C | D",
     "Q43": "C",
     "Q44": "D",
     "Q45": "B",
@@ -413,7 +434,10 @@
     "Q47": "D",
     "Q48": "C",
     "Q49": "",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209211",
+    "BookletNumber": "00"
   },
   "BE24-05-01009.jpg": {
     "Q1": "B",
@@ -431,7 +455,7 @@
     "Q13": "D",
     "Q14": "A",
     "Q15": "B",
-    "Q16": "",
+    "Q16": "C",
     "Q17": "B",
     "Q18": "D",
     "Q19": "C",
@@ -465,7 +489,10 @@
     "Q47": "D",
     "Q48": "B",
     "Q49": "A",
-    "Q50": "D"
+    "Q50": "D",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209212",
+    "BookletNumber": "00"
   },
   "BE24-05-01010.jpg": {
     "Q1": "B",
@@ -517,6 +544,9 @@
     "Q47": "D",
     "Q48": "B",
     "Q49": "C",
-    "Q50": "A"
+    "Q50": "A",
+    "RegistrationNumber": "",
+    "RollNumber": "2401209214",
+    "BookletNumber": "00"
   }
 }

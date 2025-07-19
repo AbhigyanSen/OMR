@@ -304,14 +304,33 @@ def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path
     df = pd.read_csv(verification_csv_path)
     result_data = {}
 
-    # Identify all 'Result XX' columns like 'Result 1A', 'Result 2B', etc.
+    # Detect questions dynamically
     result_cols = [col for col in df.columns if re.match(r"^Result \d{1,2}[A-Da-d]$", col)]
     question_ids = sorted(set(col.split()[1][:-1] for col in result_cols), key=lambda x: int(x))
+
+    def extract_number_from_result(row, prefix, num_digits):
+        digits = []
+        for d in range(num_digits):
+            min_val = float('inf')
+            selected_digit = ''
+            for val in range(10):
+                col = f"Result {prefix}_{d}_{val}"
+                if col in row:
+                    try:
+                        pct = float(row[col])
+                        if pct < min_val:
+                            min_val = pct
+                            selected_digit = str(val)
+                    except:
+                        continue
+            digits.append(selected_digit)
+        return ''.join(digits)
 
     for idx, row in df.iterrows():
         image_name = row["Image Name"]
         result_data[image_name] = {}
 
+        # Process questions
         for qid in question_ids:
             marked_options = []
             for opt in ['A', 'B', 'C', 'D']:
@@ -329,7 +348,16 @@ def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path
             elif len(marked_options) == 1:
                 result_data[image_name][f"Q{qid}"] = marked_options[0]
             else:
-                result_data[image_name][f"Q{qid}"] = "|".join(marked_options)
+                result_data[image_name][f"Q{qid}"] = " | ".join(marked_options)
+
+        # Process registration, roll, booklet numbers
+        reg_no = extract_number_from_result(row, "reg_no", 10)
+        roll_no = extract_number_from_result(row, "roll_no", 10)
+        booklet_no = extract_number_from_result(row, "booklet_no", 9)
+
+        result_data[image_name]["RegistrationNumber"] = reg_no
+        result_data[image_name]["RollNumber"] = roll_no
+        result_data[image_name]["BookletNumber"] = booklet_no
 
     # Save to JSON
     with open(output_json_path, "w") as f:
@@ -337,14 +365,21 @@ def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path
     print(f"✅ Edge results saved to JSON: {output_json_path}")
 
     # Save to CSV
-    all_qs = sorted({qid for qmap in result_data.values() for qid in qmap.keys()},
+    all_qs = sorted({qid for qmap in result_data.values() for qid in qmap.keys() if qid.startswith("Q")},
                     key=lambda x: int(x[1:]))  # Q1, Q2, ..., Qn
+
     with open(output_csv_path, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["Image Name"] + all_qs)
+        writer.writerow(["Image Name"] + all_qs + ["RegistrationNumber", "RollNumber", "BookletNumber"])
         for image_name, qmap in result_data.items():
-            row = [image_name] + [qmap.get(q, "") for q in all_qs]
+            row = [image_name] + [qmap.get(q, "") for q in all_qs] + [
+                qmap.get("RegistrationNumber", ""),
+                qmap.get("RollNumber", ""),
+                qmap.get("BookletNumber", "")
+            ]
             writer.writerow(row)
+    print(f"📄 Edge results saved to CSV: {output_csv_path}")
+
     
 # EXECUTION BLOCK   
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+# Computes the skew for all images wrt to anchor_1 and anchor_2 and displays the skew angle (NO DESKEWING)
+
 import cv2
 import numpy as np
 import math
@@ -365,36 +367,6 @@ def compute_skew_angle(anchor1_center, anchor2_center):
 
     return round(angle_deg, 4)
 
-import os
-import cv2
-
-def save_rescaled_images(folder_path, output_base_path, ref_width, ref_height):
-    """
-    Rescales all images in folder_path to the given reference dimensions (ref_width x ref_height)
-    and saves them to a new folder: processed_<folder_name> under the same base path.
-    """
-    folder_name = os.path.basename(folder_path.rstrip("\\/"))
-    processed_dir = os.path.join(output_base_path, f"processed_{folder_name}")
-    os.makedirs(processed_dir, exist_ok=True)
-
-    for filename in os.listdir(folder_path):
-        if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-            image_path = os.path.join(folder_path, filename)
-            image = cv2.imread(image_path)
-
-            if image is None:
-                print(f"❌ Could not read image: {image_path}")
-                continue
-
-            # Resize image to match reference dimensions
-            resized = cv2.resize(image, (ref_width, ref_height), interpolation=cv2.INTER_LINEAR)
-
-            # Save the resized image
-            save_path = os.path.join(processed_dir, filename)
-            cv2.imwrite(save_path, resized)
-            print(f"✅ Saved: {save_path}")
-
-
 
 # Main execution
 if __name__ == "__main__":
@@ -412,14 +384,6 @@ if __name__ == "__main__":
         raise FileNotFoundError(f"Annotated image not found at {annotated_image_path}")
     ref_height, ref_width = ref_img.shape[:2]
     print(f"📏 Reference dimensions from annotation image: {ref_width}x{ref_height}")
-    
-    # Optional: Save all images in rescaled (reference) dimensions to a clean folder
-    save_rescaled_images(
-        folder_path=folder_path,
-        output_base_path=folder_path,
-        ref_width=ref_width,
-        ref_height=ref_height
-    )
 
     # Create output directory based on folder name
     folder_name = os.path.basename(folder_path.rstrip("\\/"))

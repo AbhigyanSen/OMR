@@ -9,7 +9,7 @@ from datetime import datetime
 
 class OMRProcessor:
     # def __init__(self, image_path, annotations_path, classes_path):
-    def __init__(self, image_path, annotations_path, classes_path, target_width, target_height):
+    def __init__(self, image_path, annotations_path, classes_path, target_width, target_height, reference_skew_angle=0):
         self.image_path = image_path
         self.annotations_path = annotations_path
         self.classes_path = classes_path
@@ -25,8 +25,7 @@ class OMRProcessor:
 
         self.original_width = target_width
         self.original_height = target_height
-
-        
+                
         # Load annotations and classes first, as they are needed for coordinates
         self.classes = self._load_classes()                 # Load classes.txt first
         self.annotations = self._load_annotations()         # Annotations need original image dimensions
@@ -213,6 +212,12 @@ class OMRProcessor:
 
     #     print(f"Deskewed image dimensions: {self.deskewed_width}x{self.deskewed_height}")
     #     return deskewed_image
+    
+    def rotate_image(self, image, angle_deg):
+        center = (self.original_width // 2, self.original_height // 2)
+        rotation_matrix = cv2.getRotationMatrix2D(center, angle_deg, 1.0)
+        rotated = cv2.warpAffine(image, rotation_matrix, (self.original_width, self.original_height), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+        return rotated
 
     def detect_anchor_points(self):
         """
@@ -365,36 +370,6 @@ def compute_skew_angle(anchor1_center, anchor2_center):
 
     return round(angle_deg, 4)
 
-import os
-import cv2
-
-def save_rescaled_images(folder_path, output_base_path, ref_width, ref_height):
-    """
-    Rescales all images in folder_path to the given reference dimensions (ref_width x ref_height)
-    and saves them to a new folder: processed_<folder_name> under the same base path.
-    """
-    folder_name = os.path.basename(folder_path.rstrip("\\/"))
-    processed_dir = os.path.join(output_base_path, f"processed_{folder_name}")
-    os.makedirs(processed_dir, exist_ok=True)
-
-    for filename in os.listdir(folder_path):
-        if filename.lower().endswith((".jpg", ".jpeg", ".png")):
-            image_path = os.path.join(folder_path, filename)
-            image = cv2.imread(image_path)
-
-            if image is None:
-                print(f"❌ Could not read image: {image_path}")
-                continue
-
-            # Resize image to match reference dimensions
-            resized = cv2.resize(image, (ref_width, ref_height), interpolation=cv2.INTER_LINEAR)
-
-            # Save the resized image
-            save_path = os.path.join(processed_dir, filename)
-            cv2.imwrite(save_path, resized)
-            print(f"✅ Saved: {save_path}")
-
-
 
 # Main execution
 if __name__ == "__main__":
@@ -412,14 +387,6 @@ if __name__ == "__main__":
         raise FileNotFoundError(f"Annotated image not found at {annotated_image_path}")
     ref_height, ref_width = ref_img.shape[:2]
     print(f"📏 Reference dimensions from annotation image: {ref_width}x{ref_height}")
-    
-    # Optional: Save all images in rescaled (reference) dimensions to a clean folder
-    save_rescaled_images(
-        folder_path=folder_path,
-        output_base_path=folder_path,
-        ref_width=ref_width,
-        ref_height=ref_height
-    )
 
     # Create output directory based on folder name
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
@@ -434,6 +401,30 @@ if __name__ == "__main__":
     # Initialize a dictionary to hold anchor data for all images
     anchor_json_path = os.path.join(output_dir, "anchor_centers.json") # New JSON file name
     all_image_anchor_data = {}
+    
+    # --- Get reference (annotated) image skew angle ---
+    anchor_txt_path = annotations_file
+    with open(anchor_txt_path, 'r') as f:
+        anchor_lines = f.readlines()
+
+    # Extract anchor_1 and anchor_2
+    anchor1 = None
+    anchor2 = None
+    for line in anchor_lines:
+        parts = line.strip().split()
+        class_id = int(parts[0])
+        x_center = float(parts[1]) * ref_width
+        y_center = float(parts[2]) * ref_height
+        if class_id == 0:  # anchor_1
+            anchor1 = (x_center, y_center)
+        elif class_id == 1:  # anchor_2
+            anchor2 = (x_center, y_center)
+
+    if anchor1 and anchor2:
+        reference_skew_angle = compute_skew_angle(anchor1, anchor2)
+        print(f"🧭 Reference skew angle (from annotated image): {reference_skew_angle}°")
+    else:
+        raise ValueError("Reference anchors (1 and 2) not found in annotation.")
 
     # Process each image in the folder
     for filename in os.listdir(folder_path):
@@ -443,7 +434,7 @@ if __name__ == "__main__":
 
             try:
                 # processor = OMRProcessor(image_path, annotations_file, classes_file)
-                processor = OMRProcessor(image_path, annotations_file, classes_file, ref_width, ref_height)
+                processor = OMRProcessor(image_path, annotations_file, classes_file, ref_width, ref_height, reference_skew_angle)
                 detected_anchors, deskewed_img_result, M_transform_result = processor.detect_anchor_points()
 
                 # Dynamically determine expected anchors from classes.txt
@@ -483,14 +474,20 @@ if __name__ == "__main__":
                         print(f"  Area: {anchor['area']:.2f}")
                         print("-" * 30)
                         
-                    # Compute skew angle if both anchor_1 and anchor_2 exist
                     if "anchor_1" in anchor_full_data and "anchor_2" in anchor_full_data:
-                        angle = compute_skew_angle(
+                        actual_skew = compute_skew_angle(
                             anchor_full_data["anchor_1"]["center"],
                             anchor_full_data["anchor_2"]["center"]
                         )
-                    else:
-                        angle = None
+
+                        # Calculate how much rotation is needed to match reference skew
+                        rotation_needed = reference_skew_angle - actual_skew
+                        print(f"rotation_needed {rotation_needed} = reference_skew_angle {reference_skew_angle} - actual_skew {actual_skew}")
+                        corrected_image = processor.rotate_image(processor.original_image, rotation_needed)
+
+                        # Save corrected image
+                        output_image_path = os.path.join(output_dir, filename)
+                        cv2.imwrite(output_image_path, corrected_image)
 
                     # all_image_anchor_data[filename] = {
                     #     "anchors": anchor_full_data,
@@ -500,12 +497,14 @@ if __name__ == "__main__":
                     #     "valid_for_option_mapping": True
                     # }
 
+                    # Save updated values
                     all_image_anchor_data[filename] = {
                         "anchors": anchor_full_data,
-                        "skew_angle": angle,
+                        "skew_angle_actual": actual_skew,
+                        "skew_angle_corrected": reference_skew_angle,
                         "valid_for_option_mapping": True
                     }
-
+                                    
                     print(f"Successfully processed {filename}. Anchor data stored.")
 
             except Exception as e:
@@ -557,8 +556,7 @@ if __name__ == "__main__":
     
     with open(csv_output_path, "w", newline="") as csv_file:
         writer = csv.writer(csv_file)
-        writer.writerow(["image_name", "anchor_1", "anchor_2", "anchor_3", "anchor_4", "skew_angle", "Warnings"])
-
+        writer.writerow(["image_name", "anchor_1", "anchor_2", "anchor_3", "anchor_4", "skew_angle_actual", "skew_angle_corrected", "Warnings"])
         for img_name, data in all_image_anchor_data.items():
             anchors = data.get("anchors", {})
             row = [img_name]
@@ -571,7 +569,8 @@ if __name__ == "__main__":
                 else:
                     row.append("")
 
-            row.append(data.get("skew_angle", ""))
+            row.append(data.get("skew_angle_actual", ""))
+            row.append(data.get("skew_angle_corrected", ""))
             row.append("" if data.get("valid_for_option_mapping", True) else "Error")
 
             writer.writerow(row)

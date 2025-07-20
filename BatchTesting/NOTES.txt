@@ -1,0 +1,5 @@
+ANCHOR DETECTION:
+1. Currently not sure for the Skewed Images
+2. WARNINGS FOLDER: Images which do not have 4 anchors (currently hardcoded to 4 anchors) will be thrown inside Warnings
+
+changes: Dynamically finds the number of anchors. If anchor_count != detected_anchor_count, image in Warnings

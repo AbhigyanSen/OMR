@@ -342,7 +342,7 @@ if __name__ == "__main__":
         
     # Paths from previous phase's output and original annotations
     # The 'folder_path' used in the previous script to process images
-    batch_name = "BE24-05-07" 
+    batch_name = "BE24-05-02" 
     processed_images_folder = os.path.join(base_folder, "TestData", batch_name, f"processed_{batch_name}") # Images processed by previous script
     
     # Original annotation reference files

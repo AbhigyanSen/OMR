@@ -30,6 +30,7 @@ class OMRFieldMapper:
         self.reference_annotations = self._load_annotations(self.reference_annotations_path, 
                                                             self.target_width, self.target_height)
         self.all_image_anchor_data = self._load_anchor_centers()
+        # Relative offsets are now calculated based on normalized distances
         self.relative_offsets = self._calculate_relative_offsets()
 
         if not self.relative_offsets:
@@ -105,18 +106,44 @@ class OMRFieldMapper:
     def _calculate_relative_offsets(self):
         """
         Calculates the relative (dx, dy, dw, dh) offsets of all fields
-        from anchor_1's top-left corner on the reference image.
+        from anchor_1's center on the reference image, normalized by anchor distances.
         """
         relative_offsets = {}
         anchor_1_class_id = self._get_class_id("anchor_1")
+        anchor_2_class_id = self._get_class_id("anchor_2")
+        anchor_3_class_id = self._get_class_id("anchor_3")
 
-        if anchor_1_class_id == -1 or not self.reference_annotations.get(anchor_1_class_id):
-            print("❌ Reference anchor_1 not found in annotations. Cannot calculate relative offsets.")
+        # Ensure reference anchors exist for calculating scale factors
+        if not (self.reference_annotations.get(anchor_1_class_id) and 
+                self.reference_annotations.get(anchor_2_class_id) and
+                self.reference_annotations.get(anchor_3_class_id)):
+            print("❌ Reference anchor_1, anchor_2, or anchor_3 not found in annotations. Cannot calculate relative offsets with scaling.")
             return {}
 
-        # Assuming there's only one anchor_1 on the reference sheet
+        # Get reference anchor centers
         ref_anchor_1_bbox = self.reference_annotations[anchor_1_class_id][0]
-        ref_anchor_1_x1, ref_anchor_1_y1, _, _ = ref_anchor_1_bbox
+        ref_anchor_1_center_x = (ref_anchor_1_bbox[0] + ref_anchor_1_bbox[2]) // 2
+        ref_anchor_1_center_y = (ref_anchor_1_bbox[1] + ref_anchor_1_bbox[3]) // 2
+
+        ref_anchor_2_bbox = self.reference_annotations[anchor_2_class_id][0]
+        ref_anchor_2_center_x = (ref_anchor_2_bbox[0] + ref_anchor_2_bbox[2]) // 2
+        ref_anchor_2_center_y = (ref_anchor_2_bbox[1] + ref_anchor_2_bbox[3]) // 2
+
+        ref_anchor_3_bbox = self.reference_annotations[anchor_3_class_id][0]
+        ref_anchor_3_center_x = (ref_anchor_3_bbox[0] + ref_anchor_3_bbox[2]) // 2
+        ref_anchor_3_center_y = (ref_anchor_3_bbox[1] + ref_anchor_3_bbox[3]) // 2
+
+        # Calculate reference distances for normalization
+        # Using horizontal distance between anchor_1 and anchor_2
+        ref_horizontal_dist = math.sqrt((ref_anchor_2_center_x - ref_anchor_1_center_x)**2 + 
+                                        (ref_anchor_2_center_y - ref_anchor_1_center_y)**2)
+        # Using vertical distance between anchor_1 and anchor_3
+        ref_vertical_dist = math.sqrt((ref_anchor_3_center_x - ref_anchor_1_center_x)**2 + 
+                                      (ref_anchor_3_center_y - ref_anchor_1_center_y)**2)
+
+        if ref_horizontal_dist == 0 or ref_vertical_dist == 0:
+            print("❌ Reference anchor distances are zero. Check annotations. Cannot calculate normalized offsets.")
+            return {}
 
         for class_id, bboxes in self.reference_annotations.items():
             class_name = self.classes[class_id]
@@ -125,20 +152,25 @@ class OMRFieldMapper:
                 width = x2 - x1
                 height = y2 - y1
 
-                # Calculate offset from top-left of reference anchor_1
-                dx = x1 - ref_anchor_1_x1
-                dy = y1 - ref_anchor_1_y1
+                # Calculate offset from center of reference anchor_1
+                dx = x1 - ref_anchor_1_center_x
+                dy = y1 - ref_anchor_1_center_y
+
+                # Normalize offsets and dimensions by reference distances
+                norm_dx = dx / ref_horizontal_dist
+                norm_dy = dy / ref_vertical_dist
+                norm_width = width / ref_horizontal_dist
+                norm_height = height / ref_vertical_dist
 
                 # Create a unique key for each annotation instance
-                # e.g., 'question_1_0', '1A_0', 'roll_no_0_0'
                 unique_key = f"{class_name}_{i}" 
                 relative_offsets[unique_key] = {
-                    "dx": dx,
-                    "dy": dy,
-                    "width": width,
-                    "height": height
+                    "norm_dx": norm_dx,
+                    "norm_dy": norm_dy,
+                    "norm_width": norm_width,
+                    "norm_height": norm_height
                 }
-        print(f"✅ Calculated {len(relative_offsets)} relative offsets from reference anchor_1.")
+        print(f"✅ Calculated {len(relative_offsets)} normalized relative offsets from reference anchor_1's center.")
         return relative_offsets
 
     def _order_points(self, points):
@@ -306,20 +338,50 @@ class OMRFieldMapper:
         # Perform deskewing. The deskewed_image will now be aligned to the reference coordinate system.
         deskewed_image, M_transform, deskewed_width, deskewed_height = self.deskew_image(original_image.copy(), detected_anchors_for_image)
         
-        # Get the top-left corner of anchor_1 from the REFERENCE annotations.
+        # Get the center of anchor_1 from the REFERENCE annotations.
         # Since the image is now deskewed to align with the reference,
         # this is the correct base point for applying relative offsets.
         anchor_1_class_id = self._get_class_id("anchor_1")
-        if anchor_1_class_id == -1 or not self.reference_annotations.get(anchor_1_class_id):
-            print(f"❌ Reference anchor_1 not found in annotations. Cannot map fields for {filename}.")
+        anchor_2_class_id = self._get_class_id("anchor_2")
+        anchor_3_class_id = self._get_class_id("anchor_3")
+
+        if not (self.reference_annotations.get(anchor_1_class_id) and 
+                self.reference_annotations.get(anchor_2_class_id) and
+                self.reference_annotations.get(anchor_3_class_id)):
+            print(f"❌ Reference anchor_1, anchor_2, or anchor_3 not found in annotations. Cannot map fields for {filename}.")
             return {
-                "status": "skipped_ref_anchor_1_missing",
+                "status": "skipped_ref_anchor_data_missing",
                 "mapped_fields": {},
                 "missing_fields": list(self.relative_offsets.keys())
             }
-        
+
+        # Get reference anchor centers for applying offsets
         ref_anchor_1_bbox = self.reference_annotations[anchor_1_class_id][0]
-        ref_anchor_1_x1, ref_anchor_1_y1, _, _ = ref_anchor_1_bbox
+        ref_anchor_1_center_x = (ref_anchor_1_bbox[0] + ref_anchor_1_bbox[2]) // 2
+        ref_anchor_1_center_y = (ref_anchor_1_bbox[1] + ref_anchor_1_bbox[3]) // 2
+
+        ref_anchor_2_bbox = self.reference_annotations[anchor_2_class_id][0]
+        ref_anchor_2_center_x = (ref_anchor_2_bbox[0] + ref_anchor_2_bbox[2]) // 2
+        ref_anchor_2_center_y = (ref_anchor_2_bbox[1] + ref_anchor_2_bbox[3]) // 2
+
+        ref_anchor_3_bbox = self.reference_annotations[anchor_3_class_id][0]
+        ref_anchor_3_center_x = (ref_anchor_3_bbox[0] + ref_anchor_3_bbox[2]) // 2
+        ref_anchor_3_center_y = (ref_anchor_3_bbox[1] + ref_anchor_3_bbox[3]) // 2
+
+        # Calculate current scale factors from the deskewed image's reference anchors
+        # These will be the same as the reference image's distances because the image is deskewed to match.
+        current_horizontal_dist = math.sqrt((ref_anchor_2_center_x - ref_anchor_1_center_x)**2 + 
+                                            (ref_anchor_2_center_y - ref_anchor_1_center_y)**2)
+        current_vertical_dist = math.sqrt((ref_anchor_3_center_x - ref_anchor_1_center_x)**2 + 
+                                          (ref_anchor_3_center_y - ref_anchor_1_center_y)**2)
+
+        if current_horizontal_dist == 0 or current_vertical_dist == 0:
+            print(f"❌ Current anchor distances are zero for {filename}. Cannot map fields accurately.")
+            return {
+                "status": "skipped_zero_current_anchor_dist",
+                "mapped_fields": {},
+                "missing_fields": list(self.relative_offsets.keys())
+            }
 
         mapped_fields_data = {}
         missing_fields = []
@@ -327,7 +389,6 @@ class OMRFieldMapper:
 
         for unique_key, offset_data in self.relative_offsets.items():
             # Reconstruct class name (e.g., 'question_1', '1A') from unique_key (e.g., 'question_1_0')
-            # This handles cases where class_name itself contains underscores.
             class_name_parts = unique_key.split('_')
             if len(class_name_parts) > 1 and class_name_parts[-1].isdigit():
                 class_name = "_".join(class_name_parts[:-1])
@@ -335,17 +396,19 @@ class OMRFieldMapper:
                 class_name = unique_key # Fallback if not in expected format
 
             # Calculate new bbox coordinates on the deskewed image
-            # based on the reference anchor_1's position and the relative offsets.
-            x1_mapped = ref_anchor_1_x1 + offset_data["dx"]
-            y1_mapped = ref_anchor_1_y1 + offset_data["dy"]
-            x2_mapped = x1_mapped + offset_data["width"]
-            y2_mapped = y1_mapped + offset_data["height"]
+            # based on the reference anchor_1's *center* position and the scaled relative offsets.
+            x1_mapped = ref_anchor_1_center_x + (offset_data["norm_dx"] * current_horizontal_dist)
+            y1_mapped = ref_anchor_1_center_y + (offset_data["norm_dy"] * current_vertical_dist)
+            width_mapped = offset_data["norm_width"] * current_horizontal_dist
+            height_mapped = offset_data["norm_height"] * current_vertical_dist
+            x2_mapped = x1_mapped + width_mapped
+            y2_mapped = y1_mapped + height_mapped
 
             # Ensure coordinates are within image bounds
-            x1_mapped = max(0, x1_mapped)
-            y1_mapped = max(0, y1_mapped)
-            x2_mapped = min(deskewed_width, x2_mapped)
-            y2_mapped = min(deskewed_height, y2_mapped)
+            x1_mapped = max(0, int(x1_mapped))
+            y1_mapped = max(0, int(y1_mapped))
+            x2_mapped = min(deskewed_width, int(x2_mapped))
+            y2_mapped = min(deskewed_height, int(y2_mapped))
 
             if x1_mapped >= x2_mapped or y1_mapped >= y2_mapped:
                 print(f"⚠️ Mapped bbox for {unique_key} is invalid [{x1_mapped},{y1_mapped},{x2_mapped},{y2_mapped}]. Marking as missing.")
@@ -353,15 +416,15 @@ class OMRFieldMapper:
                 continue
 
             mapped_fields_data[unique_key] = {
-                "bbox": [int(x1_mapped), int(y1_mapped), int(x2_mapped), int(y2_mapped)],
-                "width": int(x2_mapped - x1_mapped),
-                "height": int(y2_mapped - y1_mapped)
+                "bbox": [x1_mapped, y1_mapped, x2_mapped, y2_mapped],
+                "width": x2_mapped - x1_mapped,
+                "height": y2_mapped - y1_mapped
             }
             
             # Visualize
-            color = (6,64,43) # Green for mapped fields
-            cv2.rectangle(display_image, (int(x1_mapped), int(y1_mapped)), (int(x2_mapped), int(y2_mapped)), color, 1)
-            # cv2.putText(display_image, class_name, (int(x1_mapped), int(y1_mapped) - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+            color = (34, 139, 34) # Green for mapped fields
+            cv2.rectangle(display_image, (x1_mapped, y1_mapped), (x2_mapped, y2_mapped), color, 1)
+            # cv2.putText(display_image, class_name, (x1_mapped, y1_mapped - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
 
         # Save visualized image
         output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
@@ -388,7 +451,7 @@ class OMRFieldMapper:
 if __name__ == "__main__":
     # Define paths - Adjust these to your actual directory structure
     base_folder = r"D:\Projects\OMR\new_abhigyan\Declutter" # Your base project folder
-    
+        
     # Paths from previous phase's output and original annotations
     # The 'folder_path' used in the previous script to process images
     batch_name = "BE24-05-02" 
@@ -398,7 +461,7 @@ if __name__ == "__main__":
     reference_image_path = os.path.join(base_folder, "Annotations", "images", "BE24-05-01001.jpg")
     reference_annotations_path = os.path.join(base_folder, "Annotations", "labels", "BE24-05-01001.txt")
     classes_file = os.path.join(base_folder, "Annotations", "classes.txt")
-    
+
     # Output from the previous anchor detection script
     anchor_output_folder_name = "anchor_" + batch_name
     anchor_centers_json_path = os.path.join(anchor_output_folder_name, "anchor_centers.json")
@@ -448,3 +511,4 @@ if __name__ == "__main__":
     with open(json_output_path, 'w') as f:
         json.dump(all_image_field_data, f, indent=2)
     print(f"\nAll field mappings saved to {json_output_path}")
+    

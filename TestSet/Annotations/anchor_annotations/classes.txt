@@ -1,4 +1,0 @@
-anchor_1
-anchor_2
-anchor_3
-anchor_4

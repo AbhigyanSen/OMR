@@ -1,0 +1,56 @@
+{
+  "TEMPLATE": "TestData",
+  "BATCHNAME": "BE24-05-07",
+  "PROCESSDT": "2025-07-21 11:58:11",
+  "IMAGES": [
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01001.jpg",
+      "SEQ": "001",
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01017.jpg",
+      "SEQ": "017",
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01049.jpg",
+      "SEQ": "049",
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01050.jpg",
+      "SEQ": "050",
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01051.png",
+      "SEQ": "051",
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01052.png",
+      "SEQ": "052",
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Declutter\\TestData\\BE24-05-07\\BE24-05-01053.png",
+      "SEQ": "053",
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    }
+  ]
+}

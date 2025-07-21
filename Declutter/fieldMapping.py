@@ -359,10 +359,9 @@ class OMRFieldMapper:
             }
             
             # Visualize
-            color = (0, 255, 0) # Green for mapped fields
-            cv2.rectangle(display_image, (int(x1_mapped), int(y1_mapped)), (int(x2_mapped), int(y2_mapped)), color, 2)
-            cv2.putText(display_image, class_name, (int(x1_mapped), int(y1_mapped) - 5),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+            color = (6,64,43) # Green for mapped fields
+            cv2.rectangle(display_image, (int(x1_mapped), int(y1_mapped)), (int(x2_mapped), int(y2_mapped)), color, 1)
+            # cv2.putText(display_image, class_name, (int(x1_mapped), int(y1_mapped) - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
 
         # Save visualized image
         output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
@@ -392,7 +391,7 @@ if __name__ == "__main__":
     
     # Paths from previous phase's output and original annotations
     # The 'folder_path' used in the previous script to process images
-    batch_name = "BE24-05-07" 
+    batch_name = "BE24-05-02" 
     processed_images_folder = os.path.join(base_folder, "TestData", batch_name, f"processed_{batch_name}") # Images processed by previous script
     
     # Original annotation reference files

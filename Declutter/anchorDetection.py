@@ -393,13 +393,56 @@ def save_rescaled_images(folder_path, output_base_path, ref_width, ref_height):
 
 
 
+# Generate a generalized JSON file for the batch ---------------------------------------------------------
+def generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir):
+    template_name = os.path.basename(os.path.dirname(folder_path))  # "TestData"
+    batch_name = os.path.basename(folder_path)                      # "BE24-05-01"
+    process_dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    output_json = {
+        "TEMPLATE": template_name,
+        "BATCHNAME": batch_name,
+        "PROCESSDT": process_dt,
+        "IMAGES": []
+    }
+
+    for image_name, data in all_image_anchor_data.items():
+        image_abs_path = os.path.abspath(os.path.join(folder_path, image_name))
+        seq = os.path.splitext(image_name)[0][-3:]
+        warning_image_path = os.path.join(warning_dir, image_name)
+        skewed = "Y" if os.path.exists(warning_image_path) else "N"
+
+        image_entry = {
+            "IMAGENAME": image_abs_path.replace("/", "\\"),
+            "SEQ": seq,
+            "SKEWED": skewed,
+            "REASON": "N" if data.get("valid_for_option_mapping", False) else "Y",
+            "FIELDS": []
+        }
+
+        output_json["IMAGES"].append(image_entry)
+
+    # ⬇️ Create final directory structure: <base_folder>/<TEMPLATE>/<BATCHNAME>
+    final_output_dir = os.path.join(base_folder, template_name, batch_name)
+    os.makedirs(final_output_dir, exist_ok=True)
+
+    generalized_json_path = os.path.join(final_output_dir, f"{batch_name}.json")
+    with open(generalized_json_path, 'w') as f:
+        json.dump(output_json, f, indent=2)
+    
+    print(f"\n✅ Generalized batch JSON saved to: {generalized_json_path}")
+    
+    
+    
+
 # Main execution
 if __name__ == "__main__":
 
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Declutter"
-        
-    folder_path = os.path.join(base_folder, "TestData", "BE24-05-07")
+    
+    batch_name = "BE24-05-02"
+    folder_path = os.path.join(base_folder, "TestData", batch_name)
     annotations_file = os.path.join(base_folder, "Annotations", "labels", "BE24-05-01001.txt")
     classes_file = os.path.join(base_folder, "Annotations", "classes.txt")
     annotated_image_path = os.path.join(base_folder, "Annotations", "images", "BE24-05-01001.jpg")
@@ -575,45 +618,5 @@ if __name__ == "__main__":
 
     print(f"Anchor centers also saved to CSV: {csv_output_path}")
     
-
-# Generate a generalized JSON file for the batch ---------------------------------------------------------
-def generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir):
-    template_name = os.path.basename(os.path.dirname(folder_path))  # "TestData"
-    batch_name = os.path.basename(folder_path)                      # "BE24-05-01"
-    process_dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    output_json = {
-        "TEMPLATE": template_name,
-        "BATCHNAME": batch_name,
-        "PROCESSDT": process_dt,
-        "IMAGES": []
-    }
-
-    for image_name, data in all_image_anchor_data.items():
-        image_abs_path = os.path.abspath(os.path.join(folder_path, image_name))
-        seq = os.path.splitext(image_name)[0][-3:]
-        warning_image_path = os.path.join(warning_dir, image_name)
-        skewed = "Y" if os.path.exists(warning_image_path) else "N"
-
-        image_entry = {
-            "IMAGENAME": image_abs_path.replace("/", "\\"),
-            "SEQ": seq,
-            "SKEWED": skewed,
-            "REASON": "N" if data.get("valid_for_option_mapping", False) else "Y",
-            "FIELDS": []
-        }
-
-        output_json["IMAGES"].append(image_entry)
-
-    # ⬇️ Create final directory structure: <base_folder>/<TEMPLATE>/<BATCHNAME>
-    final_output_dir = os.path.join(base_folder, template_name, batch_name)
-    os.makedirs(final_output_dir, exist_ok=True)
-
-    generalized_json_path = os.path.join(final_output_dir, f"{batch_name}.json")
-    with open(generalized_json_path, 'w') as f:
-        json.dump(output_json, f, indent=2)
-    
-    print(f"\n✅ Generalized batch JSON saved to: {generalized_json_path}")
-
-# Call this function after everything is processed
-generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir)
+    # Call this function after everything is processed
+    generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir)

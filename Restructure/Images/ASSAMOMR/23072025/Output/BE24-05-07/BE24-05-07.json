@@ -1,0 +1,56 @@
+{
+  "TEMPLATE": "ASSAMOMR",
+  "BATCHNAME": "BE24-05-07",
+  "PROCESSDT": "2025-07-23 15:58:31",
+  "IMAGES": [
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01001.jpg",
+      "SEQ": 1,
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01017.jpg",
+      "SEQ": 2,
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01049.jpg",
+      "SEQ": 3,
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01050.jpg",
+      "SEQ": 4,
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01051.png",
+      "SEQ": 5,
+      "SKEWED": "N",
+      "REASON": "N",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01052.png",
+      "SEQ": 6,
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    },
+    {
+      "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072025\\Input\\BE24-05-07\\BE24-05-01053.png",
+      "SEQ": 7,
+      "SKEWED": "Y",
+      "REASON": "Y",
+      "FIELDS": []
+    }
+  ]
+}

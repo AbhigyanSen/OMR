@@ -3,6 +3,7 @@ import numpy as np
 import math
 import os
 import json
+import re
 from collections import defaultdict
 
 class OMRFieldMapper:
@@ -474,6 +475,69 @@ class OMRFieldMapper:
                 cv2.imwrite(save_path, cropped)
                 print(f"🖼️ Saved cropped field: {key} → {save_path}")
 
+# Generate a generalized JSON file for the batch ---------------------------------------------------------
+def generate_generalized_json(base_json_path, mapper_json_path, output_path):
+    # Regex for ignoring anchors and only subfields of roll_no, reg_no, booklet_no
+    unwanted_patterns = [
+        re.compile(r"^anchor", re.IGNORECASE),
+        re.compile(r"^roll_no_\d+(_\d+)*$", re.IGNORECASE),
+        re.compile(r"^booklet_no_\d+(_\d+)*$", re.IGNORECASE),
+        re.compile(r"^reg_no_\d+(_\d+)*$", re.IGNORECASE),
+    ]
+
+    def is_unwanted(field_name):
+        return any(pattern.match(field_name) for pattern in unwanted_patterns)
+
+    # Load JSONs
+    with open(base_json_path, 'r') as f:
+        base_data = json.load(f)
+
+    with open(mapper_json_path, 'r') as f:
+        mapper_data = json.load(f)
+
+    mapper_lookup = {fname: details.get("mapped_fields", {}) for fname, details in mapper_data.items()}
+
+    # --- NEW LOGIC: check missing_fields_logs directory for text files ---
+    # Find missing fields log folder based on output_path (relative)
+    missing_fields_log_dir = os.path.join(
+        os.path.dirname(output_path), "annotate_" + os.path.splitext(os.path.basename(output_path))[0], "missing_fields_logs")
+    
+    missing_field_files = set()
+    if os.path.exists(missing_fields_log_dir):
+        for file in os.listdir(missing_fields_log_dir):
+            if file.endswith(".txt"):
+                missing_field_files.add(file)  # Store all filenames (like image.txt)  ---  
+
+    for image_entry in base_data.get("IMAGES", []):
+        filename = os.path.basename(image_entry.get("IMAGENAME", ""))
+        mapped_fields = mapper_lookup.get(filename, {})
+
+        fields_list = []
+        for field_name, field_info in mapped_fields.items():
+            if is_unwanted(field_name):
+                continue
+
+            x1, y1, x2, y2 = field_info["bbox"]
+            fields_list.append({
+                "FIELD": field_name,
+                "XCORD": str(x1),
+                "YCORD": str(y1),
+                "WIDTH": str(field_info["width"]),
+                "HEIGHT": str(field_info["height"])
+            })
+
+        image_entry["FIELDS"] = fields_list
+        
+        # --- NEW LOGIC: Update ERROR if missing fields log exists ---
+        txt_filename = os.path.splitext(filename)[0] + ".txt"
+        if txt_filename in missing_field_files:
+            image_entry["ERROR"] = "Y"  # change only if text file exists ---     
+
+    with open(output_path, 'w') as f:
+        json.dump(base_data, f, indent=2)
+
+    print(f"Updated Gerneralised JSON saved to: {output_path}")
+    
 
 # Main execution
 if __name__ == "__main__":
@@ -557,3 +621,9 @@ if __name__ == "__main__":
     with open(json_output_path, 'w') as f:
         json.dump(all_image_field_data, f, indent=2)
     print(f"\nAll field mappings saved to {json_output_path}")
+    
+    generate_generalized_json(
+        base_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
+        mapper_json_path = json_output_path,
+        output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json")
+    )

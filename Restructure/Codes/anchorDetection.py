@@ -426,7 +426,7 @@ def generate_generalized_json(base_folder, omr_template_name, date, folder_path,
             "IMAGENAME": image_abs_path.replace("/", "\\"),
             "SEQ": seq_counter,  # Incremental sequence starting from 1
             "SKEWED": skewed,
-            "REASON": "N" if data.get("valid_for_option_mapping", False) else "Y",
+            "ERROR": "N" if data.get("valid_for_option_mapping", False) else "Y",
             "FIELDS": []
         }
 
@@ -450,9 +450,10 @@ if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
     
-    batch_name = "BE24-05-07"
     omr_template_name = "ASSAMOMR"
     date = "23072025"
+    batch_name = "BE24-05-07"
+    
     
     folder_path = os.path.join(base_folder, "Images", omr_template_name, date, "Input", batch_name)
     annotations_file = os.path.join(base_folder, "Annotations", omr_template_name, "labels", "BE24-05-01001.txt")
@@ -477,7 +478,8 @@ if __name__ == "__main__":
     # Create output directory based on folder name
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
     output_dir = os.path.join(output_folder_path, "anchor_" + folder_name)
-    warning_dir = os.path.join(output_folder_path, "warnings")
+    
+    warning_dir = os.path.join(base_folder, "Images", omr_template_name, date, "warnings")
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(warning_dir, exist_ok=True)
 

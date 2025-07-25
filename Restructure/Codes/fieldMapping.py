@@ -483,6 +483,7 @@ def generate_generalized_json(base_json_path, mapper_json_path, output_path):
         re.compile(r"^roll_no_\d+(_\d+)*$", re.IGNORECASE),
         re.compile(r"^booklet_no_\d+(_\d+)*$", re.IGNORECASE),
         re.compile(r"^reg_no_\d+(_\d+)*$", re.IGNORECASE),
+        re.compile(r"^\d+[A-D]$", re.IGNORECASE),
     ]
 
     def is_unwanted(field_name):

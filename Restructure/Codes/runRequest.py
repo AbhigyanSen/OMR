@@ -6,16 +6,20 @@ import requests
 # ---------------- Configuration ---------------- #
 API_URL = "http://10.4.1.66:8003/predict"
 
-BASE_IMAGE_DIR = r"D:\Projects\OMR\new_abhigyan\Assam_Data"
-batch_name = "BE24-05-02"
-ICR_IMAGE_DIR = os.path.join(BASE_IMAGE_DIR, "annotate_" + batch_name, "ICR")
+base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
+
+batch_name = "BE24-05-07"
+omr_template_name = "ASSAMOMR"
+date = "23072025"
+
+ICR_IMAGE_DIR = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "ICR")
 
 # Output ICR results JSON
-ICR_OUTPUT_JSON = os.path.join(BASE_IMAGE_DIR, "TestData", batch_name, "processed_" + batch_name, "ICR_Images.json")
+ICR_OUTPUT_JSON = os.path.join(ICR_IMAGE_DIR, "ICR_Images.json")
 
 # ED results paths
-ED_JSON_PATH = os.path.join(BASE_IMAGE_DIR, "TestData", batch_name, "processed_" + batch_name, "ed_results.json")
-ED_CSV_PATH = os.path.join(BASE_IMAGE_DIR, "TestData", batch_name, "processed_" + batch_name, "ed_results.csv")
+ED_JSON_PATH = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "options_" + batch_name, "ed_results.json")
+ED_CSV_PATH = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "options_" + batch_name, "ed_results.csv")
 
 # ---------------- Helper Functions ---------------- #
 
@@ -144,6 +148,62 @@ def merge_icr_with_ed_results(icr_results, ed_json_path, ed_csv_path,
     except Exception as e:
         print(f"Failed CSV merge: {e}")
 
+# Generate a generalized JSON file for the batch ---------------------------------------------------------
+def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output_path):
+    # Load JSONs
+    with open(base_json_path, "r") as f:
+        gen_data = json.load(f)
+    with open(icr_json_path, "r") as f:
+        icr_data = json.load(f)
+
+    for image in gen_data.get("IMAGES", []):
+        img_name = os.path.splitext(os.path.basename(image["IMAGENAME"]))[0]
+        icr_fields = icr_data.get(img_name, {})
+
+        # ----- Find original roll_no and booklet_no fields -----
+        roll_field = next((f for f in image["FIELDS"] if f["FIELD"] == "roll_no"), None)
+        booklet_field = next((f for f in image["FIELDS"] if f["FIELD"] == "booklet_no"), None)
+
+        # ----- ICR Roll -----
+        if roll_field:
+            icr_value = icr_fields.get("roll", "")
+            success = "Y" if icr_value and "error" not in icr_value.lower() else "N"
+            image["FIELDS"].append({
+                "FIELD": "roll_no ICR",
+                "XCORD": roll_field["XCORD"],
+                "YCORD": roll_field["YCORD"],
+                "WIDTH": roll_field["WIDTH"],
+                "HEIGHT": roll_field["HEIGHT"],
+                "FIELDDATA": icr_value,
+                "CONFIDENCE": "X90",
+                "SUCCESS": success
+            })
+
+        # ----- ICR Booklet -----
+        if booklet_field:
+            icr_value = icr_fields.get("booklet", "")
+            success = "Y" if icr_value and "error" not in icr_value.lower() else "N"
+            image["FIELDS"].append({
+                "FIELD": "booklet_no ICR",
+                "XCORD": booklet_field["XCORD"],
+                "YCORD": booklet_field["YCORD"],
+                "WIDTH": booklet_field["WIDTH"],
+                "HEIGHT": booklet_field["HEIGHT"],
+                "FIELDDATA": icr_value,
+                "CONFIDENCE": "X80",
+                "SUCCESS": success
+            })
+
+        # ---- Assign sequence numbers ----
+        for idx, field in enumerate(image["FIELDS"], start=1):
+            field["SEQUENCE"] = idx
+
+    # Save merged JSON
+    with open(output_path, "w") as f:
+        json.dump(gen_data, f, indent=4)
+
+    print(f"✅ Merged ICR fields added with sequence numbers and saved to {output_path}")
+
 
 # ---------------- Main Orchestration ---------------- #
 
@@ -163,6 +223,12 @@ def main():
         ed_json_path=ED_JSON_PATH,
         ed_csv_path=ED_CSV_PATH
     )
+     
+    merge_icr_fields_with_generalized_json(
+        base_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
+        icr_json_path = ICR_OUTPUT_JSON, 
+        output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}_with_icr.json")
+        )
 
 
 # ---------------- Entry Point ---------------- #

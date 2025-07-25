@@ -379,9 +379,76 @@ def evaluate_edge_cases(verification_csv_path, output_json_path, output_csv_path
             ]
             writer.writerow(row)
     print(f"📄 Edge results saved to CSV: {output_csv_path}")
+    
+# Generate a generalized JSON file for the batch ---------------------------------------------------------
+def generate_generalized_json(base_json_path, ed_results_json, verification_csv_path, generalized_json_path):
+    # Load JSONs
+    with open(base_json_path, 'r') as f:
+        code2_data = json.load(f)
+    with open(ed_results_json, 'r') as f:
+        ed_results = json.load(f)
+    
+    # Load verification CSV
+    df_ver = pd.read_csv(verification_csv_path)
+    df_ver.set_index("Image Name", inplace=True)
+
+    for image in code2_data["IMAGES"]:
+        img_name = image["IMAGENAME"].split("\\")[-1]  # only filename
+        ed_data = ed_results.get(img_name, {})
+        ver_data = df_ver.loc[img_name] if img_name in df_ver.index else None
+
+        for field in image["FIELDS"]:
+            field_name = field["FIELD"].lower()
+
+            # ----------- Get field data ----------
+            if "roll" in field_name:
+                value = ed_data.get("RollNumber", "")
+                confidence = "X80"
+            elif "booklet" in field_name:
+                value = ed_data.get("BookletNumber", "")
+                confidence = "X80"
+            elif "reg" in field_name:
+                value = ed_data.get("RegistrationNumber", "")
+                confidence = "X80"
+            elif "question" in field_name:
+                qnum = field_name.replace("question_", "Q")
+                value = ed_data.get(qnum, "")
+                confidence = ""
+            else:
+                value = ""
+                confidence = ""
+
+            # ----------- Determine SUCCESS & CONFIDENCE ----------
+            success = "Y"
+            if not value or "*" in value:
+                success = "N"
+                confidence = ""
+            elif "question" in field_name and ver_data is not None and value:
+                qid = qnum[1:]   # Q1 → 1
+                option = value   # e.g., C
+                col_name = f"Result {qid}{option}"
+                if col_name in ver_data.index:
+                    conf_val = ver_data[col_name]
+                    confidence = str(conf_val) if pd.notna(conf_val) else ""
+                else:
+                    confidence = ""
+
+                if confidence == "":
+                    success = "N"
+
+            # ----------- Update field -----------
+            field["FIELDDATA"] = value
+            field["CONFIDENCE"] = confidence
+            field["SUCCESS"] = success
+
+    # Save final JSON
+    with open(generalized_json_path, "w") as f:
+        json.dump(code2_data, f, indent=4)
+
+    print(f"✅ Generalized JSON saved at {generalized_json_path}")
 
     
-# EXECUTION BLOCK   
+# MAIN BLOCK   
 if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
@@ -415,3 +482,9 @@ if __name__ == "__main__":
     edge_csv_path = os.path.join(directory_name, "ed_results.csv")
 
     evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path)
+    
+    base_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json")
+    ed_results_json = edge_json_path
+    verification_csv_path = verification_csv_path
+    generalized_json_path = base_json_path
+    generate_generalized_json(base_json_path, ed_results_json, verification_csv_path, generalized_json_path)

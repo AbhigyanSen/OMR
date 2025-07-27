@@ -1,5 +1,13 @@
-ANCHOR DETECTION:
-1. Currently not sure for the Skewed Images
-2. WARNINGS FOLDER: Images which do not have 4 anchors (currently hardcoded to 4 anchors) will be thrown inside Warnings
+The main codebase is inside Restructure.
 
-changes: Dynamically finds the number of anchors. If anchor_count != detected_anchor_count, image in Warnings
+1. CODES: contains the codes specifically for ASSAMOMR (I mean they will work on HSOMR as well but, its not generalised to that extent)
+2. CODES_HS: contains the adjustd codes that specifically work for HSOMR (They will work on ASSAMOMR as well but not perfectly. I was not given that amount of time to genralise the codes as I was busy fulfilling their JSON requirement which was required on PRIOR basis)
+3. CODES_INTEGRATION: contains finally the dynamic code that will work for any given OMR type given that the annotation is done well.
+4. DUMMYFILES: contains the codes as a backup. they are strictly for uses which cannot be understood by anyone else
+5. IMAGES: ahh, the bloody directory 😠 structure which was replicated as, the same structure will be followed in the HOST MACHINE.
+6. JSON STRUCTURING: arghhhh! 😡 the codes here are strictly written to meet the JSOn format which came from heaven. AMEN
+
+7. OMR - ASSAM: Dunno why it exists, maybe for some testing purpose (contains just images)
+8. TestData: the name suggests why it exists.
+
+9. ANNOTATION: oh! how could I foget this... the big daddy without which every omr will go in vain, the exact structure has to be followed else the code won't run. (But, I will … 😏)

@@ -227,7 +227,7 @@ def main():
     merge_icr_fields_with_generalized_json(
         base_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
         icr_json_path = ICR_OUTPUT_JSON, 
-        output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}_with_icr.json")
+        output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json")
         )
 
 

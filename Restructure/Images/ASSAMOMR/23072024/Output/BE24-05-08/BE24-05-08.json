@@ -1,0 +1,2140 @@
+{
+    "TEMPLATE": "ASSAMOMR",
+    "BATCHNAME": "BE24-05-08",
+    "PROCESSDT": "2025-07-27 09:27:37",
+    "IMAGES": [
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01001.jpg",
+            "SEQ": 1,
+            "SKEWED": "N",
+            "ERROR": "N",
+            "FIELDS": [
+                {
+                    "FIELD": "key0",
+                    "XCORD": "101",
+                    "YCORD": "862",
+                    "WIDTH": "332",
+                    "HEIGHT": "49",
+                    "FIELDDATA": "2401209201",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "key1",
+                    "XCORD": "539",
+                    "YCORD": "867",
+                    "WIDTH": "156",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "00",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_1",
+                    "XCORD": "89",
+                    "YCORD": "1372",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "49.99",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_2",
+                    "XCORD": "89",
+                    "YCORD": "1439",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "58.36",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_3",
+                    "XCORD": "89",
+                    "YCORD": "1505",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "57.54",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_4",
+                    "XCORD": "89",
+                    "YCORD": "1572",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "58.36",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_5",
+                    "XCORD": "88",
+                    "YCORD": "1638",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "57.02",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_6",
+                    "XCORD": "89",
+                    "YCORD": "1704",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "59.11",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_7",
+                    "XCORD": "89",
+                    "YCORD": "1771",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "54.97",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_8",
+                    "XCORD": "88",
+                    "YCORD": "1837",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "59.56",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_9",
+                    "XCORD": "88",
+                    "YCORD": "1902",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "57.2",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_10",
+                    "XCORD": "88",
+                    "YCORD": "1968",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "56.64",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_11",
+                    "XCORD": "388",
+                    "YCORD": "1373",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "52.82",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_12",
+                    "XCORD": "388",
+                    "YCORD": "1440",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "55.5",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_13",
+                    "XCORD": "388",
+                    "YCORD": "1506",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "55.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_14",
+                    "XCORD": "387",
+                    "YCORD": "1573",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "59.65",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_15",
+                    "XCORD": "387",
+                    "YCORD": "1639",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "56.17",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_16",
+                    "XCORD": "388",
+                    "YCORD": "1705",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "59.47",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_17",
+                    "XCORD": "387",
+                    "YCORD": "1772",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "57.64",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_18",
+                    "XCORD": "387",
+                    "YCORD": "1838",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "59.79",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_19",
+                    "XCORD": "387",
+                    "YCORD": "1903",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "62.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_20",
+                    "XCORD": "387",
+                    "YCORD": "1969",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "55.78",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_21",
+                    "XCORD": "687",
+                    "YCORD": "1374",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "60.4",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_22",
+                    "XCORD": "687",
+                    "YCORD": "1442",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "58.19",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_23",
+                    "XCORD": "687",
+                    "YCORD": "1508",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "55.75",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_24",
+                    "XCORD": "687",
+                    "YCORD": "1575",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "55.68",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_25",
+                    "XCORD": "686",
+                    "YCORD": "1642",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "55.13",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_26",
+                    "XCORD": "687",
+                    "YCORD": "1708",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "59.76",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_27",
+                    "XCORD": "687",
+                    "YCORD": "1776",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "58.72",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_28",
+                    "XCORD": "687",
+                    "YCORD": "1841",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "60.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_29",
+                    "XCORD": "686",
+                    "YCORD": "1907",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "56.6",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_30",
+                    "XCORD": "686",
+                    "YCORD": "1973",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "60.86",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_31",
+                    "XCORD": "986",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "52.43",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_32",
+                    "XCORD": "987",
+                    "YCORD": "1443",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "50.68",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_33",
+                    "XCORD": "986",
+                    "YCORD": "1509",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "46.72",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_34",
+                    "XCORD": "986",
+                    "YCORD": "1576",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "61.61",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_35",
+                    "XCORD": "986",
+                    "YCORD": "1642",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "54.18",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_36",
+                    "XCORD": "986",
+                    "YCORD": "1710",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "59.83",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_37",
+                    "XCORD": "986",
+                    "YCORD": "1777",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "57.7",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_38",
+                    "XCORD": "986",
+                    "YCORD": "1843",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "58.07",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_39",
+                    "XCORD": "986",
+                    "YCORD": "1909",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "58.7",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_40",
+                    "XCORD": "985",
+                    "YCORD": "1975",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "62.72",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_41",
+                    "XCORD": "1285",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "59.71",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_42",
+                    "XCORD": "1285",
+                    "YCORD": "1443",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "60.1",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_43",
+                    "XCORD": "1286",
+                    "YCORD": "1510",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "55.28",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_44",
+                    "XCORD": "1285",
+                    "YCORD": "1577",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "63.56",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_45",
+                    "XCORD": "1285",
+                    "YCORD": "1644",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "59.3",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_46",
+                    "XCORD": "1285",
+                    "YCORD": "1711",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "61.19",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_47",
+                    "XCORD": "1285",
+                    "YCORD": "1779",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "61.64",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_48",
+                    "XCORD": "1285",
+                    "YCORD": "1844",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "56.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_49",
+                    "XCORD": "1285",
+                    "YCORD": "1911",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "57.6",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_50",
+                    "XCORD": "1285",
+                    "YCORD": "1977",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "60.4",
+                    "SUCCESS": "Y"
+                }
+            ]
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01017.jpg",
+            "SEQ": 2,
+            "SKEWED": "Y",
+            "ERROR": "Y",
+            "FIELDS": []
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01049.jpg",
+            "SEQ": 3,
+            "SKEWED": "N",
+            "ERROR": "N",
+            "FIELDS": [
+                {
+                    "FIELD": "key0",
+                    "XCORD": "101",
+                    "YCORD": "862",
+                    "WIDTH": "332",
+                    "HEIGHT": "49",
+                    "FIELDDATA": "2401208267",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "key1",
+                    "XCORD": "539",
+                    "YCORD": "867",
+                    "WIDTH": "156",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "00",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_1",
+                    "XCORD": "89",
+                    "YCORD": "1372",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "69.65",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_2",
+                    "XCORD": "89",
+                    "YCORD": "1439",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "75.96",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_3",
+                    "XCORD": "89",
+                    "YCORD": "1505",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "75.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_4",
+                    "XCORD": "89",
+                    "YCORD": "1572",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "71.82",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_5",
+                    "XCORD": "88",
+                    "YCORD": "1638",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "72.38",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_6",
+                    "XCORD": "89",
+                    "YCORD": "1704",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "71.03",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_7",
+                    "XCORD": "89",
+                    "YCORD": "1771",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "72.36",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_8",
+                    "XCORD": "88",
+                    "YCORD": "1837",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "70.18",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_9",
+                    "XCORD": "88",
+                    "YCORD": "1902",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "67.73",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_10",
+                    "XCORD": "88",
+                    "YCORD": "1968",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "68.52",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_11",
+                    "XCORD": "388",
+                    "YCORD": "1373",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "71.76",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_12",
+                    "XCORD": "388",
+                    "YCORD": "1440",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "77.18",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_13",
+                    "XCORD": "388",
+                    "YCORD": "1506",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "75.15",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_14",
+                    "XCORD": "387",
+                    "YCORD": "1573",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "77.18",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_15",
+                    "XCORD": "387",
+                    "YCORD": "1639",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "71.37",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_16",
+                    "XCORD": "388",
+                    "YCORD": "1705",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "69.31",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_17",
+                    "XCORD": "387",
+                    "YCORD": "1772",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "71.22",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_18",
+                    "XCORD": "387",
+                    "YCORD": "1838",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "68.38",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_19",
+                    "XCORD": "387",
+                    "YCORD": "1903",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "67.34",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_20",
+                    "XCORD": "387",
+                    "YCORD": "1969",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "67.13",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_21",
+                    "XCORD": "687",
+                    "YCORD": "1374",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "70.55",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_22",
+                    "XCORD": "687",
+                    "YCORD": "1442",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "78.23",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_23",
+                    "XCORD": "687",
+                    "YCORD": "1508",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.15",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_24",
+                    "XCORD": "687",
+                    "YCORD": "1575",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "72.79",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_25",
+                    "XCORD": "686",
+                    "YCORD": "1642",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "74.99",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_26",
+                    "XCORD": "687",
+                    "YCORD": "1708",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "73.94",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_27",
+                    "XCORD": "687",
+                    "YCORD": "1776",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "78.62",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_28",
+                    "XCORD": "687",
+                    "YCORD": "1841",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "70.33",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_29",
+                    "XCORD": "686",
+                    "YCORD": "1907",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "71.34",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_30",
+                    "XCORD": "686",
+                    "YCORD": "1973",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "70.41",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_31",
+                    "XCORD": "986",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "75.94",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_32",
+                    "XCORD": "987",
+                    "YCORD": "1443",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "77.09",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_33",
+                    "XCORD": "986",
+                    "YCORD": "1509",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "80.03",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_34",
+                    "XCORD": "986",
+                    "YCORD": "1576",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.75",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_35",
+                    "XCORD": "986",
+                    "YCORD": "1642",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "76.65",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_36",
+                    "XCORD": "986",
+                    "YCORD": "1710",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.36",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_37",
+                    "XCORD": "986",
+                    "YCORD": "1777",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "80.85",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_38",
+                    "XCORD": "986",
+                    "YCORD": "1843",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "78.6",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_39",
+                    "XCORD": "986",
+                    "YCORD": "1909",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "73.15",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_40",
+                    "XCORD": "985",
+                    "YCORD": "1975",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "75.91",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_41",
+                    "XCORD": "1285",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "82.86",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_42",
+                    "XCORD": "1285",
+                    "YCORD": "1443",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "82.15",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_43",
+                    "XCORD": "1286",
+                    "YCORD": "1510",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "79.19",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_44",
+                    "XCORD": "1285",
+                    "YCORD": "1577",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "80.78",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_45",
+                    "XCORD": "1285",
+                    "YCORD": "1644",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "79.42",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_46",
+                    "XCORD": "1285",
+                    "YCORD": "1711",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "77.0",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_47",
+                    "XCORD": "1285",
+                    "YCORD": "1779",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "81.47",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_48",
+                    "XCORD": "1285",
+                    "YCORD": "1844",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.8",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_49",
+                    "XCORD": "1285",
+                    "YCORD": "1911",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "75.72",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_50",
+                    "XCORD": "1285",
+                    "YCORD": "1977",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "77.59",
+                    "SUCCESS": "Y"
+                }
+            ]
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01050.jpg",
+            "SEQ": 4,
+            "SKEWED": "N",
+            "ERROR": "N",
+            "FIELDS": [
+                {
+                    "FIELD": "key0",
+                    "XCORD": "101",
+                    "YCORD": "862",
+                    "WIDTH": "332",
+                    "HEIGHT": "49",
+                    "FIELDDATA": "1401108268",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "key1",
+                    "XCORD": "539",
+                    "YCORD": "867",
+                    "WIDTH": "156",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "00",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_1",
+                    "XCORD": "89",
+                    "YCORD": "1372",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "73.8",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_2",
+                    "XCORD": "89",
+                    "YCORD": "1439",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.69",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_3",
+                    "XCORD": "89",
+                    "YCORD": "1505",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "82.18",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_4",
+                    "XCORD": "89",
+                    "YCORD": "1572",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.22",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_5",
+                    "XCORD": "88",
+                    "YCORD": "1638",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.11",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_6",
+                    "XCORD": "89",
+                    "YCORD": "1704",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "72.27",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_7",
+                    "XCORD": "89",
+                    "YCORD": "1771",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "76.34",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_8",
+                    "XCORD": "88",
+                    "YCORD": "1837",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "74.36",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_9",
+                    "XCORD": "88",
+                    "YCORD": "1902",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "71.75",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_10",
+                    "XCORD": "88",
+                    "YCORD": "1968",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "72.62",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_11",
+                    "XCORD": "388",
+                    "YCORD": "1373",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "73.21",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_12",
+                    "XCORD": "388",
+                    "YCORD": "1440",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "78.55",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_13",
+                    "XCORD": "388",
+                    "YCORD": "1506",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "80.41",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_14",
+                    "XCORD": "387",
+                    "YCORD": "1573",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "78.78",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_15",
+                    "XCORD": "387",
+                    "YCORD": "1639",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "71.94",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_16",
+                    "XCORD": "388",
+                    "YCORD": "1705",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "69.64",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_17",
+                    "XCORD": "387",
+                    "YCORD": "1772",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "73.56",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_18",
+                    "XCORD": "387",
+                    "YCORD": "1838",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "72.59",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_19",
+                    "XCORD": "387",
+                    "YCORD": "1903",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "70.89",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_20",
+                    "XCORD": "387",
+                    "YCORD": "1969",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "67.02",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_21",
+                    "XCORD": "687",
+                    "YCORD": "1374",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "73.92",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_22",
+                    "XCORD": "687",
+                    "YCORD": "1442",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "79.58",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_23",
+                    "XCORD": "687",
+                    "YCORD": "1508",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "78.2",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_24",
+                    "XCORD": "687",
+                    "YCORD": "1575",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "75.94",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_25",
+                    "XCORD": "686",
+                    "YCORD": "1642",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "72.32",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_26",
+                    "XCORD": "687",
+                    "YCORD": "1708",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "70.38",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_27",
+                    "XCORD": "687",
+                    "YCORD": "1776",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "74.33",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_28",
+                    "XCORD": "687",
+                    "YCORD": "1841",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "74.83",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_29",
+                    "XCORD": "686",
+                    "YCORD": "1907",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "71.44",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_30",
+                    "XCORD": "686",
+                    "YCORD": "1973",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "69.15",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_31",
+                    "XCORD": "986",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "73.08",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_32",
+                    "XCORD": "987",
+                    "YCORD": "1443",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.87",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_33",
+                    "XCORD": "986",
+                    "YCORD": "1509",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "78.87",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_34",
+                    "XCORD": "986",
+                    "YCORD": "1576",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "75.44",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_35",
+                    "XCORD": "986",
+                    "YCORD": "1642",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "70.47",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_36",
+                    "XCORD": "986",
+                    "YCORD": "1710",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "73.93",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_37",
+                    "XCORD": "986",
+                    "YCORD": "1777",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "75.03",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_38",
+                    "XCORD": "986",
+                    "YCORD": "1843",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "71.56",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_39",
+                    "XCORD": "986",
+                    "YCORD": "1909",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "71.8",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_40",
+                    "XCORD": "985",
+                    "YCORD": "1975",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "67.54",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_41",
+                    "XCORD": "1285",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "74.32",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_42",
+                    "XCORD": "1285",
+                    "YCORD": "1443",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "76.59",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_43",
+                    "XCORD": "1286",
+                    "YCORD": "1510",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "76.46",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_44",
+                    "XCORD": "1285",
+                    "YCORD": "1577",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "73.95",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_45",
+                    "XCORD": "1285",
+                    "YCORD": "1644",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "72.44",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_46",
+                    "XCORD": "1285",
+                    "YCORD": "1711",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "72.53",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_47",
+                    "XCORD": "1285",
+                    "YCORD": "1779",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "73.57",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_48",
+                    "XCORD": "1285",
+                    "YCORD": "1844",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "73.28",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_49",
+                    "XCORD": "1285",
+                    "YCORD": "1911",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "72.64",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_50",
+                    "XCORD": "1285",
+                    "YCORD": "1977",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "67.58",
+                    "SUCCESS": "Y"
+                }
+            ]
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01051.png",
+            "SEQ": 5,
+            "SKEWED": "N",
+            "ERROR": "N",
+            "FIELDS": [
+                {
+                    "FIELD": "key0",
+                    "XCORD": "101",
+                    "YCORD": "862",
+                    "WIDTH": "332",
+                    "HEIGHT": "49",
+                    "FIELDDATA": "2401208266",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "key1",
+                    "XCORD": "539",
+                    "YCORD": "867",
+                    "WIDTH": "156",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "00",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_1",
+                    "XCORD": "89",
+                    "YCORD": "1372",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "89.47",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_2",
+                    "XCORD": "89",
+                    "YCORD": "1439",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "87.93",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_3",
+                    "XCORD": "89",
+                    "YCORD": "1505",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_4",
+                    "XCORD": "89",
+                    "YCORD": "1572",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_5",
+                    "XCORD": "88",
+                    "YCORD": "1638",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_6",
+                    "XCORD": "89",
+                    "YCORD": "1704",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_7",
+                    "XCORD": "89",
+                    "YCORD": "1771",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_8",
+                    "XCORD": "88",
+                    "YCORD": "1837",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_9",
+                    "XCORD": "88",
+                    "YCORD": "1902",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_10",
+                    "XCORD": "88",
+                    "YCORD": "1968",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_11",
+                    "XCORD": "388",
+                    "YCORD": "1373",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "81.76",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_12",
+                    "XCORD": "388",
+                    "YCORD": "1440",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "81.99",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_13",
+                    "XCORD": "388",
+                    "YCORD": "1506",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "83.39",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_14",
+                    "XCORD": "387",
+                    "YCORD": "1573",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "86.45",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_15",
+                    "XCORD": "387",
+                    "YCORD": "1639",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "89.13",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_16",
+                    "XCORD": "388",
+                    "YCORD": "1705",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "85.81",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_17",
+                    "XCORD": "387",
+                    "YCORD": "1772",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_18",
+                    "XCORD": "387",
+                    "YCORD": "1838",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "84.54",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_19",
+                    "XCORD": "387",
+                    "YCORD": "1903",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N"
+                },
+                {
+                    "FIELD": "question_20",
+                    "XCORD": "387",
+                    "YCORD": "1969",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "89.87",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_21",
+                    "XCORD": "687",
+                    "YCORD": "1374",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "71.99",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_22",
+                    "XCORD": "687",
+                    "YCORD": "1442",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "81.13",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_23",
+                    "XCORD": "687",
+                    "YCORD": "1508",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "81.44",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_24",
+                    "XCORD": "687",
+                    "YCORD": "1575",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "78.13",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_25",
+                    "XCORD": "686",
+                    "YCORD": "1642",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "83.04",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_26",
+                    "XCORD": "687",
+                    "YCORD": "1708",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "80.51",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_27",
+                    "XCORD": "687",
+                    "YCORD": "1776",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "86.01",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_28",
+                    "XCORD": "687",
+                    "YCORD": "1841",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "80.52",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_29",
+                    "XCORD": "686",
+                    "YCORD": "1907",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "85.55",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_30",
+                    "XCORD": "686",
+                    "YCORD": "1973",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "84.08",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_31",
+                    "XCORD": "986",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "76.86",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_32",
+                    "XCORD": "987",
+                    "YCORD": "1443",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "77.94",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_33",
+                    "XCORD": "986",
+                    "YCORD": "1509",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.5",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_34",
+                    "XCORD": "986",
+                    "YCORD": "1576",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "79.35",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_35",
+                    "XCORD": "986",
+                    "YCORD": "1642",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "77.04",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_36",
+                    "XCORD": "986",
+                    "YCORD": "1710",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "79.45",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_37",
+                    "XCORD": "986",
+                    "YCORD": "1777",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "83.3",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_38",
+                    "XCORD": "986",
+                    "YCORD": "1843",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "81.7",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_39",
+                    "XCORD": "986",
+                    "YCORD": "1909",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "81.27",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_40",
+                    "XCORD": "985",
+                    "YCORD": "1975",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "83.85",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_41",
+                    "XCORD": "1285",
+                    "YCORD": "1375",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "82.47",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_42",
+                    "XCORD": "1285",
+                    "YCORD": "1443",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "82.11",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_43",
+                    "XCORD": "1286",
+                    "YCORD": "1510",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "81.3",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_44",
+                    "XCORD": "1285",
+                    "YCORD": "1577",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "80.99",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_45",
+                    "XCORD": "1285",
+                    "YCORD": "1644",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "78.97",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_46",
+                    "XCORD": "1285",
+                    "YCORD": "1711",
+                    "WIDTH": "280",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "76.45",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_47",
+                    "XCORD": "1285",
+                    "YCORD": "1779",
+                    "WIDTH": "279",
+                    "HEIGHT": "43",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "80.38",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_48",
+                    "XCORD": "1285",
+                    "YCORD": "1844",
+                    "WIDTH": "280",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "78.12",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_49",
+                    "XCORD": "1285",
+                    "YCORD": "1911",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "76.9",
+                    "SUCCESS": "Y"
+                },
+                {
+                    "FIELD": "question_50",
+                    "XCORD": "1285",
+                    "YCORD": "1977",
+                    "WIDTH": "279",
+                    "HEIGHT": "44",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "74.7",
+                    "SUCCESS": "Y"
+                }
+            ]
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01052.png",
+            "SEQ": 6,
+            "SKEWED": "Y",
+            "ERROR": "Y",
+            "FIELDS": []
+        },
+        {
+            "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\ASSAMOMR\\23072024\\Input\\BE24-05-08\\BE24-05-01053.png",
+            "SEQ": 7,
+            "SKEWED": "Y",
+            "ERROR": "Y",
+            "FIELDS": []
+        }
+    ]
+}

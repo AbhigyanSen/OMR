@@ -1,0 +1,157 @@
+{
+    "Batch002001": {
+        "Question Booklet Number": "44-4321056",
+        "Registration Number": "0123456789",
+        "Roll Number": "9876549009"
+    },
+    "Batch002002": {
+        "Question Booklet Number": "53-2165267",
+        "Registration Number": "1238765210",
+        "Roll Number": "5312718262"
+    },
+    "Batch002003": {
+        "Question Booklet Number": "23-0789852",
+        "Registration Number": "1352071526",
+        "Roll Number": "127857 1201"
+    },
+    "Batch002004": {
+        "Question Booklet Number": "02-3430507",
+        "Registration Number": "31 34560780",
+        "Roll Number": "1714192070"
+    },
+    "Batch002005": {
+        "Question Booklet Number": "22-1122875",
+        "Registration Number": "0158946728",
+        "Roll Number": "0123880468"
+    },
+    "Batch002006": {
+        "Question Booklet Number": "Error: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))",
+        "Registration Number": "2036100421",
+        "Roll Number": "3420015321"
+    },
+    "Batch002007": {
+        "Question Booklet Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000015356E9C830>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Registration Number": "2229003658",
+        "Roll Number": "7769230001"
+    },
+    "Batch002008": {
+        "Question Booklet Number": "09-8973546",
+        "Registration Number": "3600539629",
+        "Roll Number": "2025390596"
+    },
+    "Batch002009": {
+        "Question Booklet Number": "01-9865327",
+        "Registration Number": "1998L6781",
+        "Roll Number": "0081162259"
+    },
+    "Batch002010": {
+        "Question Booklet Number": "49-9=64200",
+        "Registration Number": "46FF98F123",
+        "Roll Number": "9670832159"
+    },
+    "Batch002011": {
+        "Question Booklet Number": "23-3291245",
+        "Registration Number": "1231143898",
+        "Roll Number": "1507111408"
+    },
+    "Batch002012": {
+        "Question Booklet Number": "08-2893745",
+        "Registration Number": "2530012003",
+        "Roll Number": "0487520012"
+    },
+    "Batch002013": {
+        "Question Booklet Number": "58-0002341",
+        "Registration Number": "2013045897",
+        "Roll Number": "2530010025"
+    },
+    "Batch002014": {
+        "Question Booklet Number": "00-1223678",
+        "Registration Number": "0121092180",
+        "Roll Number": "8081020010"
+    },
+    "Batch002015": {
+        "Question Booklet Number": "29-1487546",
+        "Registration Number": "2310043210",
+        "Roll Number": "0032015490"
+    },
+    "Batch002016": {
+        "Question Booklet Number": "23-4587621",
+        "Registration Number": "None",
+        "Roll Number": "9876"
+    },
+    "Batch002017": {
+        "Question Booklet Number": "12-3456789",
+        "Registration Number": "2304127986",
+        "Roll Number": "1276093918"
+    },
+    "Batch002018": {
+        "Question Booklet Number": "34-6877561",
+        "Registration Number": "1346857420",
+        "Roll Number": "4681030045"
+    },
+    "Batch002019": {
+        "Question Booklet Number": "52-3123081",
+        "Registration Number": "1725672081",
+        "Roll Number": "7256723121"
+    },
+    "Batch002020": {
+        "Question Booklet Number": "11-0423170",
+        "Registration Number": "4135026700",
+        "Roll Number": "1713020154"
+    },
+    "Batch002021": {
+        "Question Booklet Number": "57-4312546",
+        "Registration Number": "2326410101",
+        "Roll Number": "269427 2319"
+    },
+    "Batch002022": {
+        "Question Booklet Number": "32-8920985",
+        "Registration Number": "4575100268",
+        "Roll Number": "6892441590"
+    },
+    "Batch002023": {
+        "Question Booklet Number": "40-1125+81",
+        "Registration Number": "2753220688",
+        "Roll Number": "2950213459"
+    },
+    "Batch002024": {
+        "Question Booklet Number": "47-2629441",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Read timed out. (read timeout=None)",
+        "Roll Number": "4202359678"
+    },
+    "Batch002025": {
+        "Question Booklet Number": "23-0583724",
+        "Registration Number": "2226410405",
+        "Roll Number": "2640128917"
+    },
+    "Batch002026": {
+        "Question Booklet Number": "69-7215048",
+        "Registration Number": "2025729612",
+        "Roll Number": "721094229"
+    },
+    "Batch002027": {
+        "Question Booklet Number": "83-5217639",
+        "Registration Number": "2436128793",
+        "Roll Number": "0078311234"
+    },
+    "Batch002028": {
+        "Question Booklet Number": "17-0045672",
+        "Registration Number": "7850964221",
+        "Roll Number": "3005688604"
+    },
+    "Batch002029": {
+        "Question Booklet Number": "06-2135946",
+        "Registration Number": "4867003452",
+        "Roll Number": "0562147734"
+    },
+    "Batch002030": {
+        "Question Booklet Number": "12-3456798",
+        "Registration Number": "3245678901",
+        "Roll Number": "5632115629"
+    },
+    "Batch002031": {
+        "Question Booklet Number": "07-3709817",
+        "Registration Number": "6297426551",
+        "Roll Number": "026753 0026"
+    }
+}

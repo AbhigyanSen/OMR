@@ -545,7 +545,7 @@ if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
 
-    batch_name = "BE24-05-07"
+    batch_name = "BE24-05-02"
     omr_template_name = "ASSAMOMR"
     date = "23072025"
     

@@ -452,7 +452,7 @@ if __name__ == "__main__":
     
     omr_template_name = "ASSAMOMR"
     date = "23072025"
-    batch_name = "BE24-05-07"
+    batch_name = "BE24-05-02"
     
     
     folder_path = os.path.join(base_folder, "Images", omr_template_name, date, "Input", batch_name)

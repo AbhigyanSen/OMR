@@ -15,13 +15,13 @@ class OMRProcessor:
         self.image = cv2.imread(image_path)
         if self.image is None:
             raise FileNotFoundError(f"Image not found at {image_path}")
-
+        
+        # Resize to match reference resolution
         self.image = cv2.resize(self.image, (target_width, target_height), interpolation=cv2.INTER_LINEAR)
         self.original_image = self.image.copy()
 
         self.original_width = target_width
         self.original_height = target_height
-
         
         # Load annotations and classes first, as they are needed for coordinates
         self.classes = self._load_classes()                 # Load classes.txt first
@@ -31,11 +31,16 @@ class OMRProcessor:
 
         # Store the transformation matrix from original to deskewed image
         self.M_transform = None 
-        # Store the deskewed image dimensions
         self.deskewed_width = self.original_width
         self.deskewed_height = self.original_height
 
     def _load_annotations(self):
+        """
+        Loads annotations from the Label Studio .txt file.
+        The format is: class_id x_center y_center width height (normalized)
+        Returns:
+            dict: A dictionary mapping class IDs to a list of their bounding box coordinates.
+        """
         annotations = {}
         try:
             with open(self.annotations_path, 'r') as f:
@@ -62,6 +67,11 @@ class OMRProcessor:
         return annotations
 
     def _load_classes(self):
+        """
+        Loads class names from the classes.txt file.
+        Returns:
+            list: A list of class names.
+        """
         classes = []
         try:
             with open(self.classes_path, 'r') as f:
@@ -73,12 +83,24 @@ class OMRProcessor:
         return classes
 
     def _get_class_id(self, class_name):
+        """
+        Gets the class ID for a given class name.
+        Args:
+            class_name (str): The name of the class.
+        Returns:
+            int: The ID of the class, or -1 if not found.
+        """
         try:
             return self.classes.index(class_name)
         except ValueError:
             return -1
 
     def detect_anchor_points(self):
+        """
+        Detects the anchor points (general shapes: circles, squares) in the original image.
+        Returns:
+            tuple: (list of detected anchors, original image, None)
+        """
         detected_anchors = []
 
         # Define the anchor class IDs. These map to the *index* in your classes.txt
@@ -170,6 +192,14 @@ class OMRProcessor:
 
    
     def visualize_results(self, detected_anchors, output_filename):
+        """
+        Draws bounding boxes and center points on the deskewed image and saves it.
+        Args:
+            detected_anchors (list): List of detected anchor dictionaries.
+            output_filename (str): Name of the file to save the visualized image.
+        Returns:
+            dict: A dictionary mapping class names to their detected center points.
+        """
         display_image = self.image.copy()            # Use the deskewed image
         anchor_data_for_json = {}                   
     
@@ -197,6 +227,11 @@ class OMRProcessor:
         return anchor_data_for_json                                                 # Return both bbox and center now
 
 def compute_skew_angle(anchor1_center, anchor2_center):
+    """
+    Compute skew angle (in degrees) between anchor_1 and anchor_2.
+    Positive if anchor_2 is lower than anchor_1 (clockwise),
+    Negative if anchor_2 is higher than anchor_1 (counter-clockwise).
+    """
     x1, y1 = anchor1_center
     x2, y2 = anchor2_center
 
@@ -211,17 +246,25 @@ def compute_skew_angle(anchor1_center, anchor2_center):
 
     return round(angle_deg, 4)
 
-def save_rescaled_images(folder_path, output_base_path, ref_width, ref_height):
+def save_rescaled_images(image_folder_path, output_process_image_path, ref_width, ref_height):
+    """
+    Rescales all images in folder_path to the given reference dimensions (ref_width x ref_height)
+    and saves them to a new folder: processed_<folder_name> under the same base path.
+    """
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
-    processed_dir = os.path.join(output_base_path, f"processed_{folder_name}")
+    print(f"BATCH NAME: {folder_name}")
+    processed_dir = os.path.join(output_process_image_path, f"processed_{folder_name}")
     os.makedirs(processed_dir, exist_ok=True)
+    print(f"Processing images in: {processed_dir}")
 
     for filename in os.listdir(folder_path):
+        print("A")
         if filename.lower().endswith((".jpg", ".jpeg", ".png")):
             image_path = os.path.join(folder_path, filename)
             image = cv2.imread(image_path)
-
+            print(f"B")
             if image is None:
+                print("C")
                 print(f"❌ Could not read image: {image_path}")
                 continue
 
@@ -236,9 +279,13 @@ def save_rescaled_images(folder_path, output_base_path, ref_width, ref_height):
 
 
 # Generate a generalized JSON file for the batch ---------------------------------------------------------
-def generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir):
-    template_name = os.path.basename(os.path.dirname(folder_path))  # "TestData"
-    batch_name = os.path.basename(folder_path)                      # "BE24-05-01"
+def generate_generalized_json(base_folder, omr_template_name, date, folder_path, all_image_anchor_data, warning_dir):
+    import os
+    import json
+    from datetime import datetime
+
+    template_name = omr_template_name                     
+    batch_name = os.path.basename(folder_path)                      
     process_dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     output_json = {
@@ -248,46 +295,49 @@ def generate_generalized_json(base_folder, folder_path, all_image_anchor_data, w
         "IMAGES": []
     }
 
+    # Sequence counter starting at 1
+    seq_counter = 1
+
     for image_name, data in all_image_anchor_data.items():
         image_abs_path = os.path.abspath(os.path.join(folder_path, image_name))
-        seq = os.path.splitext(image_name)[0][-3:]
         warning_image_path = os.path.join(warning_dir, image_name)
         skewed = "Y" if os.path.exists(warning_image_path) else "N"
 
         image_entry = {
             "IMAGENAME": image_abs_path.replace("/", "\\"),
-            "SEQ": seq,
+            "SEQ": seq_counter,  # Incremental sequence starting from 1
             "SKEWED": skewed,
-            "REASON": "N" if data.get("valid_for_option_mapping", False) else "Y",
+            "ERROR": "N" if data.get("valid_for_option_mapping", False) else "Y",
             "FIELDS": []
         }
 
         output_json["IMAGES"].append(image_entry)
+        seq_counter += 1  # Increment sequence
 
-    # ⬇️ Create final directory structure: <base_folder>/<TEMPLATE>/<BATCHNAME>
-    final_output_dir = os.path.join(base_folder, template_name, batch_name)
+    final_output_dir = os.path.join(base_folder, "Images", template_name, date, "Output", batch_name)
     os.makedirs(final_output_dir, exist_ok=True)
 
     generalized_json_path = os.path.join(final_output_dir, f"{batch_name}.json")
     with open(generalized_json_path, 'w') as f:
         json.dump(output_json, f, indent=2)
     
-    print(f"\n✅ Generalized batch JSON saved to: {generalized_json_path}")
-    
-    
+    print(f"\n✅ Generalized batch JSON saved to: {generalized_json_path}") 
     
 
 # Main execution
 if __name__ == "__main__":
 
     # Define paths
-    base_folder = r"D:\Projects\OMR\new_abhigyan\Assam_Data"
+    base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
     
-    batch_name = "BE24-05-07"
-    folder_path = os.path.join(base_folder, "TestData", batch_name)
-    annotations_file = os.path.join(base_folder, "Annotations", "labels", "BE24-05-01001.txt")
-    classes_file = os.path.join(base_folder, "Annotations", "classes.txt")
-    annotated_image_path = os.path.join(base_folder, "Annotations", "images", "BE24-05-01001.jpg")
+    omr_template_name = "ASSAMOMR"
+    date = "23072025"
+    batch_name = "BE24-05-02"
+    
+    folder_path = os.path.join(base_folder, "Images", omr_template_name, date, "Input", batch_name)
+    annotations_file = os.path.join(base_folder, "Annotations", omr_template_name, "labels", "BE24-05-01001.txt")
+    classes_file = os.path.join(base_folder, "Annotations", omr_template_name, "classes.txt")
+    annotated_image_path = os.path.join(base_folder, "Annotations", omr_template_name, "images", "BE24-05-01001.jpg")
     
     ref_img = cv2.imread(annotated_image_path)
     if ref_img is None:
@@ -295,25 +345,23 @@ if __name__ == "__main__":
     ref_height, ref_width = ref_img.shape[:2]
     print(f"📏 Reference dimensions from annotation image: {ref_width}x{ref_height}")
     
-    # Save all images in rescaled (reference) dimensions to a clean folder
+    output_folder_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name)
     save_rescaled_images(
-        folder_path=folder_path,
-        output_base_path=folder_path,
+        image_folder_path=folder_path,
+        output_process_image_path=output_folder_path,
         ref_width=ref_width,
         ref_height=ref_height
     )
-
-    # Create output directory based on folder name
+    
     folder_name = os.path.basename(folder_path.rstrip("\\/"))
-    output_dir = os.path.join("anchor_" + folder_name)
-    warning_dir = os.path.join(output_dir, "warnings")
+    output_dir = os.path.join(output_folder_path, "anchor_" + folder_name)
+    
+    warning_dir = os.path.join(base_folder, "Images", omr_template_name, date, "warnings")
     os.makedirs(output_dir, exist_ok=True)
     os.makedirs(warning_dir, exist_ok=True)
 
-    # CSV Path
     csv_output_path = os.path.join(output_dir, "anchor_centers.csv")
     
-    # Initialize a dictionary to hold anchor data for all images
     anchor_json_path = os.path.join(output_dir, "anchor_centers.json") # New JSON file name
     all_image_anchor_data = {}
 
@@ -324,11 +372,9 @@ if __name__ == "__main__":
             print(f"\nProcessing {image_path}...")
 
             try:
-                # processor = OMRProcessor(image_path, annotations_file, classes_file)
                 processor = OMRProcessor(image_path, annotations_file, classes_file, ref_width, ref_height)
                 detected_anchors, deskewed_img_result, M_transform_result = processor.detect_anchor_points()
 
-                # Dynamically determine expected anchors from classes.txt
                 expected_anchors = [cls for cls in processor.classes if cls.startswith("anchor_")]
                 expected_anchor_count = len(expected_anchors)
 
@@ -356,7 +402,6 @@ if __name__ == "__main__":
                         print(f"  Area: {anchor['area']:.2f}")
                         print("-" * 30)
                         
-                    # Compute skew angle if both anchor_1 and anchor_2 exist
                     if "anchor_1" in anchor_full_data and "anchor_2" in anchor_full_data:
                         angle = compute_skew_angle(
                             anchor_full_data["anchor_1"]["center"],
@@ -391,13 +436,10 @@ if __name__ == "__main__":
                 except Exception as img_err:
                     print(f"⚠️ Could not save error image: {img_err}")
 
-
-    # Save all collected anchor data to a single JSON file
     with open(anchor_json_path, 'w') as f:
         json.dump(all_image_anchor_data, f, indent=2)
     print(f"\nAll anchor centers and transformation data saved to {anchor_json_path}")
 
-    # Define CSV column headers
     csv_headers = ["image_name", "anchor_1", "anchor_2", "anchor_3", "anchor_4"]
     
     with open(csv_output_path, "w", newline="") as csv_file:
@@ -424,4 +466,4 @@ if __name__ == "__main__":
     print(f"Anchor centers also saved to CSV: {csv_output_path}")
     
     # Call this function after everything is processed
-    generate_generalized_json(base_folder, folder_path, all_image_anchor_data, warning_dir)
+    generate_generalized_json(base_folder, omr_template_name, date, folder_path, all_image_anchor_data, warning_dir)

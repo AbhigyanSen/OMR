@@ -335,9 +335,17 @@ if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
     
-    omr_template_name = "HSOMR"
-    date = "23072025"
-    batch_name = "Batch002"   
+    # omr_template_name = "HSOMR"
+    # date = "23072025"
+    # batch_name = "Batch001"   
+    # Expect arguments: omr_template_name, date, batch_name
+    
+    # Inputs from Command Line
+    if len(sys.argv) != 4:
+        print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
+        sys.exit(1)
+
+    omr_template_name, date, batch_name = sys.argv[1:4]
     
     folder_path = os.path.join(base_folder, "Images", omr_template_name, date, "Input", batch_name)
     annotations_dir = os.path.join(base_folder, "Annotations", omr_template_name)

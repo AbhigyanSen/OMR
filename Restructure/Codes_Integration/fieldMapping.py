@@ -4,6 +4,8 @@ import math
 import os
 import json
 import re
+import sys
+import glob
 from collections import defaultdict
 
 class OMRFieldMapper:
@@ -392,7 +394,56 @@ class OMRFieldMapper:
 
                 cv2.imwrite(save_path, cropped)
                 print(f"🖼️ Saved cropped field: {folder_name} → {save_path}")
+                
+def get_annotation_files(annotations_dir):
+    # --- Validate base folder ---
+    if not os.path.isdir(annotations_dir):
+        print(f"❌ Annotations folder not found: {annotations_dir}")
+        sys.exit(1)
 
+    labels_dir = os.path.join(annotations_dir, "labels")
+    images_dir = os.path.join(annotations_dir, "images")
+    classes_file = os.path.join(annotations_dir, "classes.txt")
+
+    # --- Validate required subfolders and classes file ---
+    if not os.path.isdir(labels_dir):
+        print(f"❌ Labels folder not found: {labels_dir}")
+        sys.exit(1)
+    if not os.path.isdir(images_dir):
+        print(f"❌ Images folder not found: {images_dir}")
+        sys.exit(1)
+    if not os.path.isfile(classes_file):
+        print(f"❌ classes.txt file missing: {classes_file}")
+        sys.exit(1)
+
+    # --- Get label file ---
+    label_files = glob.glob(os.path.join(labels_dir, "*.txt"))
+    if len(label_files) != 1:
+        print(f"❌ Expected exactly 1 label file in {labels_dir}, found {len(label_files)}")
+        sys.exit(1)
+    annotations_file = label_files[0]
+
+    # --- Get image file ---
+    image_files = []
+    for ext in ("*.jpg", "*.jpeg", "*.png"):
+        image_files.extend(glob.glob(os.path.join(images_dir, ext)))
+    if len(image_files) != 1:
+        print(f"❌ Expected exactly 1 image file in {images_dir}, found {len(image_files)}")
+        sys.exit(1)
+    annotated_image_path = image_files[0]
+
+    # --- Check filename match (excluding extension) ---
+    label_name = os.path.splitext(os.path.basename(annotations_file))[0]
+    image_name = os.path.splitext(os.path.basename(annotated_image_path))[0]
+    if label_name != image_name:
+        print(f"❌ Label file '{label_name}' does not match image file '{image_name}'")
+        sys.exit(1)
+
+    print(f"✅ Using annotation file: {annotations_file}")
+    print(f"✅ Using annotated image: {annotated_image_path}")
+    print(f"✅ Using classes file: {classes_file}")
+
+    return annotated_image_path, annotations_file, classes_file
 
 # Generate a generalized JSON file for the batch ---------------------------------------------------------
 # def generate_generalized_json(base_json_path, mapper_json_path, output_path):
@@ -473,16 +524,26 @@ if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
 
-    omr_template_name = "HSOMR"
-    date = "23072025"
-    batch_name = "Batch002"    
+    # omr_template_name = "HSOMR"
+    # date = "23072025"
+    # batch_name = "Batch001"   
+    # Expect arguments: omr_template_name, date, batch_name
+    
+    # Inputs from Command Line
+    if len(sys.argv) != 4:
+        print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
+        sys.exit(1)
+
+    omr_template_name, date, batch_name = sys.argv[1:4]
     
     processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"processed_{batch_name}") # Images processed by previous script
     
     # Original annotation reference files
-    annotations_file = os.path.join(base_folder, "Annotations", omr_template_name, "labels", "5b87155d-Batch001003.txt")
-    classes_file = os.path.join(base_folder, "Annotations", omr_template_name, "classes.txt")
-    annotated_image_path = os.path.join(base_folder, "Annotations", omr_template_name, "images", "5b87155d-Batch001003.jpg")
+    # annotations_file = os.path.join(base_folder, "Annotations", omr_template_name, "labels", "5b87155d-Batch001003.txt")
+    # classes_file = os.path.join(base_folder, "Annotations", omr_template_name, "classes.txt")
+    # annotated_image_path = os.path.join(base_folder, "Annotations", omr_template_name, "images", "5b87155d-Batch001003.jpg")
+    annotations_dir = os.path.join(base_folder, "Annotations", omr_template_name)
+    annotated_image_path, annotations_file, classes_file = get_annotation_files(annotations_dir)
     
     # Output from the previous anchor detection script
     anchor_output_folder_name = "anchor_" + batch_name

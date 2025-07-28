@@ -5,6 +5,7 @@ import numpy as np
 import csv
 import re
 import pandas as pd
+import sys
 from collections import defaultdict
 
 def get_digits_count(classes_file):
@@ -509,10 +510,17 @@ def generate_generalized_json(base_json_path, ed_results_json, verification_csv_
 if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
+    # omr_template_name = "HSOMR"
+    # date = "23072025"
+    # batch_name = "Batch001"   
+    # Expect arguments: omr_template_name, date, batch_name
+    
+    # Inputs from Command Line
+    if len(sys.argv) != 4:
+        print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
+        sys.exit(1)
 
-    omr_template_name = "HSOMR"
-    date = "23072025"
-    batch_name = "Batch002"    
+    omr_template_name, date, batch_name = sys.argv[1:4] 
     
     mapped_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "field_mappings.json")
     processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"processed_{batch_name}")

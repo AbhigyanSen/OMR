@@ -25,12 +25,12 @@
         "Roll Number": "0123880468"
     },
     "Batch002006": {
-        "Question Booklet Number": "Error: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))",
+        "Question Booklet Number": "13-6201567",
         "Registration Number": "2036100421",
         "Roll Number": "3420015321"
     },
     "Batch002007": {
-        "Question Booklet Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x0000015356E9C830>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Question Booklet Number": "01-3592677",
         "Registration Number": "2229003658",
         "Roll Number": "7769230001"
     },
@@ -116,7 +116,7 @@
     },
     "Batch002024": {
         "Question Booklet Number": "47-2629441",
-        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Read timed out. (read timeout=None)",
+        "Registration Number": "2974895213",
         "Roll Number": "4202359678"
     },
     "Batch002025": {

@@ -3,6 +3,7 @@ import json
 import csv
 import requests
 import re
+import sys
 import copy
 
 # ---------------- Configuration ---------------- #
@@ -10,9 +11,16 @@ API_URL = "http://10.4.1.66:8003/predict"
 
 base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
 
-omr_template_name = "HSOMR"
-date = "23072025"
-batch_name = "Batch002"  
+# omr_template_name = "HSOMR"
+# date = "23072025"
+# batch_name = "Batch001"   
+# Expect arguments: omr_template_name, date, batch_name
+
+# Inputs from Command Line
+if len(sys.argv) != 4:
+    print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
+    sys.exit(1)
+omr_template_name, date, batch_name = sys.argv[1:4]
 
 ICR_IMAGE_DIR = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "ICR")
 

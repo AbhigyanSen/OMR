@@ -143,7 +143,7 @@ class OMRInterface:
             self.run_script("anchorDetection.py")
             self.run_script("fieldMapping.py")
             self.run_script("markedOption.py")
-            self.run_script("runRequest.py")
+            # self.run_script("runRequest.py")
             messagebox.showinfo("Success", "Full OMR Process Completed!")
         except Exception as e:
             self.log(f"❌ Process aborted: {e}")

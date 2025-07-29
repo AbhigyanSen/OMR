@@ -2,10 +2,12 @@ import os
 import cv2
 import json
 import numpy as np
+from PIL import Image
 import csv
 import re
 import pandas as pd
 import sys
+
 from collections import defaultdict
 
 def get_digits_count(classes_file):
@@ -26,9 +28,26 @@ def is_filled_option(image, bbox, threshold=100):
     roi = image[y1:y2, x1:x2]
     if roi.size == 0:
         return False, 255
-    gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-    mean_intensity = np.mean(gray)
-    return mean_intensity < threshold, mean_intensity
+
+    # Convert OpenCV ROI (BGR) → PIL image
+    pil_img = Image.fromarray(cv2.cvtColor(roi, cv2.COLOR_BGR2RGB))
+
+    # Convert to grayscale
+    gray_img = pil_img.convert("L")
+
+    # Apply threshold (Pillow logic)
+    bw_img = gray_img.point(lambda x: 255 if x > 128 else 0, "1")
+
+    # Convert back to NumPy for intensity analysis
+    bw_array = np.array(bw_img, dtype=np.uint8) * 255  # "1" mode → {0,1}, scale to 0/255
+
+    # Invert so filled (black) becomes white for easier detection
+    bw_inverted = cv2.bitwise_not(bw_array)
+
+    # Mean intensity of filled region
+    mean_intensity = np.mean(bw_inverted)
+
+    return mean_intensity > threshold, mean_intensity
 
 def extract_question_id(label):
     match = re.match(r"(\d{1,2})([a-d])", label.lower())
@@ -331,9 +350,142 @@ def export_verification_csv(option_score_map, verification_csv_path, key_fields_
 
     print(f"✅ Final verification.csv written to: {verification_csv_path}")
 
-def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, key_fields_json, classes_file):
+# def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, key_fields_json, classes_file):
     
-    # ---- Load keys ----
+#     # ---- Load keys ----
+#     with open(key_fields_json, "r") as f:
+#         key_fields = json.load(f)
+#     with open(classes_file, "r") as f:
+#         class_labels = f.read().splitlines()
+
+#     # ---- Determine number of digits per key ----
+#     key_digit_counts = defaultdict(int)
+#     for label in class_labels:
+#         m = re.match(r"^(key\d+)_(\d+)$", label)
+#         if m:
+#             key, digit_idx = m.groups()
+#             digit_idx = int(digit_idx)
+#             key_digit_counts[key] = max(key_digit_counts[key], digit_idx + 1)
+
+#     df = pd.read_csv(verification_csv_path)
+#     result_data = {}
+
+#     # ---- Detect question columns dynamically ----
+#     result_cols = [col for col in df.columns if re.match(r"^Result \d{1,2}[A-Da-d]$", col)]
+#     question_ids = sorted(set(col.split()[1][:-1] for col in result_cols), key=lambda x: int(x))
+
+#     def extract_number_from_result(row, key_name, digit_count):
+#         digits = []
+#         for d in range(digit_count):
+#             min_val = float('inf')
+#             selected_digit = ''
+#             for val in range(10):
+#                 col = f"Result {key_name}_{d}_{val}"
+#                 if col in row:
+#                     try:
+#                         pct = float(row[col])
+#                         if pct < min_val:
+#                             min_val = pct
+#                             selected_digit = str(val)
+#                     except:
+#                         continue
+#             digits.append(selected_digit)
+#         return ''.join(digits)
+
+#     # ---- Process each row ----
+#     for idx, row in df.iterrows():
+#         image_name = row["Image Name"]
+#         result_data[image_name] = {}
+
+#         # ---- Questions ----
+#         for qid in question_ids:
+#             marked_options = []
+#             for opt in ['A', 'B', 'C', 'D']:
+#                 col = f"Result {qid}{opt}"
+#                 if col in row:
+#                     try:
+#                         pct = float(row[col])
+#                         if pct < 90.0:
+#                             marked_options.append(opt)
+#                     except:
+#                         continue
+
+#             if len(marked_options) == 0:
+#                 result_data[image_name][f"Q{qid}"] = ""
+#             elif len(marked_options) == 1:
+#                 result_data[image_name][f"Q{qid}"] = marked_options[0]
+#             else:
+#                 result_data[image_name][f"Q{qid}"] = "*".join(marked_options)
+
+#         # ---- Dynamic keys ----
+#         for key_name, human_name in key_fields.items():
+#             digit_count = key_digit_counts.get(key_name, 0)
+#             if digit_count > 0:
+#                 result_data[image_name][key_name] = extract_number_from_result(row, key_name, digit_count)
+
+#     # ---- Save JSON ----
+#     with open(edge_json_path, "w") as f:
+#         json.dump(result_data, f, indent=2)
+#     print(f"✅ Edge results saved to JSON: {edge_json_path}")
+
+#     # ---- Save CSV ----
+#     all_qs = sorted({qid for qmap in result_data.values() for qid in qmap.keys() if qid.startswith("Q")},
+#                     key=lambda x: int(x[1:]))
+
+#     key_columns = list(key_fields.keys())  # keep key0, key1 ... as columns
+
+#     with open(edge_csv_path, "w", newline="") as f:
+#         writer = csv.writer(f)
+#         writer.writerow(["Image Name"] + all_qs + key_columns)
+#         for image_name, qmap in result_data.items():
+#             row = [image_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(k, "") for k in key_columns]
+#             writer.writerow(row)
+#     print(f"📄 Edge results saved to CSV: {edge_csv_path}")
+    
+#     # ---------- POST-PROCESS: Create human-readable versions ----------
+#     # JSON with human-readable keys
+#     human_result_data = {}
+#     for img, data in result_data.items():
+#         human_result_data[img] = {}
+#         for k, v in data.items():
+#             human_result_data[img][key_fields.get(k, k)] = v  # replace key0 -> Roll Number etc.
+
+#     human_json_path = os.path.splitext(edge_json_path)[0] + "_human.json"
+#     with open(human_json_path, "w") as f:
+#         json.dump(human_result_data, f, indent=2)
+#     print(f"📝 Human-readable JSON saved to: {human_json_path}")
+
+#     # CSV with human-readable column headers
+#     human_csv_path = os.path.splitext(edge_csv_path)[0] + "_human.csv"
+#     with open(human_csv_path, "w", newline="") as f:
+#         writer = csv.writer(f)
+#         writer.writerow(["Image Name"] + all_qs + [key_fields[k] for k in key_columns])
+#         for img_name, qmap in human_result_data.items():
+#             row = [img_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(key_fields[k], "") for k in key_columns]
+#             writer.writerow(row)
+#     print(f"📝 Human-readable CSV saved to: {human_csv_path}")
+    
+    
+def evaluate_edge_cases(
+    verification_csv_path,
+    edge_json_path,
+    edge_csv_path,
+    key_fields_json,
+    classes_file,
+    close_diff=5
+):
+    """
+    Corrected logic:
+        - Lower value => more marked.
+        - Choose lowest option(s).
+        - If multiple within close_diff => mark all.
+        - If all scores >50 => treat as blank.
+    """
+    import json, csv, os, re
+    import pandas as pd
+    from collections import defaultdict
+
+    # ---- Load key field names ----
     with open(key_fields_json, "r") as f:
         key_fields = json.load(f)
     with open(classes_file, "r") as f:
@@ -373,32 +525,31 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, ke
             digits.append(selected_digit)
         return ''.join(digits)
 
+    def detect_marked_options_dynamic(option_scores):
+        # lowest score = darkest bubble = marked
+        min_score = min(option_scores.values())
+        if min_score > 50:  # all bubbles mostly white -> treat as blank
+            return []
+        return [opt for opt, score in option_scores.items() if abs(score - min_score) <= close_diff]
+
     # ---- Process each row ----
-    for idx, row in df.iterrows():
+    for _, row in df.iterrows():
         image_name = row["Image Name"]
         result_data[image_name] = {}
 
-        # ---- Questions ----
         for qid in question_ids:
-            marked_options = []
+            option_scores = {}
             for opt in ['A', 'B', 'C', 'D']:
                 col = f"Result {qid}{opt}"
                 if col in row:
                     try:
-                        pct = float(row[col])
-                        if pct < 90.0:
-                            marked_options.append(opt)
+                        option_scores[opt] = float(row[col])
                     except:
-                        continue
+                        option_scores[opt] = 100.0
 
-            if len(marked_options) == 0:
-                result_data[image_name][f"Q{qid}"] = ""
-            elif len(marked_options) == 1:
-                result_data[image_name][f"Q{qid}"] = marked_options[0]
-            else:
-                result_data[image_name][f"Q{qid}"] = "*".join(marked_options)
+            marked_options = detect_marked_options_dynamic(option_scores)
+            result_data[image_name][f"Q{qid}"] = "*".join(marked_options) if marked_options else ""
 
-        # ---- Dynamic keys ----
         for key_name, human_name in key_fields.items():
             digit_count = key_digit_counts.get(key_name, 0)
             if digit_count > 0:
@@ -412,8 +563,7 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, ke
     # ---- Save CSV ----
     all_qs = sorted({qid for qmap in result_data.values() for qid in qmap.keys() if qid.startswith("Q")},
                     key=lambda x: int(x[1:]))
-
-    key_columns = list(key_fields.keys())  # keep key0, key1 ... as columns
+    key_columns = list(key_fields.keys())
 
     with open(edge_csv_path, "w", newline="") as f:
         writer = csv.writer(f)
@@ -422,21 +572,19 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, ke
             row = [image_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(k, "") for k in key_columns]
             writer.writerow(row)
     print(f"📄 Edge results saved to CSV: {edge_csv_path}")
-    
-    # ---------- POST-PROCESS: Create human-readable versions ----------
-    # JSON with human-readable keys
+
+    # ---------- POST-PROCESS: Human-readable ----------
     human_result_data = {}
     for img, data in result_data.items():
         human_result_data[img] = {}
         for k, v in data.items():
-            human_result_data[img][key_fields.get(k, k)] = v  # replace key0 -> Roll Number etc.
+            human_result_data[img][key_fields.get(k, k)] = v
 
     human_json_path = os.path.splitext(edge_json_path)[0] + "_human.json"
     with open(human_json_path, "w") as f:
         json.dump(human_result_data, f, indent=2)
     print(f"📝 Human-readable JSON saved to: {human_json_path}")
 
-    # CSV with human-readable column headers
     human_csv_path = os.path.splitext(edge_csv_path)[0] + "_human.csv"
     with open(human_csv_path, "w", newline="") as f:
         writer = csv.writer(f)
@@ -445,7 +593,8 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, ke
             row = [img_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(key_fields[k], "") for k in key_columns]
             writer.writerow(row)
     print(f"📝 Human-readable CSV saved to: {human_csv_path}")
-    
+
+
 # Generate a generalized JSON file for the batch ---------------------------------------------------------
 def generate_generalized_json(base_json_path, ed_results_json, verification_csv_path, generalized_json_path, key_fields_json, classes_file):
 
@@ -510,9 +659,10 @@ def generate_generalized_json(base_json_path, ed_results_json, verification_csv_
 if __name__ == "__main__":
     # Define paths
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
+    
     # omr_template_name = "HSOMR"
     # date = "23072025"
-    # batch_name = "Batch001"   
+    # batch_name = "Batch003"   
     # Expect arguments: omr_template_name, date, batch_name
     
     # Inputs from Command Line

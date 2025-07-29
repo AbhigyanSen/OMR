@@ -291,11 +291,16 @@ def generate_generalized_json(base_folder, omr_template_name, date, folder_path,
     template_name = omr_template_name                     
     batch_name = os.path.basename(folder_path)                      
     process_dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+    # Count total images (jpg, jpeg, png)
+    total_images = len([f for f in os.listdir(folder_path) 
+                        if f.lower().endswith((".jpg", ".jpeg", ".png"))])
 
     output_json = {
         "TEMPLATE": template_name,
         "BATCHNAME": batch_name,
         "PROCESSDT": process_dt,
+        "COUNT": total_images,      
         "IMAGES": []
     }
 
@@ -337,10 +342,10 @@ if __name__ == "__main__":
     
     # omr_template_name = "HSOMR"
     # date = "23072025"
-    # batch_name = "Batch001"   
+    # batch_name = "Batch003"   
     # Expect arguments: omr_template_name, date, batch_name
     
-    # Inputs from Command Line
+    # # Inputs from Command Line
     if len(sys.argv) != 4:
         print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
         sys.exit(1)

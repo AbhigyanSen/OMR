@@ -1,7 +1,7 @@
 {
     "TEMPLATE": "HSOMR",
     "BATCHNAME": "BATCH06",
-    "PROCESSDT": "2025-07-28 11:02:25",
+    "PROCESSDT": "2025-07-28 16:07:33",
     "IMAGES": [
         {
             "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\HSOMR\\25072025\\Input\\BATCH06\\BATCH06001.jpg",
@@ -433,9 +433,9 @@
                     "YCORD": "1857",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "68.48",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 39
                 },
                 {
@@ -477,9 +477,9 @@
                     "YCORD": "1937",
                     "WIDTH": "347",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "72.18",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 43
                 },
                 {
@@ -3713,9 +3713,9 @@
                     "YCORD": "1821",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C",
-                    "CONFIDENCE": "86.78",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 77
                 },
                 {
@@ -4007,9 +4007,9 @@
                     "YCORD": "1817",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "70.68",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 17
                 },
                 {
@@ -4051,9 +4051,9 @@
                     "YCORD": "1896",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "D",
-                    "CONFIDENCE": "87.1",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 21
                 },
                 {
@@ -5937,9 +5937,9 @@
                     "YCORD": "1856",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "61.61",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 19
                 },
                 {
@@ -6091,9 +6091,9 @@
                     "YCORD": "1738",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "51.01",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 33
                 },
                 {
@@ -6377,9 +6377,9 @@
                     "YCORD": "1858",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "53.81",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 59
                 },
                 {
@@ -6803,9 +6803,9 @@
                     "YCORD": "1697",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "66.53",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 11
                 },
                 {
@@ -6869,9 +6869,9 @@
                     "YCORD": "1817",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "58.84",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 17
                 },
                 {
@@ -6891,9 +6891,9 @@
                     "YCORD": "1856",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "71.04",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 19
                 },
                 {
@@ -10619,9 +10619,9 @@
                     "YCORD": "1697",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C",
-                    "CONFIDENCE": "86.04",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 11
                 },
                 {
@@ -11235,9 +11235,9 @@
                     "YCORD": "1620",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "53.63",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 67
                 },
                 {
@@ -11639,7 +11639,7 @@
                     "YCORD": "1817",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*C*D",
+                    "FIELDDATA": "C*D",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "SEQUENCE": 17
@@ -11683,9 +11683,9 @@
                     "YCORD": "1896",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B",
-                    "CONFIDENCE": "87.17",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 21
                 },
                 {
@@ -13811,9 +13811,9 @@
                     "YCORD": "1897",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C",
-                    "CONFIDENCE": "89.88",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 41
                 },
                 {
@@ -15051,9 +15051,9 @@
                     "YCORD": "1620",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C",
-                    "CONFIDENCE": "89.95",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 67
                 },
                 {
@@ -15829,9 +15829,9 @@
                     "YCORD": "1699",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B",
-                    "CONFIDENCE": "87.57",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 51
                 },
                 {
@@ -16453,9 +16453,9 @@
                     "YCORD": "1896",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "74.47",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 21
                 },
                 {
@@ -16585,9 +16585,9 @@
                     "YCORD": "1738",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "68.87",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 33
                 },
                 {
@@ -17275,9 +17275,9 @@
                     "YCORD": "1656",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "D",
-                    "CONFIDENCE": "88.72",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 9
                 },
                 {
@@ -17473,9 +17473,9 @@
                     "YCORD": "1617",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A",
-                    "CONFIDENCE": "87.26",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 27
                 },
                 {
@@ -17869,9 +17869,9 @@
                     "YCORD": "1938",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B",
-                    "CONFIDENCE": "89.44",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 63
                 },
                 {
@@ -17913,9 +17913,9 @@
                     "YCORD": "1620",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C",
-                    "CONFIDENCE": "89.38",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 67
                 },
                 {
@@ -18001,9 +18001,9 @@
                     "YCORD": "1781",
                     "WIDTH": "347",
                     "HEIGHT": "37",
-                    "FIELDDATA": "D",
-                    "CONFIDENCE": "89.17",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 75
                 },
                 {
@@ -25017,9 +25017,9 @@
                     "YCORD": "1856",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "67.74",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 19
                 },
                 {
@@ -25971,9 +25971,9 @@
                     "YCORD": "1856",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "64.75",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 19
                 },
                 {
@@ -26081,9 +26081,9 @@
                     "YCORD": "1657",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "55.56",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 29
                 },
                 {
@@ -26367,9 +26367,9 @@
                     "YCORD": "1779",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "C*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "54.42",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 55
                 },
                 {
@@ -26389,9 +26389,9 @@
                     "YCORD": "1819",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "60.41",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 57
                 },
                 {
@@ -26837,9 +26837,9 @@
                     "YCORD": "1697",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B",
-                    "CONFIDENCE": "87.66",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 11
                 },
                 {
@@ -26881,9 +26881,9 @@
                     "YCORD": "1777",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.81",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 15
                 },
                 {
@@ -26969,9 +26969,9 @@
                     "YCORD": "1936",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "77.5",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 23
                 },
                 {
@@ -28055,9 +28055,9 @@
                     "YCORD": "1778",
                     "WIDTH": "347",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*B",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "B",
+                    "CONFIDENCE": "67.62",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 35
                 },
                 {
@@ -28077,9 +28077,9 @@
                     "YCORD": "1818",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B",
-                    "CONFIDENCE": "88.59",
-                    "SUCCESS": "Y",
+                    "FIELDDATA": "",
+                    "CONFIDENCE": "",
+                    "SUCCESS": "N",
                     "SEQUENCE": 37
                 },
                 {
@@ -30337,9 +30337,9 @@
                     "YCORD": "1660",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "44.84",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 69
                 },
                 {
@@ -30381,9 +30381,9 @@
                     "YCORD": "1740",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "A*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "A",
+                    "CONFIDENCE": "56.69",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 73
                 },
                 {
@@ -30425,9 +30425,9 @@
                     "YCORD": "1821",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*D",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "D",
+                    "CONFIDENCE": "50.16",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 77
                 },
                 {
@@ -30513,9 +30513,9 @@
                     "YCORD": "1980",
                     "WIDTH": "347",
                     "HEIGHT": "37",
-                    "FIELDDATA": "B*C",
-                    "CONFIDENCE": "",
-                    "SUCCESS": "N",
+                    "FIELDDATA": "C",
+                    "CONFIDENCE": "48.58",
+                    "SUCCESS": "Y",
                     "SEQUENCE": 85
                 },
                 {

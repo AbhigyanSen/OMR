@@ -1,8 +1,7 @@
 .env/
-debugging/QWEN.txt
-Declutter/mapping_BE24-05-02 (old code)/
 
 # # For Now
 # *.jpg
 # *.jpeg
 # *.png
+*.zip 

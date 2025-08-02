@@ -60,8 +60,35 @@ def collect_icr_images(base_dir):
     return images_to_process, all_extracted_data
 
 
+# def call_icr_api(images_to_process, all_extracted_data):
+#     """Send each image to the ICR API and store extracted fields."""
+#     for image_path, image_name, category in images_to_process:
+#         print(f"\nProcessing: {image_name} | Category: {category}")
+#         try:
+#             with open(image_path, 'rb') as f:
+#                 content_type = 'image/png' if image_path.lower().endswith('.png') else 'image/jpeg'
+#                 files = {'image': (os.path.basename(image_path), f, content_type)}
+#                 data = {'category': category}
+
+#                 response = requests.post(API_URL, files=files, data=data)
+
+#                 if response.status_code == 200:
+#                     result = response.json()
+#                     value = result.get(category, "Error: Missing field in API response")
+#                     all_extracted_data[image_name][category] = value
+#                     print(f"  → Extracted: {value}")
+#                 else:
+#                     error = f"Error: {response.status_code}"
+#                     all_extracted_data[image_name][category] = error
+#                     print(f"  → API failure: {error}")
+
+#         except Exception as e:
+#             all_extracted_data[image_name][category] = f"Error: {str(e)}"
+#             print(f"  → Exception: {e}")
+#     return all_extracted_data
+
 def call_icr_api(images_to_process, all_extracted_data):
-    """Send each image to the ICR API and store extracted fields."""
+    """Send each image to the ICR API and store extracted fields with error codes."""
     for image_path, image_name, category in images_to_process:
         print(f"\nProcessing: {image_name} | Category: {category}")
         try:
@@ -77,16 +104,55 @@ def call_icr_api(images_to_process, all_extracted_data):
                     value = result.get(category, "Error: Missing field in API response")
                     all_extracted_data[image_name][category] = value
                     print(f"  → Extracted: {value}")
+
+                    # --- Error Detection for returned value ---
+                    if isinstance(value, str) and "error:" in value.lower():
+                        lower_val = value.lower()
+                        if "jsondecodeerror" in lower_val:
+                            error_code = "1"
+                        elif "connectionabortederror" in lower_val:
+                            error_code = "2"
+                        elif "httpconnectionpool" in lower_val:
+                            error_code = "3"
+                        else:
+                            error_code = "10"
+                        all_extracted_data[image_name]["ERROR"] = error_code
+
                 else:
-                    error = f"Error: {response.status_code}"
-                    all_extracted_data[image_name][category] = error
-                    print(f"  → API failure: {error}")
+                    error_msg = f"Error: {response.status_code}"
+                    all_extracted_data[image_name][category] = error_msg
+                    print(f"  → API failure: {error_msg}")
+
+                    # classify HTTP errors too
+                    lower_val = error_msg.lower()
+                    if "jsondecodeerror" in lower_val:
+                        error_code = "1"
+                    elif "connectionabortederror" in lower_val:
+                        error_code = "2"
+                    elif "httpconnectionpool" in lower_val:
+                        error_code = "3"
+                    else:
+                        error_code = "10"
+                    all_extracted_data[image_name]["ERROR"] = error_code
 
         except Exception as e:
-            all_extracted_data[image_name][category] = f"Error: {str(e)}"
+            error_msg = f"Error: {str(e)}"
+            all_extracted_data[image_name][category] = error_msg
             print(f"  → Exception: {e}")
-    return all_extracted_data
 
+            # classify Python exceptions
+            lower_val = str(e).lower()
+            if "jsondecodeerror" in lower_val:
+                error_code = "1"
+            elif "connectionabortederror" in lower_val:
+                error_code = "2"
+            elif "httpconnectionpool" in lower_val:
+                error_code = "3"
+            else:
+                error_code = "10"
+            all_extracted_data[image_name]["ERROR"] = error_code
+
+    return all_extracted_data
 
 def save_json(data, path):
     """Save dictionary as formatted JSON."""
@@ -181,7 +247,7 @@ def merge_icr_with_ed_results(icr_results, ed_json_path, ed_csv_path,
 #     except Exception as e:
 #         print(f"Failed to clean JSON: {e}")
 
-# Generate a generalized JSON file for the batch ---------------------------------------------------------
+# Generate a generalized JSON file for the batch ---------------------------------------------------------  
 def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output_path,
                                            key_fields_json=None, human_readable=True):
     # Load JSONs
@@ -198,7 +264,46 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
         img_name = os.path.splitext(os.path.basename(image["IMAGENAME"]))[0]
         icr_fields = icr_data.get(img_name, {})
 
+        # new_field_list = []
+        # for field in image["FIELDS"]:
+        #     # keep original field
+        #     new_field_list.append(copy.deepcopy(field))
+
+        #     # check if field name is one of our keys (like key0, key1...)
+        #     if field["FIELD"] in key_fields:
+        #         icr_field_name = key_fields[field["FIELD"]]
+        #         icr_value = icr_fields.get(icr_field_name, "")
+
+        #         # --- Error detection at field level ---
+        #         error_code = ""
+        #         if isinstance(icr_value, str) and "error:" in icr_value.lower():
+        #             lower_val = icr_value.lower()
+        #             if "jsondecodeerror" in lower_val:
+        #                 error_code = "1"
+        #             elif "connectionabortederror" in lower_val:
+        #                 error_code = "2"
+        #             elif "httpconnectionpool" in lower_val:
+        #                 error_code = "3"
+        #             else:
+        #                 error_code = "10"
+        #             icr_value = ""  # clear value if error
+
+        #         confidence = "100" if icr_value.strip() else ""
+        #         success = "Y" if confidence == "100" else "N"
+ 
+                # icr_field = copy.deepcopy(field)
+                # icr_field["FIELD"] = f"{field['FIELD']} ICR"
+                # icr_field["FIELDDATA"] = icr_value
+                # icr_field["CONFIDENCE"] = confidence
+                # icr_field["SUCCESS"] = success
+                # if error_code:  # only add if error exists
+                #     icr_field["ERROR"] = error_code
+
+                # new_field_list.append(icr_field)
+                
         new_field_list = []
+        error_code = ""
+
         for field in image["FIELDS"]:
             # keep original field
             new_field_list.append(copy.deepcopy(field))
@@ -206,53 +311,59 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
             # check if field name is one of our keys (like key0, key1...)
             if field["FIELD"] in key_fields:
                 icr_field_name = key_fields[field["FIELD"]]
-            #     icr_value = icr_fields.get(icr_field_name, "")
+                icr_value = icr_fields.get(icr_field_name, "")
 
-            #     confidence = "100" if icr_value and str(icr_value).strip() and "error" not in str(icr_value).lower() else ""
-            #     success = "Y" if confidence == "100" else "N"
+                # --- Error detection at field level ---
+                error_code = ""
+                if isinstance(icr_value, str) and "error:" in icr_value.lower():
+                    lower_val = icr_value.lower()
+                    if "jsondecodeerror" in lower_val:
+                        error_code = "1"
+                    elif "connectionabortederror" in lower_val:
+                        error_code = "2"
+                    elif "httpconnectionpool" in lower_val:
+                        error_code = "3"
+                    else:
+                        error_code = "10"
+                    icr_value = ""  # clear value if error
 
-            #     icr_field = copy.deepcopy(field)
-            #     icr_field["FIELD"] = f"{field['FIELD']} ICR"
-            #     icr_field["FIELDDATA"] = icr_value
-            #     icr_field["CONFIDENCE"] = confidence
-            #     icr_field["SUCCESS"] = success
-            #     new_field_list.append(icr_field)
-            
-            icr_value = icr_fields.get(icr_field_name, "")
+                confidence = "100" if icr_value.strip() else ""
+                success = "Y" if confidence == "100" else "N"
 
-            # --- Error Handling ---
-            if icr_value and "error" in str(icr_value).lower():
-                icr_value = ""  # Blank if error
+                icr_field = copy.deepcopy(field)
+                icr_field["FIELD"] = f"{field['FIELD']} ICR"
+                icr_field["FIELDDATA"] = icr_value
+                icr_field["CONFIDENCE"] = confidence
+                icr_field["SUCCESS"] = success
+                icr_field["ERRORICR"] = error_code  # <-- new key name
+                new_field_list.append(icr_field)
 
-            confidence = "100" if icr_value.strip() else ""
-            success = "Y" if confidence == "100" else "N"
+        # ------- Ensure all fields have ERRORICR -------
+        for f in new_field_list:
+            if "ERRORICR" not in f:
+                f["ERRORICR"] = ""  # default blank
 
-            icr_field = copy.deepcopy(field)
-            icr_field["FIELD"] = f"{field['FIELD']} ICR"
-            icr_field["FIELDDATA"] = icr_value
-            icr_field["CONFIDENCE"] = confidence
-            icr_field["SUCCESS"] = success
-            new_field_list.append(icr_field)
+        # update field sequence
+        for idx, f in enumerate(new_field_list, start=1):
+            f["SEQUENCE"] = idx
 
 
         # update field sequence
         for idx, f in enumerate(new_field_list, start=1):
             f["SEQUENCE"] = idx
 
-        # ------- Human Readable Conversion (New Block) -------
+        # ------- Human Readable Conversion -------
         if human_readable:
             for f in new_field_list:
                 original_name = f["FIELD"]
-                # For key fields
                 if original_name in key_fields:
                     f["FIELD"] = key_fields[original_name]
                 elif original_name.endswith(" ICR") and original_name[:-4] in key_fields:
                     f["FIELD"] = key_fields[original_name[:-4]] + " ICR"
-                # For question fields
                 elif original_name.startswith("question_"):
                     q_num = original_name.split("_")[1]
                     f["FIELD"] = f"Q{q_num}"
-        # ------------------------------------------------------
+        # ----------------------------------------
 
         image["FIELDS"] = new_field_list
 
@@ -261,6 +372,8 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
         json.dump(gen_data, f, indent=4)
 
     print(f"✅ Dynamic ICR keys merged{' with human-readable names' if human_readable else ''} and saved to {output_path}")
+
+
 
 
 # ---------------- Main Orchestration ---------------- #
@@ -282,7 +395,7 @@ def main():
     merge_icr_fields_with_generalized_json(
         base_json_path=os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
         icr_json_path=ICR_OUTPUT_JSON,
-        output_path=os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}_1.json"),
+        output_path=os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
         key_fields_json=os.path.join(base_folder, "Annotations", omr_template_name, "key_fields.json")
     )
 

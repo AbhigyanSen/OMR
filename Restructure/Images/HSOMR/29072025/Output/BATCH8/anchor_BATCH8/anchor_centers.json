@@ -1,0 +1,2162 @@
+{
+  "BATCH8001.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          107,
+          203
+        ],
+        "bbox": [
+          87,
+          182,
+          128,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1571,
+          207
+        ],
+        "bbox": [
+          1551,
+          186,
+          1592,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2159
+        ],
+        "bbox": [
+          87,
+          2139,
+          128,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1572,
+          2164
+        ],
+        "bbox": [
+          1552,
+          2143,
+          1592,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.1565,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8002.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          203
+        ],
+        "bbox": [
+          88,
+          182,
+          128,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          209
+        ],
+        "bbox": [
+          1552,
+          188,
+          1593,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          106,
+          2160
+        ],
+        "bbox": [
+          86,
+          2140,
+          127,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1571,
+          2165
+        ],
+        "bbox": [
+          1551,
+          2145,
+          1592,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.2348,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8003.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          106,
+          202
+        ],
+        "bbox": [
+          86,
+          182,
+          127,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1571,
+          208
+        ],
+        "bbox": [
+          1551,
+          187,
+          1592,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          104,
+          2159
+        ],
+        "bbox": [
+          84,
+          2139,
+          125,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1569,
+          2165
+        ],
+        "bbox": [
+          1549,
+          2144,
+          1590,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.2347,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8004.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          107,
+          202
+        ],
+        "bbox": [
+          87,
+          181,
+          128,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          208
+        ],
+        "bbox": [
+          1552,
+          187,
+          1593,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          104,
+          2158
+        ],
+        "bbox": [
+          84,
+          2138,
+          125,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1569,
+          2165
+        ],
+        "bbox": [
+          1549,
+          2144,
+          1590,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.2347,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8005.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          105,
+          204
+        ],
+        "bbox": [
+          85,
+          183,
+          126,
+          225
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1569,
+          208
+        ],
+        "bbox": [
+          1549,
+          187,
+          1590,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          105,
+          2161
+        ],
+        "bbox": [
+          85,
+          2141,
+          126,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1569,
+          2166
+        ],
+        "bbox": [
+          1549,
+          2145,
+          1590,
+          2187
+        ]
+      }
+    },
+    "skew_angle": 0.1565,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8006.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          205
+        ],
+        "bbox": [
+          88,
+          184,
+          129,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          208
+        ],
+        "bbox": [
+          1552,
+          187,
+          1593,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2161
+        ],
+        "bbox": [
+          87,
+          2140,
+          128,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1571,
+          2166
+        ],
+        "bbox": [
+          1551,
+          2145,
+          1592,
+          2187
+        ]
+      }
+    },
+    "skew_angle": 0.1174,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8007.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          203
+        ],
+        "bbox": [
+          88,
+          182,
+          129,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          207
+        ],
+        "bbox": [
+          1552,
+          186,
+          1593,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2161
+        ],
+        "bbox": [
+          87,
+          2140,
+          128,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1572,
+          2165
+        ],
+        "bbox": [
+          1552,
+          2144,
+          1593,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.1565,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8008.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          206
+        ],
+        "bbox": [
+          91,
+          185,
+          132,
+          227
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          211
+        ],
+        "bbox": [
+          1555,
+          190,
+          1596,
+          232
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          110,
+          2163
+        ],
+        "bbox": [
+          90,
+          2143,
+          131,
+          2184
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1575,
+          2168
+        ],
+        "bbox": [
+          1555,
+          2147,
+          1596,
+          2189
+        ]
+      }
+    },
+    "skew_angle": 0.1957,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8009.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          112,
+          202
+        ],
+        "bbox": [
+          92,
+          181,
+          133,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1576,
+          208
+        ],
+        "bbox": [
+          1556,
+          187,
+          1597,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2158
+        ],
+        "bbox": [
+          89,
+          2138,
+          129,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1573,
+          2166
+        ],
+        "bbox": [
+          1553,
+          2145,
+          1594,
+          2187
+        ]
+      }
+    },
+    "skew_angle": 0.2348,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8010.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          200
+        ],
+        "bbox": [
+          91,
+          179,
+          132,
+          221
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1576,
+          207
+        ],
+        "bbox": [
+          1556,
+          186,
+          1597,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          108,
+          2157
+        ],
+        "bbox": [
+          88,
+          2137,
+          129,
+          2178
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2164
+        ],
+        "bbox": [
+          1554,
+          2143,
+          1595,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.2738,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8011.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          202
+        ],
+        "bbox": [
+          91,
+          181,
+          132,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          208
+        ],
+        "bbox": [
+          1555,
+          187,
+          1596,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          108,
+          2158
+        ],
+        "bbox": [
+          88,
+          2138,
+          129,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1573,
+          2166
+        ],
+        "bbox": [
+          1553,
+          2145,
+          1594,
+          2187
+        ]
+      }
+    },
+    "skew_angle": 0.2348,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8012.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          113,
+          203
+        ],
+        "bbox": [
+          93,
+          182,
+          134,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1578,
+          211
+        ],
+        "bbox": [
+          1558,
+          190,
+          1599,
+          233
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2160
+        ],
+        "bbox": [
+          89,
+          2140,
+          129,
+          2181
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2168
+        ],
+        "bbox": [
+          1554,
+          2148,
+          1595,
+          2189
+        ]
+      }
+    },
+    "skew_angle": 0.3129,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8013.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          201
+        ],
+        "bbox": [
+          91,
+          180,
+          132,
+          222
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          208
+        ],
+        "bbox": [
+          1555,
+          187,
+          1596,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2158
+        ],
+        "bbox": [
+          87,
+          2138,
+          128,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1573,
+          2165
+        ],
+        "bbox": [
+          1553,
+          2144,
+          1594,
+          2186
+        ]
+      }
+    },
+    "skew_angle": 0.274,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8014.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          109,
+          202
+        ],
+        "bbox": [
+          89,
+          181,
+          130,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1573,
+          206
+        ],
+        "bbox": [
+          1553,
+          185,
+          1594,
+          228
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          106,
+          2157
+        ],
+        "bbox": [
+          86,
+          2137,
+          127,
+          2178
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1572,
+          2164
+        ],
+        "bbox": [
+          1552,
+          2143,
+          1593,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.1565,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8015.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          202
+        ],
+        "bbox": [
+          90,
+          181,
+          132,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          210
+        ],
+        "bbox": [
+          1555,
+          189,
+          1596,
+          232
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          106,
+          2159
+        ],
+        "bbox": [
+          86,
+          2139,
+          127,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1571,
+          2167
+        ],
+        "bbox": [
+          1551,
+          2146,
+          1592,
+          2188
+        ]
+      }
+    },
+    "skew_angle": 0.3131,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8016.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          109,
+          201
+        ],
+        "bbox": [
+          89,
+          181,
+          129,
+          222
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1573,
+          206
+        ],
+        "bbox": [
+          1553,
+          185,
+          1594,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2157
+        ],
+        "bbox": [
+          87,
+          2137,
+          128,
+          2178
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1572,
+          2164
+        ],
+        "bbox": [
+          1552,
+          2143,
+          1593,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.1957,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8017.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          199
+        ],
+        "bbox": [
+          91,
+          179,
+          132,
+          220
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1576,
+          206
+        ],
+        "bbox": [
+          1556,
+          185,
+          1597,
+          228
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          107,
+          2156
+        ],
+        "bbox": [
+          87,
+          2136,
+          128,
+          2177
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1572,
+          2164
+        ],
+        "bbox": [
+          1552,
+          2143,
+          1592,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.2738,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8018.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          200
+        ],
+        "bbox": [
+          88,
+          179,
+          129,
+          222
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          205
+        ],
+        "bbox": [
+          1552,
+          184,
+          1593,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          106,
+          2156
+        ],
+        "bbox": [
+          86,
+          2136,
+          127,
+          2177
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1571,
+          2162
+        ],
+        "bbox": [
+          1551,
+          2141,
+          1592,
+          2184
+        ]
+      }
+    },
+    "skew_angle": 0.1957,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8019.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          205
+        ],
+        "bbox": [
+          88,
+          184,
+          129,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          206
+        ],
+        "bbox": [
+          1552,
+          185,
+          1593,
+          228
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2160
+        ],
+        "bbox": [
+          89,
+          2140,
+          130,
+          2181
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2164
+        ],
+        "bbox": [
+          1554,
+          2143,
+          1595,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8020.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          105,
+          205
+        ],
+        "bbox": [
+          85,
+          185,
+          125,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1569,
+          205
+        ],
+        "bbox": [
+          1549,
+          184,
+          1590,
+          226
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2161
+        ],
+        "bbox": [
+          89,
+          2140,
+          130,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2163
+        ],
+        "bbox": [
+          1554,
+          2142,
+          1595,
+          2184
+        ]
+      }
+    },
+    "skew_angle": 0.0,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8021.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          117,
+          209
+        ],
+        "bbox": [
+          96,
+          188,
+          138,
+          230
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          209
+        ],
+        "bbox": [
+          1551,
+          188,
+          1593,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          119,
+          2152
+        ],
+        "bbox": [
+          99,
+          2132,
+          140,
+          2173
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2154
+        ],
+        "bbox": [
+          1554,
+          2133,
+          1595,
+          2175
+        ]
+      }
+    },
+    "skew_angle": 0.0,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8022.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          104,
+          201
+        ],
+        "bbox": [
+          84,
+          180,
+          125,
+          222
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1569,
+          202
+        ],
+        "bbox": [
+          1548,
+          181,
+          1590,
+          224
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          106,
+          2156
+        ],
+        "bbox": [
+          86,
+          2136,
+          127,
+          2177
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1571,
+          2160
+        ],
+        "bbox": [
+          1551,
+          2139,
+          1592,
+          2181
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8023.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          204
+        ],
+        "bbox": [
+          88,
+          184,
+          129,
+          225
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1573,
+          207
+        ],
+        "bbox": [
+          1553,
+          185,
+          1594,
+          229
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2160
+        ],
+        "bbox": [
+          89,
+          2139,
+          130,
+          2181
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2164
+        ],
+        "bbox": [
+          1554,
+          2143,
+          1595,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.1173,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8024.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          107,
+          203
+        ],
+        "bbox": [
+          87,
+          182,
+          128,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1571,
+          204
+        ],
+        "bbox": [
+          1551,
+          183,
+          1592,
+          226
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          109,
+          2159
+        ],
+        "bbox": [
+          89,
+          2139,
+          130,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1574,
+          2162
+        ],
+        "bbox": [
+          1554,
+          2141,
+          1595,
+          2183
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8025.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          107,
+          206
+        ],
+        "bbox": [
+          87,
+          185,
+          128,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          208
+        ],
+        "bbox": [
+          1552,
+          187,
+          1593,
+          230
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          110,
+          2162
+        ],
+        "bbox": [
+          90,
+          2142,
+          131,
+          2183
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1575,
+          2166
+        ],
+        "bbox": [
+          1555,
+          2145,
+          1596,
+          2187
+        ]
+      }
+    },
+    "skew_angle": 0.0782,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8026.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          113,
+          201
+        ],
+        "bbox": [
+          93,
+          180,
+          134,
+          222
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1578,
+          203
+        ],
+        "bbox": [
+          1558,
+          182,
+          1599,
+          225
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2157
+        ],
+        "bbox": [
+          93,
+          2136,
+          134,
+          2178
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2162
+        ],
+        "bbox": [
+          1558,
+          2141,
+          1599,
+          2183
+        ]
+      }
+    },
+    "skew_angle": 0.0782,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8027.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          108,
+          205
+        ],
+        "bbox": [
+          88,
+          184,
+          129,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1572,
+          206
+        ],
+        "bbox": [
+          1552,
+          185,
+          1593,
+          228
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          111,
+          2160
+        ],
+        "bbox": [
+          90,
+          2140,
+          132,
+          2181
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1576,
+          2164
+        ],
+        "bbox": [
+          1556,
+          2143,
+          1597,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8028.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          113,
+          204
+        ],
+        "bbox": [
+          93,
+          183,
+          133,
+          225
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1577,
+          205
+        ],
+        "bbox": [
+          1557,
+          184,
+          1598,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2158
+        ],
+        "bbox": [
+          92,
+          2138,
+          134,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2163
+        ],
+        "bbox": [
+          1558,
+          2142,
+          1599,
+          2184
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8029.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          112,
+          203
+        ],
+        "bbox": [
+          92,
+          182,
+          133,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1576,
+          206
+        ],
+        "bbox": [
+          1556,
+          185,
+          1597,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          111,
+          2158
+        ],
+        "bbox": [
+          91,
+          2138,
+          132,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1577,
+          2164
+        ],
+        "bbox": [
+          1557,
+          2143,
+          1598,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.1174,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8030.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          111,
+          205
+        ],
+        "bbox": [
+          91,
+          185,
+          132,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          205
+        ],
+        "bbox": [
+          1555,
+          184,
+          1596,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2159
+        ],
+        "bbox": [
+          93,
+          2139,
+          134,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2164
+        ],
+        "bbox": [
+          1558,
+          2143,
+          1598,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.0,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8031.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          110,
+          205
+        ],
+        "bbox": [
+          90,
+          185,
+          130,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1574,
+          205
+        ],
+        "bbox": [
+          1554,
+          184,
+          1595,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          111,
+          2159
+        ],
+        "bbox": [
+          91,
+          2139,
+          132,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1576,
+          2164
+        ],
+        "bbox": [
+          1556,
+          2143,
+          1597,
+          2185
+        ]
+      }
+    },
+    "skew_angle": 0.0,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8032.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          112,
+          202
+        ],
+        "bbox": [
+          92,
+          182,
+          133,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1577,
+          205
+        ],
+        "bbox": [
+          1557,
+          184,
+          1598,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2158
+        ],
+        "bbox": [
+          93,
+          2137,
+          133,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2162
+        ],
+        "bbox": [
+          1558,
+          2141,
+          1599,
+          2184
+        ]
+      }
+    },
+    "skew_angle": 0.1173,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8033.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          104,
+          206
+        ],
+        "bbox": [
+          84,
+          185,
+          125,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1569,
+          202
+        ],
+        "bbox": [
+          1549,
+          181,
+          1590,
+          224
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2161
+        ],
+        "bbox": [
+          93,
+          2140,
+          134,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2160
+        ],
+        "bbox": [
+          1558,
+          2139,
+          1599,
+          2181
+        ]
+      }
+    },
+    "skew_angle": -0.1564,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8034.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          106,
+          208
+        ],
+        "bbox": [
+          86,
+          187,
+          127,
+          229
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1571,
+          200
+        ],
+        "bbox": [
+          1550,
+          179,
+          1592,
+          222
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2159
+        ],
+        "bbox": [
+          93,
+          2139,
+          134,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2161
+        ],
+        "bbox": [
+          1558,
+          2140,
+          1599,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.3129,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8035.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          113,
+          201
+        ],
+        "bbox": [
+          93,
+          180,
+          134,
+          223
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1577,
+          206
+        ],
+        "bbox": [
+          1557,
+          184,
+          1598,
+          228
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          114,
+          2158
+        ],
+        "bbox": [
+          94,
+          2137,
+          135,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1578,
+          2162
+        ],
+        "bbox": [
+          1558,
+          2142,
+          1599,
+          2183
+        ]
+      }
+    },
+    "skew_angle": 0.1957,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8036.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          110,
+          205
+        ],
+        "bbox": [
+          90,
+          184,
+          131,
+          226
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          204
+        ],
+        "bbox": [
+          1555,
+          183,
+          1596,
+          226
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          114,
+          2159
+        ],
+        "bbox": [
+          94,
+          2139,
+          135,
+          2180
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1579,
+          2162
+        ],
+        "bbox": [
+          1559,
+          2141,
+          1600,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8037.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          113,
+          203
+        ],
+        "bbox": [
+          93,
+          182,
+          134,
+          224
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1577,
+          204
+        ],
+        "bbox": [
+          1557,
+          182,
+          1598,
+          226
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          113,
+          2158
+        ],
+        "bbox": [
+          93,
+          2137,
+          134,
+          2179
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1579,
+          2162
+        ],
+        "bbox": [
+          1559,
+          2142,
+          1600,
+          2183
+        ]
+      }
+    },
+    "skew_angle": 0.0391,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8038.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          106,
+          210
+        ],
+        "bbox": [
+          86,
+          189,
+          126,
+          231
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1570,
+          199
+        ],
+        "bbox": [
+          1550,
+          178,
+          1591,
+          221
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          116,
+          2161
+        ],
+        "bbox": [
+          96,
+          2141,
+          137,
+          2182
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1581,
+          2161
+        ],
+        "bbox": [
+          1561,
+          2140,
+          1602,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.4305,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8039.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          110,
+          207
+        ],
+        "bbox": [
+          90,
+          186,
+          131,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1575,
+          204
+        ],
+        "bbox": [
+          1554,
+          183,
+          1596,
+          226
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          115,
+          2160
+        ],
+        "bbox": [
+          95,
+          2140,
+          136,
+          2181
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1579,
+          2163
+        ],
+        "bbox": [
+          1559,
+          2142,
+          1600,
+          2184
+        ]
+      }
+    },
+    "skew_angle": -0.1173,
+    "valid_for_option_mapping": true
+  },
+  "BATCH8040.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          112,
+          210
+        ],
+        "bbox": [
+          91,
+          189,
+          133,
+          231
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1567,
+          205
+        ],
+        "bbox": [
+          1546,
+          184,
+          1588,
+          227
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          119,
+          2153
+        ],
+        "bbox": [
+          99,
+          2133,
+          140,
+          2174
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1575,
+          2152
+        ],
+        "bbox": [
+          1554,
+          2131,
+          1596,
+          2173
+        ]
+      }
+    },
+    "skew_angle": -0.1969,
+    "valid_for_option_mapping": true
+  }
+}

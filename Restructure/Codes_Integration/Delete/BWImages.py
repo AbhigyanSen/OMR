@@ -19,7 +19,7 @@ def convert_to_bw(image_path):
         print(f"Error converting {image_path}: {e}")
 
 # Path to the folder containing your images
-folder_path = r'D:\Projects\OMR\new_abhigyan\Restructure\Images\HSOMR\25072025\Output\BATCH05\processed_BATCH05'
+folder_path = r'P:\PROJECTS\OMR\Images\HSOMR\23072025\Input\Batch003'
 
 # Get a list of all files in the folder
 files = os.listdir(folder_path)

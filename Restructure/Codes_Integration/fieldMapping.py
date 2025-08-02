@@ -7,6 +7,7 @@ import re
 import sys
 import glob
 from collections import defaultdict
+from PIL import Image
 
 class OMRFieldMapper:
     def __init__(self, annotated_image_path, annotations_file, classes_path, 
@@ -230,7 +231,328 @@ class OMRFieldMapper:
 
         return round(angle_deg, 4)
 
-    def map_fields_and_visualize(self, image_path, output_dir, missing_fields_dir):
+    # def map_fields_and_visualize(self, image_path, output_dir, missing_fields_dir):
+    #     filename = os.path.basename(image_path)
+    #     image_data = self.all_image_anchor_data.get(filename)
+
+    #     if not image_data:
+    #         print(f"⚠️ No anchor data found for {filename}. Skipping field mapping.")
+    #         return {
+    #             "status": "skipped_no_anchor_data",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys()) # All fields are missing if no anchor data
+    #         }
+
+    #     if not image_data.get("valid_for_option_mapping", False):
+    #         print(f"⚠️ Image {filename} flagged as invalid for option mapping. Skipping field mapping.")
+    #         return {
+    #             "status": "skipped_invalid_for_option_mapping",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     print(f"Processing {filename} for field mapping...")
+    #     original_image = cv2.imread(image_path)
+    #     if original_image is None:
+    #         print(f"❌ Could not read image: {image_path}. Skipping.")
+    #         return {
+    #             "status": "skipped_image_read_error",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+        
+    #     if original_image.shape[1] != self.target_width or original_image.shape[0] != self.target_height:
+    #         original_image = cv2.resize(original_image, (self.target_width, self.target_height), interpolation=cv2.INTER_LINEAR)
+    #         print(f"Resized {filename} to {self.target_width}x{self.target_height} for consistency.")
+
+    #     detected_anchors_for_image = image_data.get("anchors", {})
+        
+    #     deskewed_image, M_transform, deskewed_width, deskewed_height = self.deskew_image(original_image.copy(), detected_anchors_for_image)
+        
+    #     anchor_1_class_id = self._get_class_id("anchor_1")
+    #     anchor_2_class_id = self._get_class_id("anchor_2")
+    #     anchor_3_class_id = self._get_class_id("anchor_3")
+
+    #     if not (self.reference_annotations.get(anchor_1_class_id) and 
+    #             self.reference_annotations.get(anchor_2_class_id) and
+    #             self.reference_annotations.get(anchor_3_class_id)):
+    #         print(f"❌ Reference anchor_1, anchor_2, or anchor_3 not found in annotations. Cannot map fields for {filename}.")
+    #         return {
+    #             "status": "skipped_ref_anchor_data_missing",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     ref_anchor_1_bbox = self.reference_annotations[anchor_1_class_id][0]
+    #     ref_anchor_1_center_x = (ref_anchor_1_bbox[0] + ref_anchor_1_bbox[2]) // 2
+    #     ref_anchor_1_center_y = (ref_anchor_1_bbox[1] + ref_anchor_1_bbox[3]) // 2
+
+    #     ref_anchor_2_bbox = self.reference_annotations[anchor_2_class_id][0]
+    #     ref_anchor_2_center_x = (ref_anchor_2_bbox[0] + ref_anchor_2_bbox[2]) // 2
+    #     ref_anchor_2_center_y = (ref_anchor_2_bbox[1] + ref_anchor_2_bbox[3]) // 2
+
+    #     ref_anchor_3_bbox = self.reference_annotations[anchor_3_class_id][0]
+    #     ref_anchor_3_center_x = (ref_anchor_3_bbox[0] + ref_anchor_3_bbox[2]) // 2
+    #     ref_anchor_3_center_y = (ref_anchor_3_bbox[1] + ref_anchor_3_bbox[3]) // 2
+
+    #     current_horizontal_dist = math.sqrt((ref_anchor_2_center_x - ref_anchor_1_center_x)**2 + 
+    #                                         (ref_anchor_2_center_y - ref_anchor_1_center_y)**2)
+    #     current_vertical_dist = math.sqrt((ref_anchor_3_center_x - ref_anchor_1_center_x)**2 + 
+    #                                       (ref_anchor_3_center_y - ref_anchor_1_center_y)**2)
+
+    #     if current_horizontal_dist == 0 or current_vertical_dist == 0:
+    #         print(f"❌ Current anchor distances are zero for {filename}. Cannot map fields accurately.")
+    #         return {
+    #             "status": "skipped_zero_current_anchor_dist",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     mapped_fields_data = {}
+    #     missing_fields = []
+    #     display_image = deskewed_image.copy() # Draw on the deskewed image
+
+    #     for unique_key, offset_data in self.relative_offsets.items():
+    #         # Reconstruct class name (e.g., 'question_1', '1A') from unique_key (e.g., 'question_1_0')
+    #         class_name_parts = unique_key.split('_')
+    #         if len(class_name_parts) > 1 and class_name_parts[-1].isdigit():
+    #             class_name = "_".join(class_name_parts[:-1])
+    #         else:
+    #             class_name = unique_key # Fallback if not in expected format
+
+    #         # Calculate new bbox coordinates on the deskewed image
+    #         # based on the reference anchor_1's *center* position and the scaled relative offsets.    # THE REASN FOR THE SHIFT
+    #         x1_mapped = ref_anchor_1_center_x + (offset_data["norm_dx"] * current_horizontal_dist)
+    #         y1_mapped = ref_anchor_1_center_y + (offset_data["norm_dy"] * current_vertical_dist)
+    #         width_mapped = offset_data["norm_width"] * current_horizontal_dist
+    #         height_mapped = offset_data["norm_height"] * current_vertical_dist
+    #         x2_mapped = x1_mapped + width_mapped
+    #         y2_mapped = y1_mapped + height_mapped
+
+    #         # # Prepare points for transform
+    #         # # --- First compute raw bbox based on relative offsets ---
+    #         # x1_raw = ref_anchor_1_center_x + (offset_data["norm_dx"] * current_horizontal_dist)
+    #         # y1_raw = ref_anchor_1_center_y + (offset_data["norm_dy"] * current_vertical_dist)
+    #         # width_raw = offset_data["norm_width"] * current_horizontal_dist
+    #         # height_raw = offset_data["norm_height"] * current_vertical_dist
+    #         # x2_raw = x1_raw + width_raw
+    #         # y2_raw = y1_raw + height_raw
+
+    #         # # --- Transform raw bbox points to deskewed space ---
+    #         # pts = np.array([[[x1_raw, y1_raw],
+    #         #                 [x2_raw, y1_raw],
+    #         #                 [x2_raw, y2_raw],
+    #         #                 [x1_raw, y2_raw]]], dtype="float32")
+
+    #         # transformed_pts = cv2.perspectiveTransform(pts, M_transform)
+
+    #         # # --- Get bounding box after transformation ---
+    #         # x_coords = transformed_pts[0][:, 0]
+    #         # y_coords = transformed_pts[0][:, 1]
+
+    #         # x1_mapped, y1_mapped = int(np.min(x_coords)), int(np.min(y_coords))
+    #         # x2_mapped, y2_mapped = int(np.max(x_coords)), int(np.max(y_coords))
+
+    #         # Ensure coordinates are within image bounds
+    #         x1_mapped = max(0, int(x1_mapped))
+    #         y1_mapped = max(0, int(y1_mapped))
+    #         x2_mapped = min(deskewed_width, int(x2_mapped))
+    #         y2_mapped = min(deskewed_height, int(y2_mapped))
+
+    #         if x1_mapped >= x2_mapped or y1_mapped >= y2_mapped:
+    #             print(f"⚠️ Mapped bbox for {unique_key} is invalid [{x1_mapped},{y1_mapped},{x2_mapped},{y2_mapped}]. Marking as missing.")
+    #             missing_fields.append(unique_key)
+    #             continue
+
+    #         mapped_fields_data[unique_key] = {
+    #             "bbox": [x1_mapped, y1_mapped, x2_mapped, y2_mapped],
+    #             "width": x2_mapped - x1_mapped,
+    #             "height": y2_mapped - y1_mapped
+    #         }
+            
+    #         # Visualize
+    #         color = (34, 139, 34) # Green for mapped fields
+    #         cv2.rectangle(display_image, (x1_mapped, y1_mapped), (x2_mapped, y2_mapped), color, 2)
+    #         # cv2.putText(display_image, class_name, (x1_mapped, y1_mapped - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+
+    #     # Save visualized image
+    #     output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
+    #     cv2.imwrite(output_image_path, display_image)
+    #     print(f"✅ Mapped image saved to {output_image_path}")
+
+    #     # Save missing fields to a text file
+    #     if missing_fields:
+    #         missing_file_path = os.path.join(missing_fields_dir, f"{os.path.splitext(filename)[0]}_missing_fields.txt")
+    #         with open(missing_file_path, 'w') as f:
+    #             for field in missing_fields:
+    #                 f.write(f"{field}\n")
+    #         print(f"⚠️ Missing fields for {filename} saved to {missing_file_path}")
+
+    #     return {
+    #         "status": "processed",
+    #         "mapped_fields": mapped_fields_data,
+    #         "missing_fields": missing_fields,
+    #         "deskewed_dimensions": [deskewed_width, deskewed_height]
+    #     }
+    
+    # def map_fields_and_visualize(self, image_path, output_dir, missing_fields_dir, raw_save_dir):
+    #     os.makedirs(raw_save_dir, exist_ok=True)
+    #     filename = os.path.basename(image_path)
+    #     image_data = self.all_image_anchor_data.get(filename)
+
+    #     if not image_data:
+    #         print(f"⚠️ No anchor data found for {filename}. Skipping field mapping.")
+    #         return {
+    #             "status": "skipped_no_anchor_data",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     if not image_data.get("valid_for_option_mapping", False):
+    #         print(f"⚠️ Image {filename} flagged as invalid for option mapping. Skipping field mapping.")
+    #         return {
+    #             "status": "skipped_invalid_for_option_mapping",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     print(f"Processing {filename} for field mapping...")
+    #     original_image = cv2.imread(image_path)
+    #     if original_image is None:
+    #         print(f"❌ Could not read image: {image_path}. Skipping.")
+    #         return {
+    #             "status": "skipped_image_read_error",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+        
+    #     # Resize for consistency
+    #     if original_image.shape[1] != self.target_width or original_image.shape[0] != self.target_height:
+    #         original_image = cv2.resize(original_image, (self.target_width, self.target_height), interpolation=cv2.INTER_LINEAR)
+    #         print(f"Resized {filename} to {self.target_width}x{self.target_height} for consistency.")
+
+    #     detected_anchors_for_image = image_data.get("anchors", {})
+
+    #     # Deskew image
+    #     deskewed_image, M_transform, deskewed_width, deskewed_height = self.deskew_image(
+    #         original_image.copy(), detected_anchors_for_image
+    #     )
+
+    #     # --- NEW: Transform anchor centers to deskewed coordinates ---
+    #     transformed_anchors = {}
+    #     if M_transform is not None and len(M_transform) == 3:  # perspective transform matrix
+    #         for name, anchor_data in detected_anchors_for_image.items():
+    #             if "center" in anchor_data:
+    #                 pt = np.array([[anchor_data["center"]]], dtype=np.float32)  # shape (1,1,2)
+    #                 transformed_pt = cv2.perspectiveTransform(pt, M_transform)[0][0]
+    #                 transformed_anchors[name] = {
+    #                     "center": (int(transformed_pt[0]), int(transformed_pt[1])),
+    #                     "bbox": anchor_data["bbox"]  # (optional) can also transform bbox corners if needed
+    #                 }
+    #     else:
+    #         transformed_anchors = detected_anchors_for_image
+
+    #     # --- Use transformed anchors for calculations ---
+    #     try:
+    #         anchor1_center = transformed_anchors["anchor_1"]["center"]
+    #         anchor2_center = transformed_anchors["anchor_2"]["center"]
+    #         anchor3_center = transformed_anchors["anchor_3"]["center"]
+    #     except KeyError:
+    #         print(f"❌ Required anchors missing after transformation for {filename}. Cannot map fields.")
+    #         return {
+    #             "status": "skipped_ref_anchor_data_missing",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     # Current scale
+    #     current_horizontal_dist = math.sqrt((anchor2_center[0] - anchor1_center[0])**2 +
+    #                                         (anchor2_center[1] - anchor1_center[1])**2)
+    #     current_vertical_dist = math.sqrt((anchor3_center[0] - anchor1_center[0])**2 +
+    #                                     (anchor3_center[1] - anchor1_center[1])**2)
+
+    #     if current_horizontal_dist == 0 or current_vertical_dist == 0:
+    #         print(f"❌ Current anchor distances are zero for {filename}. Cannot map fields accurately.")
+    #         return {
+    #             "status": "skipped_zero_current_anchor_dist",
+    #             "mapped_fields": {},
+    #             "missing_fields": list(self.relative_offsets.keys())
+    #         }
+
+    #     # Reference anchor center (from annotation reference)
+    #     anchor_1_class_id = self._get_class_id("anchor_1")
+    #     ref_anchor_1_bbox = self.reference_annotations[anchor_1_class_id][0]
+    #     ref_anchor_1_center_x = (ref_anchor_1_bbox[0] + ref_anchor_1_bbox[2]) // 2
+    #     ref_anchor_1_center_y = (ref_anchor_1_bbox[1] + ref_anchor_1_bbox[3]) // 2
+
+    #     mapped_fields_data = {}
+    #     missing_fields = []
+    #     display_image = deskewed_image.copy()
+
+    #     # --- Map each field based on relative offsets ---
+    #     for unique_key, offset_data in self.relative_offsets.items():
+    #         class_name_parts = unique_key.split('_')
+    #         if len(class_name_parts) > 1 and class_name_parts[-1].isdigit():
+    #             class_name = "_".join(class_name_parts[:-1])
+    #         else:
+    #             class_name = unique_key
+
+    #         # Calculate new bbox based on transformed anchors
+    #         x1_mapped = anchor1_center[0] + (offset_data["norm_dx"] * current_horizontal_dist)
+    #         y1_mapped = anchor1_center[1] + (offset_data["norm_dy"] * current_vertical_dist)
+    #         width_mapped = offset_data["norm_width"] * current_horizontal_dist
+    #         height_mapped = offset_data["norm_height"] * current_vertical_dist
+    #         x2_mapped = x1_mapped + width_mapped
+    #         y2_mapped = y1_mapped + height_mapped
+
+    #         # Ensure coordinates are within image bounds
+    #         x1_mapped = max(0, int(x1_mapped))
+    #         y1_mapped = max(0, int(y1_mapped))
+    #         x2_mapped = min(deskewed_width, int(x2_mapped))
+    #         y2_mapped = min(deskewed_height, int(y2_mapped))
+
+    #         if x1_mapped >= x2_mapped or y1_mapped >= y2_mapped:
+    #             print(f"⚠️ Mapped bbox for {unique_key} is invalid [{x1_mapped},{y1_mapped},{x2_mapped},{y2_mapped}]. Marking as missing.")
+    #             missing_fields.append(unique_key)
+    #             continue
+
+    #         mapped_fields_data[unique_key] = {
+    #             "bbox": [x1_mapped, y1_mapped, x2_mapped, y2_mapped],
+    #             "width": x2_mapped - x1_mapped,
+    #             "height": y2_mapped - y1_mapped
+    #         }
+
+    #         # Draw mapped field
+    #         color = (34, 139, 34)
+    #         cv2.rectangle(display_image, (x1_mapped, y1_mapped), (x2_mapped, y2_mapped), color, 2)
+
+    #     # --- SAVE RAW DESKEWED IMAGE ---
+    #     raw_output_path = os.path.join(raw_save_dir, f"{os.path.splitext(filename)[0]}.jpg")
+    #     cv2.imwrite(raw_output_path, deskewed_image)
+    #     print(f"✅ Raw deskewed image saved to {raw_output_path}")
+
+    #     # --- SAVE VISUALIZED IMAGE ---
+    #     output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}.jpg")
+    #     cv2.imwrite(output_image_path, display_image)
+    #     print(f"✅ Mapped image saved to {output_image_path}")
+
+    #     # Save missing fields
+    #     if missing_fields:
+    #         missing_file_path = os.path.join(missing_fields_dir, f"{os.path.splitext(filename)[0]}_missing_fields.txt")
+    #         with open(missing_file_path, 'w') as f:
+    #             for field in missing_fields:
+    #                 f.write(f"{field}\n")
+    #         print(f"⚠️ Missing fields for {filename} saved to {missing_file_path}")
+
+    #     return {
+    #         "status": "processed",
+    #         "mapped_fields": mapped_fields_data,
+    #         "missing_fields": missing_fields,
+    #         "deskewed_dimensions": [deskewed_width, deskewed_height]
+    #     }
+    
+    def map_fields_and_visualize(self, image_path, output_dir, missing_fields_dir, raw_save_dir):
+        os.makedirs(raw_save_dir, exist_ok=True)
         filename = os.path.basename(image_path)
         image_data = self.all_image_anchor_data.get(filename)
 
@@ -239,7 +561,7 @@ class OMRFieldMapper:
             return {
                 "status": "skipped_no_anchor_data",
                 "mapped_fields": {},
-                "missing_fields": list(self.relative_offsets.keys()) # All fields are missing if no anchor data
+                "missing_fields": list(self.relative_offsets.keys())
             }
 
         if not image_data.get("valid_for_option_mapping", False):
@@ -260,44 +582,50 @@ class OMRFieldMapper:
                 "missing_fields": list(self.relative_offsets.keys())
             }
         
+        # Resize for consistency
         if original_image.shape[1] != self.target_width or original_image.shape[0] != self.target_height:
             original_image = cv2.resize(original_image, (self.target_width, self.target_height), interpolation=cv2.INTER_LINEAR)
             print(f"Resized {filename} to {self.target_width}x{self.target_height} for consistency.")
 
         detected_anchors_for_image = image_data.get("anchors", {})
-        
-        deskewed_image, M_transform, deskewed_width, deskewed_height = self.deskew_image(original_image.copy(), detected_anchors_for_image)
-        
-        anchor_1_class_id = self._get_class_id("anchor_1")
-        anchor_2_class_id = self._get_class_id("anchor_2")
-        anchor_3_class_id = self._get_class_id("anchor_3")
 
-        if not (self.reference_annotations.get(anchor_1_class_id) and 
-                self.reference_annotations.get(anchor_2_class_id) and
-                self.reference_annotations.get(anchor_3_class_id)):
-            print(f"❌ Reference anchor_1, anchor_2, or anchor_3 not found in annotations. Cannot map fields for {filename}.")
+        # Deskew image
+        deskewed_image, M_transform, deskewed_width, deskewed_height = self.deskew_image(
+            original_image.copy(), detected_anchors_for_image
+        )
+
+        # --- Transform anchor centers to deskewed coordinates ---
+        transformed_anchors = {}
+        if M_transform is not None and len(M_transform) == 3:  # perspective transform matrix
+            for name, anchor_data in detected_anchors_for_image.items():
+                if "center" in anchor_data:
+                    pt = np.array([[anchor_data["center"]]], dtype=np.float32)  # shape (1,1,2)
+                    transformed_pt = cv2.perspectiveTransform(pt, M_transform)[0][0]
+                    transformed_anchors[name] = {
+                        "center": (int(transformed_pt[0]), int(transformed_pt[1])),
+                        "bbox": anchor_data["bbox"]
+                    }
+        else:
+            transformed_anchors = detected_anchors_for_image
+
+        # --- Use transformed anchors for calculations ---
+        try:
+            anchor1_center = transformed_anchors["anchor_1"]["center"]
+            anchor2_center = transformed_anchors["anchor_2"]["center"]
+            anchor3_center = transformed_anchors["anchor_3"]["center"]
+        except KeyError:
+            print(f"❌ Required anchors missing after transformation for {filename}. Cannot map fields.")
             return {
                 "status": "skipped_ref_anchor_data_missing",
                 "mapped_fields": {},
                 "missing_fields": list(self.relative_offsets.keys())
             }
 
-        ref_anchor_1_bbox = self.reference_annotations[anchor_1_class_id][0]
-        ref_anchor_1_center_x = (ref_anchor_1_bbox[0] + ref_anchor_1_bbox[2]) // 2
-        ref_anchor_1_center_y = (ref_anchor_1_bbox[1] + ref_anchor_1_bbox[3]) // 2
-
-        ref_anchor_2_bbox = self.reference_annotations[anchor_2_class_id][0]
-        ref_anchor_2_center_x = (ref_anchor_2_bbox[0] + ref_anchor_2_bbox[2]) // 2
-        ref_anchor_2_center_y = (ref_anchor_2_bbox[1] + ref_anchor_2_bbox[3]) // 2
-
-        ref_anchor_3_bbox = self.reference_annotations[anchor_3_class_id][0]
-        ref_anchor_3_center_x = (ref_anchor_3_bbox[0] + ref_anchor_3_bbox[2]) // 2
-        ref_anchor_3_center_y = (ref_anchor_3_bbox[1] + ref_anchor_3_bbox[3]) // 2
-
-        current_horizontal_dist = math.sqrt((ref_anchor_2_center_x - ref_anchor_1_center_x)**2 + 
-                                            (ref_anchor_2_center_y - ref_anchor_1_center_y)**2)
-        current_vertical_dist = math.sqrt((ref_anchor_3_center_x - ref_anchor_1_center_x)**2 + 
-                                          (ref_anchor_3_center_y - ref_anchor_1_center_y)**2)
+        # Current scale
+        current_horizontal_dist = math.sqrt((anchor2_center[0] - anchor1_center[0])**2 +
+                                            (anchor2_center[1] - anchor1_center[1])**2)
+        current_vertical_dist = math.sqrt((anchor3_center[0] - anchor1_center[0])**2 +
+                                        (anchor3_center[1] - anchor1_center[1])**2)
 
         if current_horizontal_dist == 0 or current_vertical_dist == 0:
             print(f"❌ Current anchor distances are zero for {filename}. Cannot map fields accurately.")
@@ -309,20 +637,12 @@ class OMRFieldMapper:
 
         mapped_fields_data = {}
         missing_fields = []
-        display_image = deskewed_image.copy() # Draw on the deskewed image
+        display_image = deskewed_image.copy()
 
+        # --- Map each field based on relative offsets ---
         for unique_key, offset_data in self.relative_offsets.items():
-            # Reconstruct class name (e.g., 'question_1', '1A') from unique_key (e.g., 'question_1_0')
-            class_name_parts = unique_key.split('_')
-            if len(class_name_parts) > 1 and class_name_parts[-1].isdigit():
-                class_name = "_".join(class_name_parts[:-1])
-            else:
-                class_name = unique_key # Fallback if not in expected format
-
-            # Calculate new bbox coordinates on the deskewed image
-            # based on the reference anchor_1's *center* position and the scaled relative offsets.
-            x1_mapped = ref_anchor_1_center_x + (offset_data["norm_dx"] * current_horizontal_dist)
-            y1_mapped = ref_anchor_1_center_y + (offset_data["norm_dy"] * current_vertical_dist)
+            x1_mapped = anchor1_center[0] + (offset_data["norm_dx"] * current_horizontal_dist)
+            y1_mapped = anchor1_center[1] + (offset_data["norm_dy"] * current_vertical_dist)
             width_mapped = offset_data["norm_width"] * current_horizontal_dist
             height_mapped = offset_data["norm_height"] * current_vertical_dist
             x2_mapped = x1_mapped + width_mapped
@@ -344,18 +664,24 @@ class OMRFieldMapper:
                 "width": x2_mapped - x1_mapped,
                 "height": y2_mapped - y1_mapped
             }
-            
-            # Visualize
-            color = (34, 139, 34) # Green for mapped fields
-            cv2.rectangle(display_image, (x1_mapped, y1_mapped), (x2_mapped, y2_mapped), color, 2)
-            # cv2.putText(display_image, class_name, (x1_mapped, y1_mapped - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
 
-        # Save visualized image
-        output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
+            # Draw mapped field
+            color = (34, 139, 34)
+            cv2.rectangle(display_image, (x1_mapped, y1_mapped), (x2_mapped, y2_mapped), color, 2)
+
+        # --- SAVE RAW DESKEWED IMAGE ---
+        # raw_output_path = os.path.join(raw_save_dir, f"{os.path.splitext(filename)[0]}_raw.jpg")
+        raw_output_path = os.path.join(raw_save_dir, filename)
+        cv2.imwrite(raw_output_path, deskewed_image)
+        print(f"✅ Raw deskewed image saved to {raw_output_path}")
+
+        # --- SAVE VISUALIZED IMAGE ---
+        # output_image_path = os.path.join(output_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
+        output_image_path = os.path.join(output_dir, filename)
         cv2.imwrite(output_image_path, display_image)
         print(f"✅ Mapped image saved to {output_image_path}")
 
-        # Save missing fields to a text file
+        # Save missing fields
         if missing_fields:
             missing_file_path = os.path.join(missing_fields_dir, f"{os.path.splitext(filename)[0]}_missing_fields.txt")
             with open(missing_file_path, 'w') as f:
@@ -368,20 +694,90 @@ class OMRFieldMapper:
             "mapped_fields": mapped_fields_data,
             "missing_fields": missing_fields,
             "deskewed_dimensions": [deskewed_width, deskewed_height]
+            # "deskewed_image": deskewed_image  # <-- return image directly
         }
         
-    def save_cropped_fields(self, deskewed_image, mapped_fields, output_base_dir, image_filename, target_field_names, key_field_mapping):
+    # def save_cropped_fields(self, deskewed_image, mapped_fields, output_base_dir, image_filename, target_field_names, key_field_mapping):
+    #     """
+    #     Saves cropped images only for exact key fields (e.g., key0, key1)
+    #     and names folders based on the actual field names from key_fields.json.
+
+    #     Args:
+    #         target_field_names: list of keys like ["key0", "key1"]
+    #         key_field_mapping: dict like {"key0": "Roll Number", "key1": "Question Booklet Number"}
+    #     """
+    #     for key, data in mapped_fields.items():
+    #         if key in target_field_names:
+    #             x1, y1, x2, y2 = data["bbox"]
+    #             cropped = deskewed_image[y1:y2, x1:x2]
+
+    #             # Use actual field name from JSON mapping (fallback to key if missing)
+    #             folder_name = key_field_mapping.get(key, key)
+    #             field_folder = os.path.join(output_base_dir, folder_name)
+    #             os.makedirs(field_folder, exist_ok=True)
+
+    #             save_name = os.path.splitext(image_filename)[0] + ".jpg"
+    #             save_path = os.path.join(field_folder, save_name)
+
+    #             cv2.imwrite(save_path, cropped)
+    #             print(f"🖼️ Saved cropped field: {folder_name} → {save_path}")
+
+    # def save_cropped_fields(self, deskewed_image, mapped_fields, output_base_dir, image_filename, target_field_names, key_field_mapping):
+    #     """
+    #     Saves cropped images only for exact key fields (e.g., key0, key1)
+    #     and names folders based on the actual field names from key_fields.json.
+    #     """
+    #     if deskewed_image is None:
+    #         print(f"❌ Deskewed image is None for {image_filename}, skipping crops.")
+    #         return
+
+    #     for key, data in mapped_fields.items():
+    #         if key in target_field_names:
+    #             x1, y1, x2, y2 = data["bbox"]
+
+    #             # Ensure bbox is within image bounds
+    #             h, w = deskewed_image.shape[:2]
+    #             x1, y1, x2, y2 = max(0, x1), max(0, y1), min(w, x2), min(h, y2)
+    #             if x2 <= x1 or y2 <= y1:
+    #                 print(f"⚠️ Skipping invalid bbox for {key}")
+    #                 continue
+
+    #             cropped = deskewed_image[y1:y2, x1:x2]
+
+    #             # Use actual field name from JSON mapping (fallback to key if missing)
+    #             folder_name = key_field_mapping.get(key, key)
+    #             field_folder = os.path.join(output_base_dir, folder_name)
+    #             os.makedirs(field_folder, exist_ok=True)
+
+    #             save_name = os.path.splitext(image_filename)[0] + ".jpg"
+    #             save_path = os.path.join(field_folder, save_name)
+
+    #             cv2.imwrite(save_path, cropped)
+    #             print(f"🖼️ Saved cropped field: {folder_name} → {save_path}")
+    
+    def save_cropped_fields(self, deskewed_image_path, mapped_fields, output_base_dir, image_filename, target_field_names, key_field_mapping):
         """
         Saves cropped images only for exact key fields (e.g., key0, key1)
         and names folders based on the actual field names from key_fields.json.
-
-        Args:
-            target_field_names: list of keys like ["key0", "key1"]
-            key_field_mapping: dict like {"key0": "Roll Number", "key1": "Question Booklet Number"}
+        Loads deskewed image directly from disk.
         """
+        # Load deskewed image from disk
+        deskewed_image = cv2.imread(deskewed_image_path)
+        if deskewed_image is None:
+            print(f"❌ Could not read deskewed image from {deskewed_image_path}, skipping crops.")
+            return
+
         for key, data in mapped_fields.items():
             if key in target_field_names:
                 x1, y1, x2, y2 = data["bbox"]
+
+                # Ensure bbox is within image bounds
+                h, w = deskewed_image.shape[:2]
+                x1, y1, x2, y2 = max(0, x1), max(0, y1), min(w, x2), min(h, y2)
+                if x2 <= x1 or y2 <= y1:
+                    print(f"⚠️ Skipping invalid bbox for {key}")
+                    continue
+
                 cropped = deskewed_image[y1:y2, x1:x2]
 
                 # Use actual field name from JSON mapping (fallback to key if missing)
@@ -394,7 +790,7 @@ class OMRFieldMapper:
 
                 cv2.imwrite(save_path, cropped)
                 print(f"🖼️ Saved cropped field: {folder_name} → {save_path}")
-                
+
 def get_annotation_files(annotations_dir):
     # --- Validate base folder ---
     if not os.path.isdir(annotations_dir):
@@ -517,7 +913,39 @@ def generate_generalized_json(base_json_path, mapper_json_path, output_path, key
         json.dump(base_data, f, indent=2)
 
     print(f"Updated Gerneralised JSON saved to: {output_path}")
-    
+
+def convert_images_to_bw(raw_save_dir, threshold=100):
+    """
+    Convert all images in the specified folder to pure black and white.
+
+    :param raw_save_dir: Path to the folder containing images.
+    :param threshold: Pixel intensity threshold (default is 100).
+    """
+    # Get all files in the folder
+    try:
+        files = os.listdir(raw_save_dir)
+    except Exception as e:
+        print(f"Error accessing folder {raw_save_dir}: {e}")
+        return
+
+    # Process each file
+    for file in files:
+        if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+            image_path = os.path.join(raw_save_dir, file)
+            try:
+                with Image.open(image_path) as img:
+                    # Convert to grayscale first
+                    gray_img = img.convert("L")
+                    
+                    # Apply threshold
+                    bw_img = gray_img.point(lambda x: 255 if x > threshold else 0, '1')
+                    
+                    # Save over the original image
+                    bw_img.save(image_path)
+                    # print(f"Converted {file} to pure black & white.")
+            except Exception as e:
+                print(f"Error converting {file}: {e}")   
+                
 
 # Main execution
 if __name__ == "__main__":
@@ -525,11 +953,11 @@ if __name__ == "__main__":
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
 
     # omr_template_name = "HSOMR"
-    # date = "23072025"
-    # batch_name = "Batch003"   
-    # Expect arguments: omr_template_name, date, batch_name
+    # date = "31072025"
+    # batch_name = "BATCH018"   
+    # # Expect arguments: omr_template_name, date, batch_name
     
-    # # Inputs from Command Line
+    # Inputs from Command Line
     if len(sys.argv) != 4:
         print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
         sys.exit(1)
@@ -537,6 +965,7 @@ if __name__ == "__main__":
     omr_template_name, date, batch_name = sys.argv[1:4]
     
     processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"processed_{batch_name}") # Images processed by previous script
+    raw_save_dir = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"raw_{batch_name}")
     
     # Original annotation reference files
     # annotations_file = os.path.join(base_folder, "Annotations", omr_template_name, "labels", "5b87155d-Batch001003.txt")
@@ -593,7 +1022,8 @@ if __name__ == "__main__":
                 
                 image_path=image_path,
                 output_dir=output_images_dir,
-                missing_fields_dir=missing_fields_log_dir
+                missing_fields_dir=missing_fields_log_dir,
+                raw_save_dir=raw_save_dir
             )
             all_image_field_data[filename] = field_data
             
@@ -601,8 +1031,10 @@ if __name__ == "__main__":
             # Save crops for ICR if mapping was successful
             if field_data["status"] == "processed":
                 icr_output_dir = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, mapping_output_folder_name, "ICR")
-                deskewed_img_path = os.path.join(output_images_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
-                deskewed_image = cv2.imread(deskewed_img_path)
+                # deskewed_img_path = os.path.join(output_images_dir, f"{os.path.splitext(filename)[0]}_mapped.jpg")
+                # deskewed_image = cv2.imread(deskewed_img_path)
+                # deskewed_image = field_data.get("deskewed_image")  # Get the deskewed image directly from the mapping result
+                deskewed_image_path = os.path.join(raw_save_dir, filename)
 
                 # mapper.save_cropped_fields(
                 #     deskewed_image=deskewed_image,
@@ -618,16 +1050,26 @@ if __name__ == "__main__":
 
                 target_field_names = list(key_field_mapping.keys())  # ["key0", "key1"]
 
+                # mapper.save_cropped_fields(
+                #     deskewed_image=deskewed_image,
+                #     mapped_fields=field_data["mapped_fields"],
+                #     output_base_dir=icr_output_dir,
+                #     image_filename=filename,
+                #     target_field_names=target_field_names,  # <-- new argument for dynamic classes
+                #     key_field_mapping=key_field_mapping  # <-- new argument for dynamic ICR folders
+                # )
+                
                 mapper.save_cropped_fields(
-                    deskewed_image=deskewed_image,
+                    deskewed_image_path=deskewed_image_path,
                     mapped_fields=field_data["mapped_fields"],
                     output_base_dir=icr_output_dir,
                     image_filename=filename,
-                    target_field_names=target_field_names,  # <-- new argument for dynamic classes
-                    key_field_mapping=key_field_mapping  # <-- new argument for dynamic ICR folders
+                    target_field_names=target_field_names,
+                    key_field_mapping=key_field_mapping
                 )
+                                
             print(f"--- Finished field mapping for {filename} ---")
-
+            
     # Save all collected field data to a single JSON file
     json_output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, mapping_output_folder_name, "field_mappings.json")
     with open(json_output_path, 'w') as f:
@@ -640,3 +1082,5 @@ if __name__ == "__main__":
         output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"),
         key_fields_json_path=key_fields_json_path
     )
+
+    convert_images_to_bw(raw_save_dir)

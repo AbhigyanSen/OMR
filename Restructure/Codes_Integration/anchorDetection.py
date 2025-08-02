@@ -341,11 +341,11 @@ if __name__ == "__main__":
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
     
     # omr_template_name = "HSOMR"
-    # date = "23072025"
-    # batch_name = "Batch003"   
+    # date = "31072025"
+    # batch_name = "BATCH018"   
     # Expect arguments: omr_template_name, date, batch_name
     
-    # # Inputs from Command Line
+    # Inputs from Command Line
     if len(sys.argv) != 4:
         print("Usage: python AnchorDetection.py <omr_template_name> <date> <batch_name>")
         sys.exit(1)

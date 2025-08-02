@@ -1,0 +1,182 @@
+{
+    "Batch001001": {
+        "Question Booklet Number": "00-5813902",
+        "Registration Number": "3470072101",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEDA30>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001002": {
+        "Question Booklet Number": "01-5268102",
+        "Registration Number": "5681920516",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEE390>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001003": {
+        "Question Booklet Number": "13-985321",
+        "Registration Number": "9143433707",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1134350>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001004": {
+        "Question Booklet Number": "47-3498177",
+        "Registration Number": "2226410107",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABEBA0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001005": {
+        "Question Booklet Number": "47-2537802",
+        "Registration Number": "6749228764",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABFFE0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001006": {
+        "Question Booklet Number": "15-9855100",
+        "Registration Number": "4330058921",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABDA00>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001007": {
+        "Question Booklet Number": "65-2016122",
+        "Registration Number": "621200368",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEE030>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001008": {
+        "Question Booklet Number": "09-2203911",
+        "Registration Number": "3082194037",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEC4D0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001009": {
+        "Question Booklet Number": "03-1001014",
+        "Registration Number": "950028307",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197EEEC9BE0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001010": {
+        "Question Booklet Number": "77-1179395",
+        "Registration Number": "0003478129",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABE1B0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001011": {
+        "Question Booklet Number": "34-1228349",
+        "Registration Number": "4312779751",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABFF20>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001012": {
+        "Question Booklet Number": "24-6811849",
+        "Registration Number": "2860419348",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABDD30>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001013": {
+        "Question Booklet Number": "01-1210001",
+        "Registration Number": "2514421921",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEC920>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001014": {
+        "Question Booklet Number": "12-1100010",
+        "Registration Number": "1210044960",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEDD90>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001015": {
+        "Question Booklet Number": "52-3492191",
+        "Registration Number": "2831475312",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1160C50>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001016": {
+        "Question Booklet Number": "10-0203457",
+        "Registration Number": "2350012870",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABD9A0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001017": {
+        "Question Booklet Number": "65-2247899",
+        "Registration Number": "4521035112",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABF080>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001018": {
+        "Question Booklet Number": "15-0951638",
+        "Registration Number": "6301245601",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABE6F0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001019": {
+        "Question Booklet Number": "66-3155425",
+        "Registration Number": "25165048",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEDCD0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001020": {
+        "Question Booklet Number": "66-3155424",
+        "Registration Number": "25165047F",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEC920>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001021": {
+        "Question Booklet Number": "59-6230054",
+        "Registration Number": "3254172212",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEE4B0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001022": {
+        "Question Booklet Number": "25-1035367",
+        "Registration Number": "6532101488",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABE390>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001023": {
+        "Question Booklet Number": "71-3455782",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABEAE0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABF920>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001024": {
+        "Question Booklet Number": "56-2090962",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABFD10>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABDC70>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001025": {
+        "Question Booklet Number": "56-0342934",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEC680>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEE540>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001026": {
+        "Question Booklet Number": "39-4203842",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AECFE0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEC4A0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001027": {
+        "Question Booklet Number": "52-3259628",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AED910>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AEE6F0>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001028": {
+        "Question Booklet Number": "00-2134721",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x00000197F1ABD8B0>: Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABF860>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001029": {
+        "Question Booklet Number": "15-0216463",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABE120>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABF200>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    },
+    "Batch001030": {
+        "Question Booklet Number": "67-2436788",
+        "Registration Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1AECA70>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "Roll Number": "Error: HTTPConnectionPool(host='10.4.1.66', port=8003): Max retries exceeded with url: /predict (Caused by ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x00000197F1ABE960>, 'Connection to 10.4.1.66 timed out. (connect timeout=None)'))",
+        "ERROR": "3"
+    }
+}

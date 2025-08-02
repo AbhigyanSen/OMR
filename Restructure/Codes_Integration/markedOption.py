@@ -2,12 +2,10 @@ import os
 import cv2
 import json
 import numpy as np
-from PIL import Image
 import csv
 import re
 import pandas as pd
 import sys
-
 from collections import defaultdict
 
 def get_digits_count(classes_file):
@@ -28,26 +26,9 @@ def is_filled_option(image, bbox, threshold=100):
     roi = image[y1:y2, x1:x2]
     if roi.size == 0:
         return False, 255
-
-    # Convert OpenCV ROI (BGR) → PIL image
-    pil_img = Image.fromarray(cv2.cvtColor(roi, cv2.COLOR_BGR2RGB))
-
-    # Convert to grayscale
-    gray_img = pil_img.convert("L")
-
-    # Apply threshold (Pillow logic)
-    bw_img = gray_img.point(lambda x: 255 if x > 128 else 0, "1")
-
-    # Convert back to NumPy for intensity analysis
-    bw_array = np.array(bw_img, dtype=np.uint8) * 255  # "1" mode → {0,1}, scale to 0/255
-
-    # Invert so filled (black) becomes white for easier detection
-    bw_inverted = cv2.bitwise_not(bw_array)
-
-    # Mean intensity of filled region
-    mean_intensity = np.mean(bw_inverted)
-
-    return mean_intensity > threshold, mean_intensity
+    gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+    mean_intensity = np.mean(gray)
+    return mean_intensity < threshold, mean_intensity
 
 def extract_question_id(label):
     match = re.match(r"(\d{1,2})([a-d])", label.lower())
@@ -465,27 +446,10 @@ def export_verification_csv(option_score_map, verification_csv_path, key_fields_
 #             writer.writerow(row)
 #     print(f"📝 Human-readable CSV saved to: {human_csv_path}")
     
-    
-def evaluate_edge_cases(
-    verification_csv_path,
-    edge_json_path,
-    edge_csv_path,
-    key_fields_json,
-    classes_file,
-    close_diff=5
-):
-    """
-    Corrected logic:
-        - Lower value => more marked.
-        - Choose lowest option(s).
-        - If multiple within close_diff => mark all.
-        - If all scores >50 => treat as blank.
-    """
-    import json, csv, os, re
-    import pandas as pd
-    from collections import defaultdict
 
-    # ---- Load key field names ----
+def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path, key_fields_json, classes_file):
+
+    # ---- Load keys ----
     with open(key_fields_json, "r") as f:
         key_fields = json.load(f)
     with open(classes_file, "r") as f:
@@ -525,31 +489,64 @@ def evaluate_edge_cases(
             digits.append(selected_digit)
         return ''.join(digits)
 
-    def detect_marked_options_dynamic(option_scores):
-        # lowest score = darkest bubble = marked
-        min_score = min(option_scores.values())
-        if min_score > 50:  # all bubbles mostly white -> treat as blank
-            return []
-        return [opt for opt, score in option_scores.items() if abs(score - min_score) <= close_diff]
-
     # ---- Process each row ----
-    for _, row in df.iterrows():
+    for idx, row in df.iterrows():
         image_name = row["Image Name"]
         result_data[image_name] = {}
 
+        # # ---- Questions (new logic based on mean intensity) ----
+        # for qid in question_ids:
+        #     marked_options = []
+        #     for opt in ['A', 'B', 'C', 'D']:
+        #         mean_col = f"{qid}{opt}"  # mean intensity column
+        #         if mean_col in row:
+        #             try:
+        #                 mean_val = float(row[mean_col])
+        #                 # Apply new intensity-based logic
+        #                 if mean_val < 185:
+        #                     marked_options.append(opt)  # fully marked
+        #                 elif 185 <= mean_val <= 242:
+        #                     marked_options.append(opt)  # partially marked
+        #                 # else > 242 → unmarked (ignore)
+        #             except:
+        #                 continue
+
+        #     if len(marked_options) == 0:
+        #         result_data[image_name][f"Q{qid}"] = ""
+        #     elif len(marked_options) == 1:
+        #         result_data[image_name][f"Q{qid}"] = marked_options[0]
+        #     else:
+        #         result_data[image_name][f"Q{qid}"] = "*".join(marked_options)
+
+        # # ---- Questions (new logic based on mean intensity) ----        
         for qid in question_ids:
-            option_scores = {}
+            fully_marked = []
+            partially_marked = []
             for opt in ['A', 'B', 'C', 'D']:
-                col = f"Result {qid}{opt}"
-                if col in row:
+                mean_col = f"{qid}{opt}"
+                if mean_col in row:
                     try:
-                        option_scores[opt] = float(row[col])
+                        mean_val = float(row[mean_col])
+                        if mean_val < 185:         # fully marked
+                            fully_marked.append(opt)
+                        elif 185 <= mean_val <= 242:  # partially marked
+                            partially_marked.append(opt)
                     except:
-                        option_scores[opt] = 100.0
+                        continue
 
-            marked_options = detect_marked_options_dynamic(option_scores)
-            result_data[image_name][f"Q{qid}"] = "*".join(marked_options) if marked_options else ""
+            if len(fully_marked) == 1 and len(partially_marked) == 0:
+                result_data[image_name][f"Q{qid}"] = fully_marked[0]
+            elif len(fully_marked) > 1 or (fully_marked and partially_marked):
+                result_data[image_name][f"Q{qid}"] = "*"   # conflict (multi-mark or partial+full)
+            elif len(fully_marked) == 0 and len(partially_marked) == 1:
+                result_data[image_name][f"Q{qid}"] = "?"   # only one partial
+            elif len(fully_marked) == 0 and len(partially_marked) > 1:
+                result_data[image_name][f"Q{qid}"] = "*"   # multiple partials
+            else:
+                result_data[image_name][f"Q{qid}"] = ""    # nothing marked
 
+
+        # ---- Dynamic keys ----
         for key_name, human_name in key_fields.items():
             digit_count = key_digit_counts.get(key_name, 0)
             if digit_count > 0:
@@ -572,7 +569,7 @@ def evaluate_edge_cases(
             row = [image_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(k, "") for k in key_columns]
             writer.writerow(row)
     print(f"📄 Edge results saved to CSV: {edge_csv_path}")
-
+    
     # ---------- POST-PROCESS: Human-readable ----------
     human_result_data = {}
     for img, data in result_data.items():
@@ -593,7 +590,6 @@ def evaluate_edge_cases(
             row = [img_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(key_fields[k], "") for k in key_columns]
             writer.writerow(row)
     print(f"📝 Human-readable CSV saved to: {human_csv_path}")
-
 
 # Generate a generalized JSON file for the batch ---------------------------------------------------------
 def generate_generalized_json(base_json_path, ed_results_json, verification_csv_path, generalized_json_path, key_fields_json, classes_file):
@@ -653,6 +649,85 @@ def generate_generalized_json(base_json_path, ed_results_json, verification_csv_
         json.dump(code2_data, f, indent=4)
 
     print(f"✅ Generalized JSON saved at {generalized_json_path}")
+    
+import os
+import json
+import cv2
+import pandas as pd
+import re
+
+def draw_marked_bboxes(processed_images_folder, verification_csv_path, field_mappings, output_folder):
+    """
+    Draw bounding boxes for marked options on OMR images.
+
+    Green -> Fully marked (intensity < 185)
+    Yellow -> Partially marked (185 <= intensity <= 242)
+
+    :param processed_images_folder: Path to folder with processed images
+    :param verification_csv_path: Path to verification.csv
+    :param field_mappings: Path to JSON with bounding boxes
+    :param result_images: Path where annotated result images will be saved
+    """
+    os.makedirs(result_images, exist_ok=True)
+    
+    # Load bbox JSON
+    with open(field_mappings, "r") as f:
+        bbox_data = json.load(f)
+
+    # Load verification CSV
+    df = pd.read_csv(verification_csv_path)
+    df.set_index("Image Name", inplace=True)
+
+    # Detect question option labels dynamically (like 1A, 2B, etc.)
+    option_pattern = re.compile(r"^(\d{1,2})([A-Da-d])$")
+
+    for img_name, mapping in bbox_data.items():
+        if mapping.get("status", "").lower() != "processed":
+            continue
+
+        img_path = os.path.join(processed_images_folder, img_name)
+        if not os.path.exists(img_path):
+            print(f"⚠️ Image not found: {img_path}")
+            continue
+
+        image = cv2.imread(img_path)
+        if image is None:
+            print(f"⚠️ Unable to load image: {img_path}")
+            continue
+
+        # For each mapped field, check if it's an option bubble
+        for label, field_data in mapping.get("mapped_fields", {}).items():
+            if not option_pattern.match(label):
+                continue  # Skip non-question options
+
+            qnum = option_pattern.match(label).group(1)
+            opt = option_pattern.match(label).group(2).upper()
+
+            mean_col = f"{qnum}{opt}"  # column name in verification.csv
+            intensity = None
+            if img_name in df.index and mean_col in df.columns:
+                try:
+                    intensity = float(df.loc[img_name, mean_col])
+                except:
+                    intensity = None
+
+            if intensity is not None:
+                # Decide color based on intensity
+                if intensity < 185:
+                    color = (0, 255, 0)  # Green (fully marked)
+                elif 185 <= intensity <= 242:
+                    color = (0, 255, 255)  # Yellow (partial)
+                else:
+                    continue  # unmarked, no box
+
+                bbox = field_data["bbox"]  # [x1, y1, x2, y2]
+                x1, y1, x2, y2 = bbox
+                cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
+
+        # Save annotated image
+        output_path = os.path.join(result_images, img_name)
+        cv2.imwrite(output_path, image)
+        print(f"✅ Saved annotated image: {output_path}")
 
     
 # MAIN BLOCK   
@@ -661,8 +736,8 @@ if __name__ == "__main__":
     base_folder = r"D:\Projects\OMR\new_abhigyan\Restructure"
     
     # omr_template_name = "HSOMR"
-    # date = "23072025"
-    # batch_name = "Batch003"   
+    # date = "31072025"
+    # batch_name = "BATCH018"   
     # Expect arguments: omr_template_name, date, batch_name
     
     # Inputs from Command Line
@@ -671,9 +746,10 @@ if __name__ == "__main__":
         sys.exit(1)
 
     omr_template_name, date, batch_name = sys.argv[1:4] 
-    
+
     mapped_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "field_mappings.json")
-    processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"processed_{batch_name}")
+    # mapped_json_path = r"D:\Projects\OMR\new_abhigyan\Restructure\Images\HSOMR\31072025\Output\BATCH018\annotate_BATCH018\field_mappings.json"
+    processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"raw_{batch_name}")
     # NEW: Paths for dynamic config files
     key_fields_json = os.path.join(base_folder, "Annotations", omr_template_name, "key_fields.json")
     classes_file = os.path.join(base_folder, "Annotations", omr_template_name, "classes.txt")
@@ -709,3 +785,8 @@ if __name__ == "__main__":
     verification_csv_path = verification_csv_path
     generalized_json_path = base_json_path
     generate_generalized_json(base_json_path, ed_results_json, verification_csv_path, generalized_json_path, key_fields_json, classes_file)
+    
+    # processed_images_folder = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"processed_{batch_name}")
+    field_mappings = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "field_mappings.json")
+    result_images = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "options_" + batch_name, "Results")
+    draw_marked_bboxes(processed_images_folder, verification_csv_path, field_mappings, result_images)

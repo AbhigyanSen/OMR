@@ -1,7 +1,8 @@
 {
     "TEMPLATE": "HSOMR",
     "BATCHNAME": "BATCH06",
-    "PROCESSDT": "2025-07-29 09:28:52",
+    "PROCESSDT": "2025-07-30 14:11:16",
+    "COUNT": 33,
     "IMAGES": [
         {
             "IMAGENAME": "D:\\Projects\\OMR\\new_abhigyan\\Restructure\\Images\\HSOMR\\25072025\\Input\\BATCH06\\BATCH06001.jpg",

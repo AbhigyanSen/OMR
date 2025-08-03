@@ -5,3 +5,6 @@
 # *.jpeg
 # *.png
 *.zip 
+__pycache__/
+# logs/
+*.log

@@ -20,13 +20,13 @@ if __name__ == "__main__":
     # Anchor Detection for the batch
     results = process_batch(base_folder, omr_template_name, date, batch_name, save_anchor_images=False)
     print(f"|INFO| Batch processed. Images processed: {len(results)}")
-
+    
     # Process field mapping for the batch
-    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name)
+    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name, save_mapped_images=False)
     print(f"|INFO| Field mapping completed. Mappings found: {len(field_mapping_results)}")
 
     # Process marked options for the batch
-    marked_stats = process_marked_options(base_folder, omr_template_name, date, batch_name)
+    marked_stats = process_marked_options(base_folder, omr_template_name, date, batch_name, draw_bboxes=False)
     print(f"|INFO| Marked options processed. "
         f"Images: {marked_stats['processed_images']}, "
         f"Detected fields: {marked_stats['total_detected_fields']}")

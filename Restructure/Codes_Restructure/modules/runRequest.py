@@ -108,7 +108,9 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
         icr_fields = icr_data.get(img_name, {})
         new_field_list = []
         for field in image["FIELDS"]:
+            # keep original
             new_field_list.append(copy.deepcopy(field))
+
             if field["FIELD"] in key_fields:
                 icr_field_name = key_fields[field["FIELD"]]
                 icr_value = icr_fields.get(icr_field_name, "")
@@ -122,16 +124,70 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
                 icr_field["SUCCESS"] = "Y" if icr_value.strip() else "N"
                 icr_field["ERRORICR"] = error_code
                 new_field_list.append(icr_field)
+
+        # ---- Convert field names to human-readable ----
         for f in new_field_list:
+            field_name = f["FIELD"]
+
+            # 1) From key_fields.json
+            if field_name in key_fields:
+                f["FIELD"] = key_fields[field_name]
+
+            # 2) ICR variant of key field
+            elif field_name.endswith(" ICR") and field_name[:-4] in key_fields:
+                f["FIELD"] = key_fields[field_name[:-4]] + " ICR"
+
+            # 3) Questions like question_1 → Q1
+            elif field_name.startswith("question_") and field_name.split("_")[-1].isdigit():
+                q_num = field_name.split("_")[-1]
+                f["FIELD"] = f"Q{q_num}"
+
+            # 5) Static OMR Sheet Number
+            elif field_name == "omr_sheet_no":
+                f["FIELD"] = "OMR Sheet Number"
+                
+            # Ensure ERRORICR present
             if "ERRORICR" not in f:
                 f["ERRORICR"] = ""
+
         for idx, f in enumerate(new_field_list, start=1):
             f["SEQUENCE"] = idx
+
         image["FIELDS"] = new_field_list
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(gen_data, f, indent=4)
-    logger.info(f"ICR keys merged and saved to {output_path}")
+    logger.info(f"ICR keys merged (with human-readable field names) and saved to {output_path}")
+    
+# Handling the OMR Sheet Number
+def update_omr_sheet_number(base_json_path, icr_json_path, logger):
+    # Load JSON files
+    with open(base_json_path, "r", encoding="utf-8") as f:
+        gen_data = json.load(f)
+    with open(icr_json_path, "r", encoding="utf-8") as f:
+        icr_data = json.load(f)
+
+    for image in gen_data.get("IMAGES", []):
+        img_name = os.path.splitext(os.path.basename(image["IMAGENAME"]))[0]
+        omr_value = icr_data.get(img_name, {}).get("OMR Sheet Number", "")
+
+        # Detect error code
+        error_code = "" if not isinstance(omr_value, str) or "error:" not in omr_value.lower() else _detect_error_code(omr_value)
+        if error_code:
+            omr_value = ""
+
+        # Find OMR Sheet Number field in generalized JSON
+        for field in image["FIELDS"]:
+            if field["FIELD"] == "OMR Sheet Number":
+                field["FIELDDATA"] = omr_value
+                field["CONFIDENCE"] = "100" if omr_value.strip() else ""
+                field["SUCCESS"] = "Y" if omr_value.strip() else "N"
+                field["ERRORICR"] = error_code
+                break
+
+    with open(base_json_path, "w", encoding="utf-8") as f:
+        json.dump(gen_data, f, indent=4)
+    logger.info(f"Updated OMR Sheet Number values from ICR into {base_json_path}")
 
 def merge_icr_with_ed_results(icr_results, ed_json_path, ed_csv_path, logger):
     with open(ed_json_path, 'r', encoding='utf-8') as f:
@@ -174,9 +230,9 @@ def process_icr_requests(base_folder, omr_template_name, date, batch_name):
                                  f"annotate_{batch_name}", "ICR")
     icr_output_json = os.path.join(icr_image_dir, "ICR_Images.json")
     ed_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name,
-                                "options_" + batch_name, "ed_results.json")
+                                "options_" + batch_name, "ed_results_human.json")
     ed_csv_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name,
-                               "options_" + batch_name, "ed_results.csv")
+                               "options_" + batch_name, "ed_results_human.csv")
     generalized_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name,
                                          f"{batch_name}.json")
     key_fields_json = os.path.join(base_folder, "Annotations", omr_template_name, "key_fields.json")
@@ -196,6 +252,13 @@ def process_icr_requests(base_folder, omr_template_name, date, batch_name):
         key_fields_json=key_fields_json,
         logger=logger
     )
+    
+    update_omr_sheet_number(
+        base_json_path=generalized_json_path,
+        icr_json_path=icr_output_json,
+        logger=logger
+    )
+
     merge_icr_with_ed_results(all_extracted_data, ed_json_path, ed_csv_path, logger)
     logger.info(f"ICR processing complete. Total images processed: {len(images_to_process)}")
 

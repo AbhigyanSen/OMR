@@ -13,20 +13,33 @@ if __name__ == "__main__":
         print("Usage: python main.py <omr_template_name> <date> <batch_name>")
         sys.exit(1)
 
+    # Optional flags
+    save_anchor_images = "--save-anchor" in sys.argv
+    save_mapped_images = "--save-mapped" in sys.argv
+    draw_bboxes = "--draw-bboxes" in sys.argv
+    full_mark_threshold_pct = None
+    partial_mark_threshold_pct = None
+
+    if "--full-mark" in sys.argv:
+        full_mark_threshold_pct = float(sys.argv[sys.argv.index("--full-mark") + 1])
+    if "--partial-mark" in sys.argv:
+        partial_mark_threshold_pct = float(sys.argv[sys.argv.index("--partial-mark") + 1])
+
     omr_template_name, date, batch_name = sys.argv[1:4]
     config = load_config()
     base_folder = config["base_folder"]
 
     # Anchor Detection for the batch
-    results = process_batch(base_folder, omr_template_name, date, batch_name, save_anchor_images=False)
+    results = process_batch(base_folder, omr_template_name, date, batch_name, save_anchor_images=save_anchor_images)
     print(f"|INFO| Batch processed. Images processed: {len(results)}")
     
     # Process field mapping for the batch
-    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name, save_mapped_images=False)
+    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name, save_mapped_images=save_mapped_images)
     print(f"|INFO| Field mapping completed. Mappings found: {len(field_mapping_results)}")
 
     # Process marked options for the batch
-    marked_stats = process_marked_options(base_folder, omr_template_name, date, batch_name, draw_bboxes=False)
+    marked_stats = process_marked_options(base_folder, omr_template_name, date, batch_name, draw_bboxes=draw_bboxes, 
+                                          full_mark_threshold_pct=full_mark_threshold_pct, partial_mark_threshold_pct=partial_mark_threshold_pct)
     print(f"|INFO| Marked options processed. "
         f"Images: {marked_stats['processed_images']}, "
         f"Detected fields: {marked_stats['total_detected_fields']}")

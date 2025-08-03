@@ -1,7 +1,7 @@
 {
     "TEMPLATE": "HSOMR",
     "BATCHNAME": "BATCH018",
-    "PROCESSDT": "2025-08-03 23:00:51",
+    "PROCESSDT": "2025-08-04 00:18:00",
     "COUNT": 3,
     "IMAGES": [
         {
@@ -11,7 +11,7 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "Registration Number",
+                    "FIELD": "REGISTRATION NUMBER",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -23,7 +23,7 @@
                     "SEQUENCE": 1
                 },
                 {
-                    "FIELD": "Registration Number ICR",
+                    "FIELD": "REGISTRATION NUMBER ICR",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -35,7 +35,7 @@
                     "SEQUENCE": 2
                 },
                 {
-                    "FIELD": "Roll Number",
+                    "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -47,7 +47,7 @@
                     "SEQUENCE": 3
                 },
                 {
-                    "FIELD": "Roll Number ICR",
+                    "FIELD": "ROLL NUMBER ICR",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -59,7 +59,7 @@
                     "SEQUENCE": 4
                 },
                 {
-                    "FIELD": "Question Booklet Number",
+                    "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",
@@ -71,7 +71,7 @@
                     "SEQUENCE": 5
                 },
                 {
-                    "FIELD": "Question Booklet Number ICR",
+                    "FIELD": "QUESTION BOOKLET NUMBER ICR",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",
@@ -583,7 +583,7 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "Registration Number",
+                    "FIELD": "REGISTRATION NUMBER",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -595,7 +595,7 @@
                     "SEQUENCE": 1
                 },
                 {
-                    "FIELD": "Registration Number ICR",
+                    "FIELD": "REGISTRATION NUMBER ICR",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -607,7 +607,7 @@
                     "SEQUENCE": 2
                 },
                 {
-                    "FIELD": "Roll Number",
+                    "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -619,7 +619,7 @@
                     "SEQUENCE": 3
                 },
                 {
-                    "FIELD": "Roll Number ICR",
+                    "FIELD": "ROLL NUMBER ICR",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -631,7 +631,7 @@
                     "SEQUENCE": 4
                 },
                 {
-                    "FIELD": "Question Booklet Number",
+                    "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",
@@ -643,7 +643,7 @@
                     "SEQUENCE": 5
                 },
                 {
-                    "FIELD": "Question Booklet Number ICR",
+                    "FIELD": "QUESTION BOOKLET NUMBER ICR",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",
@@ -1155,7 +1155,7 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "Registration Number",
+                    "FIELD": "REGISTRATION NUMBER",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -1167,7 +1167,7 @@
                     "SEQUENCE": 1
                 },
                 {
-                    "FIELD": "Registration Number ICR",
+                    "FIELD": "REGISTRATION NUMBER ICR",
                     "XCORD": "109",
                     "YCORD": "592",
                     "WIDTH": "403",
@@ -1179,7 +1179,7 @@
                     "SEQUENCE": 2
                 },
                 {
-                    "FIELD": "Roll Number",
+                    "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -1191,7 +1191,7 @@
                     "SEQUENCE": 3
                 },
                 {
-                    "FIELD": "Roll Number ICR",
+                    "FIELD": "ROLL NUMBER ICR",
                     "XCORD": "589",
                     "YCORD": "592",
                     "WIDTH": "444",
@@ -1203,7 +1203,7 @@
                     "SEQUENCE": 4
                 },
                 {
-                    "FIELD": "Question Booklet Number",
+                    "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",
@@ -1215,7 +1215,7 @@
                     "SEQUENCE": 5
                 },
                 {
-                    "FIELD": "Question Booklet Number ICR",
+                    "FIELD": "QUESTION BOOKLET NUMBER ICR",
                     "XCORD": "1111",
                     "YCORD": "589",
                     "WIDTH": "403",

@@ -40,13 +40,13 @@
         "Q38": "A",
         "Q39": "D",
         "Q40": "A",
-        "Registration Number": "32457 890*",
-        "Roll Number": "5632115629",
-        "Question Booklet Number": "123456789",
+        "REGISTRATION NUMBER": "32457 890*",
+        "ROLL NUMBER": "5632115629",
+        "QUESTION BOOKLET NUMBER": "123456789",
         "ICR_OMR Sheet Number": "00000046",
-        "ICR_Question Booklet Number": "12-3456798",
-        "ICR_Registration Number": "3245678901",
-        "ICR_Roll Number": "563211 5629"
+        "ICR_QUESTION BOOKLET NUMBER": "12-3456798",
+        "ICR_REGISTRATION NUMBER": "3245678901",
+        "ICR_ROLL NUMBER": "563211 5629"
     },
     "BATCH015002.jpg": {
         "Q1": "B",
@@ -89,13 +89,13 @@
         "Q38": "C",
         "Q39": "A",
         "Q40": "D",
-        "Registration Number": "4867003452",
-        "Roll Number": "0561147734",
-        "Question Booklet Number": "062135946",
+        "REGISTRATION NUMBER": "4867003452",
+        "ROLL NUMBER": "0561147734",
+        "QUESTION BOOKLET NUMBER": "062135946",
         "ICR_OMR Sheet Number": "00000045",
-        "ICR_Question Booklet Number": "06-2135946",
-        "ICR_Registration Number": "4867003452",
-        "ICR_Roll Number": "056214 7734"
+        "ICR_QUESTION BOOKLET NUMBER": "06-2135946",
+        "ICR_REGISTRATION NUMBER": "4867003452",
+        "ICR_ROLL NUMBER": "056214 7734"
     },
     "BATCH015003.jpg": {
         "Q1": "",
@@ -138,12 +138,12 @@
         "Q38": "A",
         "Q39": "C",
         "Q40": "D",
-        "Registration Number": "7850964121",
-        "Roll Number": "3005688604",
-        "Question Booklet Number": "170045672",
+        "REGISTRATION NUMBER": "7850964121",
+        "ROLL NUMBER": "3005688604",
+        "QUESTION BOOKLET NUMBER": "170045672",
         "ICR_OMR Sheet Number": "00000042",
-        "ICR_Question Booklet Number": "17-0045672",
-        "ICR_Registration Number": "7850964121",
-        "ICR_Roll Number": "300568 8604"
+        "ICR_QUESTION BOOKLET NUMBER": "17-0045672",
+        "ICR_REGISTRATION NUMBER": "7850964121",
+        "ICR_ROLL NUMBER": "300568 8604"
     }
 }

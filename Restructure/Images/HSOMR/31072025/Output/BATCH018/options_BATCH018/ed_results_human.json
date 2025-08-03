@@ -40,9 +40,9 @@
     "Q38": "A",
     "Q39": "D",
     "Q40": "A",
-    "Registration Number": "32457 890*",
-    "Roll Number": "5632115629",
-    "Question Booklet Number": "123456789"
+    "REGISTRATION NUMBER": "32457 890*",
+    "ROLL NUMBER": "5632115629",
+    "QUESTION BOOKLET NUMBER": "123456789"
   },
   "BATCH015002.jpg": {
     "Q1": "B",
@@ -85,9 +85,9 @@
     "Q38": "C",
     "Q39": "A",
     "Q40": "D",
-    "Registration Number": "4867003452",
-    "Roll Number": "0561147734",
-    "Question Booklet Number": "062135946"
+    "REGISTRATION NUMBER": "4867003452",
+    "ROLL NUMBER": "0561147734",
+    "QUESTION BOOKLET NUMBER": "062135946"
   },
   "BATCH015003.jpg": {
     "Q1": "",
@@ -130,8 +130,8 @@
     "Q38": "A",
     "Q39": "C",
     "Q40": "D",
-    "Registration Number": "7850964121",
-    "Roll Number": "3005688604",
-    "Question Booklet Number": "170045672"
+    "REGISTRATION NUMBER": "7850964121",
+    "ROLL NUMBER": "3005688604",
+    "QUESTION BOOKLET NUMBER": "170045672"
   }
 }

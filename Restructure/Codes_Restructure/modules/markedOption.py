@@ -327,7 +327,8 @@ def export_verification_csv(option_score_map, verification_csv_path, key_fields_
                             row.append("")
             writer.writerow(row)
 
-    print(f"✅ Final verification.csv written to: {verification_csv_path}")
+    # print(f"Final verification.csv written to: {verification_csv_path}")
+    print("|INFO| Verification.csv written")
 
 # def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
 #                         key_fields_json, classes_file, logger):
@@ -473,7 +474,26 @@ def export_verification_csv(option_score_map, verification_csv_path, key_fields_
 #     logger.info(f"Human-readable CSV saved to: {human_csv_path}")
 
 def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
-                        key_fields_json, classes_file, logger, omr_template_name):
+                        key_fields_json, classes_file, logger, omr_template_name,
+                        full_mark_threshold_pct=None, partial_mark_threshold_pct=None):
+    """
+    full_mark_threshold_pct: percentage (0-100) below which bubble is considered fully marked
+    partial_mark_threshold_pct: percentage (0-100) for partially marked upper bound
+    """
+
+    # --- Default thresholds if not provided ---
+    if full_mark_threshold_pct is None:
+        full_mark_threshold_pct = round((185 / 255) * 100, 2)  # 72.55
+    if partial_mark_threshold_pct is None:
+        partial_mark_threshold_pct = round((242 / 255) * 100, 2)  # 94.90
+
+    logger.info(f"Thresholds used -> Full Mark: {full_mark_threshold_pct}%, Partial Mark: {partial_mark_threshold_pct}%")
+
+    # Convert percentages back to absolute intensity values (0–255 scale)
+    full_mark_threshold = (full_mark_threshold_pct / 100.0) * 255
+    partial_mark_threshold = (partial_mark_threshold_pct / 100.0) * 255
+    
+    logger.info(f"Full Mark: {full_mark_threshold} \t Partial Mark: {partial_mark_threshold}")
 
     logger.info("Evaluating edge cases...")
     logger.info(f"Verification CSV path: {verification_csv_path}")
@@ -509,13 +529,13 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
         for d in range(digit_count):
             fully_marked, partially_marked = [], []
             for val in range(10):
-                col = f"{key_name}_{d}_{val}"   # <-- no "Result" prefix now
+                col = f"{key_name}_{d}_{val}"
                 if col in row:
                     try:
                         pct = float(row[col])
-                        if pct < 185:  # fully marked bubble
+                        if pct < full_mark_threshold:                               # fully marked bubble
                             fully_marked.append(f"{key_name}_{d}_{val}")
-                        elif 185 <= pct <= 242:  # partial marking
+                        elif full_mark_threshold <= pct <= partial_mark_threshold:  # partial marking
                             partially_marked.append(f"{key_name}_{d}_{val}")
                     except:
                         continue
@@ -547,9 +567,9 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
                 if mean_col in row:
                     try:
                         mean_val = float(row[mean_col])
-                        if mean_val < 185:
+                        if mean_val < full_mark_threshold:
                             fully_marked.append(opt)
-                        elif 185 <= mean_val <= 242:
+                        elif full_mark_threshold <= mean_val <= partial_mark_threshold:
                             partially_marked.append(opt)
                     except:
                         continue
@@ -801,7 +821,23 @@ def draw_marked_bboxes(processed_images_folder, verification_csv_path,
         logger.info(f"Annotated image saved: {output_path}")
 
     
-def process_marked_options(base_folder, omr_template_name, date, batch_name, draw_bboxes=True):
+def process_marked_options(base_folder, omr_template_name, date, batch_name,
+                           draw_bboxes=True,
+                           full_mark_threshold_pct=None,
+                           partial_mark_threshold_pct=None):
+    """
+    Processes marked options for OMR sheets.
+
+    Args:
+        base_folder (str): Base folder path
+        omr_template_name (str): OMR template name
+        date (str): Date string
+        batch_name (str): Batch name
+        draw_bboxes (bool): Whether to draw marked bounding boxes
+        full_mark_threshold_pct (float): percentage (0-100) threshold for full mark (default 72.55%)
+        partial_mark_threshold_pct (float): percentage (0-100) threshold for partial mark (default 94.90%)
+    """
+    
     directory_name = os.path.join(
         base_folder, "Images", omr_template_name, date, "Output", batch_name, "options_" + batch_name
     )
@@ -838,8 +874,11 @@ def process_marked_options(base_folder, omr_template_name, date, batch_name, dra
     edge_json_path = os.path.join(directory_name, "ed_results.json")
     edge_csv_path = os.path.join(directory_name, "ed_results.csv")
     logger.info("Evaluating edge cases...")
+    
     evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
-                        key_fields_json, classes_file, logger, omr_template_name)
+                        key_fields_json, classes_file, logger, omr_template_name,
+                        full_mark_threshold_pct=full_mark_threshold_pct,
+                        partial_mark_threshold_pct=partial_mark_threshold_pct)
 
     base_json_path = os.path.join(
         base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json"

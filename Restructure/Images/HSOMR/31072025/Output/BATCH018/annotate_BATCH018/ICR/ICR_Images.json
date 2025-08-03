@@ -1,20 +1,20 @@
 {
     "BATCH015001": {
         "OMR Sheet Number": "00000046",
-        "Question Booklet Number": "12-3456798",
-        "Registration Number": "3245678901",
-        "Roll Number": "563211 5629"
+        "QUESTION BOOKLET NUMBER": "12-3456798",
+        "REGISTRATION NUMBER": "3245678901",
+        "ROLL NUMBER": "563211 5629"
     },
     "BATCH015002": {
         "OMR Sheet Number": "00000045",
-        "Question Booklet Number": "06-2135946",
-        "Registration Number": "4867003452",
-        "Roll Number": "056214 7734"
+        "QUESTION BOOKLET NUMBER": "06-2135946",
+        "REGISTRATION NUMBER": "4867003452",
+        "ROLL NUMBER": "056214 7734"
     },
     "BATCH015003": {
         "OMR Sheet Number": "00000042",
-        "Question Booklet Number": "17-0045672",
-        "Registration Number": "7850964121",
-        "Roll Number": "300568 8604"
+        "QUESTION BOOKLET NUMBER": "17-0045672",
+        "REGISTRATION NUMBER": "7850964121",
+        "ROLL NUMBER": "300568 8604"
     }
 }

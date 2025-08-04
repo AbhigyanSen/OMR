@@ -1,0 +1,98 @@
+{
+    "BATCH015001.jpg": {
+        "key0": {
+            "top_left": [
+                109,
+                592
+            ],
+            "bottom_right": [
+                510,
+                1050
+            ]
+        },
+        "key1": {
+            "top_left": [
+                589,
+                592
+            ],
+            "bottom_right": [
+                1030,
+                1051
+            ]
+        },
+        "key2": {
+            "top_left": [
+                1111,
+                589
+            ],
+            "bottom_right": [
+                1511,
+                1049
+            ]
+        }
+    },
+    "BATCH015002.jpg": {
+        "key0": {
+            "top_left": [
+                109,
+                592
+            ],
+            "bottom_right": [
+                510,
+                1050
+            ]
+        },
+        "key1": {
+            "top_left": [
+                589,
+                592
+            ],
+            "bottom_right": [
+                1030,
+                1051
+            ]
+        },
+        "key2": {
+            "top_left": [
+                1111,
+                589
+            ],
+            "bottom_right": [
+                1511,
+                1049
+            ]
+        }
+    },
+    "BATCH015003.jpg": {
+        "key0": {
+            "top_left": [
+                109,
+                592
+            ],
+            "bottom_right": [
+                510,
+                1050
+            ]
+        },
+        "key1": {
+            "top_left": [
+                589,
+                592
+            ],
+            "bottom_right": [
+                1030,
+                1051
+            ]
+        },
+        "key2": {
+            "top_left": [
+                1111,
+                589
+            ],
+            "bottom_right": [
+                1511,
+                1049
+            ]
+        }
+    }
+}

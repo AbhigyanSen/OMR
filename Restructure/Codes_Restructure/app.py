@@ -4,6 +4,12 @@ from tkinter import messagebox, font
 import subprocess
 import datetime
 import json
+import csv
+
+# --- Set up logging directory ---
+LOG_DIR = os.path.join("logs", "log_app")
+os.makedirs(LOG_DIR, exist_ok=True)
+LOG_FILE = os.path.join(LOG_DIR, "app_log.log")
 
 # --- Load config.json for BASE_FOLDER & VENV PYTHON ---
 def load_config(path="config.json"):
@@ -61,15 +67,30 @@ class OMRInterface:
         os.makedirs(log_dir, exist_ok=True)
         return os.path.join(log_dir, "omr_process_log.txt")
 
-    def write_log(self, template_name, date, batch, status):
+    def write_log(self, template_name, date, batch, status, level="INFO"):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        log_line = f"{timestamp}\t{template_name}\t{date}\t{batch}\t{status}\n"
-        log_file_path = self.get_log_file_path()
+        log_line = [timestamp, level, template_name, date, batch, status]
         try:
-            with open(log_file_path, "a", encoding="utf-8") as f:
-                f.write(log_line)
+            with open(LOG_FILE, "a", newline='', encoding="utf-8") as f:
+                writer = csv.writer(f, delimiter="\t")
+                writer.writerow(log_line)
         except Exception as e:
             self.log(f"⚠️ Failed to write log file: {e}")
+            
+    def get_processed_batches(self):
+        processed = {}
+        if not os.path.exists(LOG_FILE):
+            return processed
+        with open(LOG_FILE, "r", encoding="utf-8") as f:
+            reader = csv.reader(f, delimiter="\t")
+            for row in reader:
+                # Format: timestamp, level, template, date, batch, status
+                if len(row) < 6:
+                    continue
+                _, _, template, date, batch, status = row
+                if status == "SUCCESS":
+                    processed.setdefault((template, date), set()).add(batch)
+        return processed
 
     def create_widgets(self):
         # --- Job Selection ---
@@ -178,17 +199,29 @@ class OMRInterface:
         job_name = self.job_listbox.get(selection[0])
         self.omr_template_name.set(job_name)
 
+        # Check if annotation exists
         annotation_path = os.path.join(BASE_FOLDER, "Annotations", job_name)
         if not os.path.exists(annotation_path):
             messagebox.showerror("Error", f"Annotation unavailable for job {job_name}. Please annotate first.")
             return
 
+        # Populate available dates
         date_path = os.path.join(BASE_FOLDER, "Images", job_name)
         self.date_listbox.delete(0, tk.END)
         if os.path.exists(date_path):
             dates = [d for d in os.listdir(date_path) if os.path.isdir(os.path.join(date_path, d))]
             for d in dates:
                 self.date_listbox.insert(tk.END, d)
+
+        # Highlight fully processed dates (pastel yellow)
+        processed = self.get_processed_batches()
+        for i, d in enumerate(self.date_listbox.get(0, tk.END)):
+            key = (self.omr_template_name.get(), d)
+            batch_path = os.path.join(BASE_FOLDER, "Images", self.omr_template_name.get(), d, "Input")
+            batches = [x for x in os.listdir(batch_path) if os.path.isdir(os.path.join(batch_path, x))]
+            if key in processed and len(processed[key]) == len(batches):
+                self.date_listbox.itemconfig(i, {'bg': '#FFFACD'})  # pastel yellow
+
         self.update_run_button_state()
 
     def on_date_select(self, event):
@@ -205,14 +238,28 @@ class OMRInterface:
             self.update_run_button_state()
             return
 
+        # Populate batches
         batches = [d for d in os.listdir(batch_path) if os.path.isdir(os.path.join(batch_path, d))]
         for b in batches:
             self.batch_listbox.insert(tk.END, b)
+
+        # Highlight already processed batches (pastel yellow)
+        processed = self.get_processed_batches()
+        key = (self.omr_template_name.get(), date_folder)
+        for i, b in enumerate(self.batch_listbox.get(0, tk.END)):
+            if key in processed and b in processed[key]:
+                self.batch_listbox.itemconfig(i, {'bg': '#FFFACD'})  # pastel yellow
+
         self.update_run_button_state()
 
     def toggle_select_all(self):
         if self.select_all_var.get():
-            self.batch_listbox.select_set(0, tk.END)
+            processed = self.get_processed_batches()
+            key = (self.omr_template_name.get(), self.date.get())
+            for i, b in enumerate(self.batch_listbox.get(0, tk.END)):
+                if key in processed and b in processed[key]:
+                    continue  # skip already processed
+                self.batch_listbox.selection_set(i)
         else:
             self.batch_listbox.select_clear(0, tk.END)
         self.update_run_button_state()
@@ -234,6 +281,13 @@ class OMRInterface:
     def run_main_py(self, batch_name):
         batch_name = batch_name.strip()  # Ensure no trailing spaces
         self.log(f"Running main.py for {batch_name} ...")
+        
+        processed = self.get_processed_batches()
+        key = (self.omr_template_name.get(), self.date.get())
+        if key in processed and batch_name in processed[key]:
+            if not messagebox.askokcancel("Batch Already Processed", 
+                                        f"Batch '{batch_name}' is already processed.\nClick OK to process again."):
+                return  # skip running for this batch
 
         # Build argument list
         args = [

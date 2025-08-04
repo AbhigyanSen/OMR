@@ -550,7 +550,7 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
             elif not fully_marked and len(partially_marked) > 1:
                 digit_outputs.append("|".join(partially_marked))
             else:
-                digit_outputs.append(" ")
+                digit_outputs.append("~")
         return "||".join(digit_outputs)
 
     for idx, row in df.iterrows():

@@ -142,6 +142,7 @@ class OMRInterface:
         self.status_text.config(yscrollcommand=scrollbar.set)
         
     def toggle_advanced_panel(self):
+        prev_selection = self.get_selected_batches()
         if self.show_advanced.get():
             self.advanced_panel.pack_forget()
             self.advanced_btn.config(text="▶ Advanced Settings")
@@ -150,6 +151,13 @@ class OMRInterface:
             self.advanced_panel.pack(fill=tk.X, padx=5, pady=5)
             self.advanced_btn.config(text="▼ Advanced Settings")
             self.show_advanced.set(True)
+
+        # Restore selection after toggling
+        self.batch_listbox.selection_clear(0, tk.END)
+        for i, b in enumerate(self.batch_listbox.get(0, tk.END)):
+            if b in prev_selection:
+                self.batch_listbox.selection_set(i)
+        self.update_run_button_state()
 
     def log(self, message):
         self.status_text.insert(tk.END, message + "\n")
@@ -224,13 +232,17 @@ class OMRInterface:
             self.run_button.config(state=tk.DISABLED, bg=self.root.cget("bg"), fg="black")
 
     def run_main_py(self, batch_name):
+        batch_name = batch_name.strip()  # Ensure no trailing spaces
         self.log(f"Running main.py for {batch_name} ...")
 
         # Build argument list
-        args = [VENV_PYTHON, "main.py",
-                self.omr_template_name.get(),
-                self.date.get(),
-                batch_name]
+        args = [
+            VENV_PYTHON,
+            os.path.join(os.path.dirname(__file__), "main.py"),
+            self.omr_template_name.get(),
+            self.date.get(),
+            batch_name
+        ]
 
         # Optional flags
         if self.save_anchor_images.get():
@@ -244,6 +256,9 @@ class OMRInterface:
         if self.partial_mark_threshold_pct.get():
             args.extend(["--partial-mark", str(self.partial_mark_threshold_pct.get())])
 
+        # Print the exact command being run
+        # self.log("Command: " + " ".join(args))
+
         result = subprocess.run(args, capture_output=True, text=True, encoding="utf-8")
         self.log(result.stdout)
         if result.stderr:
@@ -255,26 +270,36 @@ class OMRInterface:
 
     def run_full_process(self):
         self.run_button.config(state=tk.DISABLED, bg="#ff6961")
-        selected_batches = self.get_selected_batches()
+
+        # Ensure correct selection after any UI toggles
+        if self.select_all_var.get():
+            self.batch_listbox.select_set(0, tk.END)
+
+        selected_batches = [b for b in self.get_selected_batches() if b.strip() != ""]
+
         if not (self.omr_template_name.get() and self.date.get() and selected_batches):
             messagebox.showwarning("Missing Selection", "Please select Job, Date, and at least one Batch.")
             self.update_run_button_state()
             return
 
+        failed_batches = []
         try:
             for batch in selected_batches:
                 try:
                     self.run_main_py(batch)
                     self.write_log(self.omr_template_name.get(), self.date.get(), batch, "SUCCESS")
                 except Exception as e:
+                    failed_batches.append(batch)
                     self.write_log(self.omr_template_name.get(), self.date.get(), batch, "FAIL")
-                    raise e
-            messagebox.showinfo("Success", "Full OMR Process Completed for selected batches!")
-        except Exception as e:
-            self.log(f"❌ Process aborted: {e}")
-            messagebox.showerror("Execution Error", f"Process stopped!\n{e}")
+                    self.log(f"Batch {batch} failed: {e}")
+
+            if failed_batches:
+                messagebox.showerror("Execution Error", f"Some batches failed: {', '.join(failed_batches)}")
+            else:
+                messagebox.showinfo("Success", "Full OMR Process Completed for all selected batches!")
         finally:
             self.update_run_button_state()
+
 
 
 if __name__ == "__main__":

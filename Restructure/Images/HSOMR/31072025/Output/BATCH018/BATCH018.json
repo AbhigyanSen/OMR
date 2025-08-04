@@ -1,7 +1,7 @@
 {
     "TEMPLATE": "HSOMR",
     "BATCHNAME": "BATCH018",
-    "PROCESSDT": "2025-08-04 00:18:00",
+    "PROCESSDT": "2025-08-04 11:18:04",
     "COUNT": 3,
     "IMAGES": [
         {
@@ -16,7 +16,7 @@
                     "YCORD": "592",
                     "WIDTH": "403",
                     "HEIGHT": "50",
-                    "FIELDDATA": "32457 890*",
+                    "FIELDDATA": "32457~890*",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",

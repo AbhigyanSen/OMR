@@ -1,0 +1,1622 @@
+{
+  "HS-SAMPLE01001.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01002.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01003.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2174
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01004.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01005.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01006.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01007.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01008.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01009.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01010.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01011.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01012.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          229
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01013.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01014.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2174
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01015.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01016.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01017.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          224
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2133,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01018.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2133,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01019.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2133,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01020.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2133,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01021.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01022.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2141,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01023.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01024.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01025.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01026.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          182,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01027.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2174
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01028.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          75,
+          186,
+          115,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1538,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          115,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1539,
+          2142,
+          1580,
+          2182
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01029.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          74,
+          186,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1579,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  },
+  "HS-SAMPLE01030.jpg": {
+    "anchors": {
+      "anchor_1": {
+        "center": [
+          95,
+          207
+        ],
+        "bbox": [
+          74,
+          187,
+          116,
+          228
+        ]
+      },
+      "anchor_2": {
+        "center": [
+          1558,
+          202
+        ],
+        "bbox": [
+          1537,
+          181,
+          1580,
+          223
+        ]
+      },
+      "anchor_3": {
+        "center": [
+          95,
+          2154
+        ],
+        "bbox": [
+          75,
+          2134,
+          116,
+          2175
+        ]
+      },
+      "anchor_4": {
+        "center": [
+          1559,
+          2162
+        ],
+        "bbox": [
+          1538,
+          2142,
+          1580,
+          2183
+        ]
+      }
+    },
+    "skew_angle": -0.1958,
+    "valid_for_option_mapping": true
+  }
+}

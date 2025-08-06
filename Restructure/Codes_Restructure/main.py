@@ -42,7 +42,7 @@ if __name__ == "__main__":
     
     # Process field mapping for the batch
     # field_mapping.json = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + "batch_name", field_mappings.json)
-    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name, save_mapped_images=save_mapped_images)
+    field_mapping_results = process_field_mapping(base_folder, omr_template_name, date, batch_name, save_mapped_images=True)
     print(f"|INFO| Field mapping completed. Mappings found: {len(field_mapping_results)}")
 
     # Process marked options for the batch
@@ -52,15 +52,33 @@ if __name__ == "__main__":
         f"Images: {marked_stats['processed_images']}, "
         f"Detected fields: {marked_stats['total_detected_fields']}")
 
-    # # Process ICR requests for the batch
-    # # batch_name.json = os.path.join(base_folder, "Images", omr_template_name, date, "Output", {batch_name}, f"{batch_name}.json")
-    # icr_stats = process_icr_requests(base_folder, omr_template_name, date, batch_name)
-    # print(f"|INFO| ICR processed images: {icr_stats['processed_images']}")
+    # Process ICR requests for the batch
+    # batch_name.json = os.path.join(base_folder, "Images", omr_template_name, date, "Output", {batch_name}, f"{batch_name}.json")
+    icr_stats = process_icr_requests(base_folder, omr_template_name, date, batch_name)
+    print(f"|INFO| ICR processed images: {icr_stats['processed_images']}")
     
     
     # ----- Wrishav's utils.py usage -----
     
-    # json_restructure(base_folder, omr_template_name, date, batch_name)
+    json_restructure(base_folder, omr_template_name, date, batch_name)
+    print(f"|INFO| JSON restructuring completed for {batch_name}.")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     # # Importing base packages
     # import os

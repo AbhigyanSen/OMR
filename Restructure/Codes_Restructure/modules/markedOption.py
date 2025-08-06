@@ -637,69 +637,78 @@ def evaluate_edge_cases(verification_csv_path, edge_json_path, edge_csv_path,
     # ------------------------------------------------------------
     # Internal Function for Key Conversion & Regeneration
     # ------------------------------------------------------------
-    # def convert_keys(json_path, omr_template_name):
-    #     if omr_template_name != "HSOMR":
-    #         logger.error(f"Batch name is not {omr_template_name}. Exiting conversion.")
-    #         sys.exit(1)
+    def convert_keys(json_path, omr_template_name):
+        with open(json_path, "r") as f:
+            data = json.load(f)
 
-    #     with open(json_path, "r") as f:
-    #         data = json.load(f)
+        for img, values in data.items():
+            for key_name, val in values.items():
 
-    #     for img, values in data.items():
-    #         for key_name, val in values.items():
-    #             if key_name.startswith("key"):
-    #                 digits = []
-    #                 for digit_str in val.split("||"):
-    #                     if digit_str.strip() == "":
-    #                         digits.append(" ")
-    #                     elif "|" in digit_str:  # multiple marked
-    #                         digits.append("*")
-    #                     else:
-    #                         digits.append(digit_str.split("_")[-1])
-    #                 values[key_name] = "".join(digits)
+                # --- Special ASSAMOMR logic for key1 only ---
+                if omr_template_name == "ASSAMOMR" and key_name == "key1":
+                    val_stripped = val.strip()
+                    if val_stripped == "key1_0_0||~":
+                        values[key_name] = "A"
+                    elif val_stripped == "~||key1_1_0":
+                        values[key_name] = "B"
+                    else:
+                        values[key_name] = "*"  # anything unexpected
+                    continue  # skip to next key (other keys still digit logic)
 
-    #     # overwrite same JSON
-    #     with open(json_path, "w") as f:
-    #         json.dump(data, f, indent=2)
-    #     logger.info(f"Keys converted and overwritten: {json_path}")
+                # --- Default digit extraction logic (ASSAMOMR & others) ---
+                digits = []
+                for digit_str in val.split("||"):
+                    if digit_str.strip() == "":
+                        digits.append(" ")
+                    elif "|" in digit_str:  # multiple marked
+                        digits.append("*")
+                    else:
+                        digits.append(digit_str.split("_")[-1])
+                values[key_name] = "".join(digits)
 
-    #     # regenerate CSV & human JSON/CSV
-    #     all_qs = sorted({qid for qmap in data.values() for qid in qmap.keys() if qid.startswith("Q")},
-    #                     key=lambda x: int(x[1:]))
-    #     key_columns = list(key_fields.keys())
+        # overwrite same JSON
+        with open(json_path, "w") as f:
+            json.dump(data, f, indent=2)
+        logger.info(f"Keys converted and overwritten: {json_path}")
 
-    #     # CSV
-    #     with open(edge_csv_path, "w", newline="") as f:
-    #         writer = csv.writer(f)
-    #         writer.writerow(["Image Name"] + all_qs + key_columns)
-    #         for image_name, qmap in data.items():
-    #             row = [image_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(k, "") for k in key_columns]
-    #             writer.writerow(row)
-    #     logger.info(f"Converted CSV regenerated: {edge_csv_path}")
+        # regenerate CSV & human JSON/CSV (unchanged)
+        all_qs = sorted({qid for qmap in data.values() for qid in qmap.keys() if qid.startswith("Q")},
+                        key=lambda x: int(x[1:]))
+        key_columns = list(key_fields.keys())
 
-    #     # human-readable JSON
-    #     human_data = {}
-    #     for img, values in data.items():
-    #         human_data[img] = {}
-    #         for k, v in values.items():
-    #             human_data[img][key_fields.get(k, k)] = v
+        # CSV
+        with open(edge_csv_path, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Image Name"] + all_qs + key_columns)
+            for image_name, qmap in data.items():
+                row = [image_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(k, "") for k in key_columns]
+                writer.writerow(row)
+        logger.info(f"Converted CSV regenerated: {edge_csv_path}")
 
-    #     human_json_path = os.path.splitext(edge_json_path)[0] + "_human.json"
-    #     with open(human_json_path, "w") as f:
-    #         json.dump(human_data, f, indent=2)
-    #     logger.info(f"Converted human-readable JSON saved: {human_json_path}")
+        # human-readable JSON
+        human_data = {}
+        for img, values in data.items():
+            human_data[img] = {}
+            for k, v in values.items():
+                human_data[img][key_fields.get(k, k)] = v
 
-    #     human_csv_path = os.path.splitext(edge_csv_path)[0] + "_human.csv"
-    #     with open(human_csv_path, "w", newline="") as f:
-    #         writer = csv.writer(f)
-    #         writer.writerow(["Image Name"] + all_qs + [key_fields[k] for k in key_columns])
-    #         for img_name, qmap in human_data.items():
-    #             row = [img_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(key_fields[k], "") for k in key_columns]
-    #             writer.writerow(row)
-    #     logger.info(f"Converted human-readable CSV saved: {human_csv_path}")
+        human_json_path = os.path.splitext(edge_json_path)[0] + "_human.json"
+        with open(human_json_path, "w") as f:
+            json.dump(human_data, f, indent=2)
+        logger.info(f"Converted human-readable JSON saved: {human_json_path}")
 
-    # # ---- Call the conversion at correct place ----
-    # convert_keys(edge_json_path, omr_template_name)
+        human_csv_path = os.path.splitext(edge_csv_path)[0] + "_human.csv"
+        with open(human_csv_path, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Image Name"] + all_qs + [key_fields[k] for k in key_columns])
+            for img_name, qmap in human_data.items():
+                row = [img_name] + [qmap.get(q, "") for q in all_qs] + [qmap.get(key_fields[k], "") for k in key_columns]
+                writer.writerow(row)
+        logger.info(f"Converted human-readable CSV saved: {human_csv_path}")
+
+
+    # ---- Call the conversion at correct place ----
+    convert_keys(edge_json_path, omr_template_name)
 
 def generate_generalized_json(base_json_path, ed_results_json, verification_csv_path,
                               generalized_json_path, key_fields_json, classes_file, logger):

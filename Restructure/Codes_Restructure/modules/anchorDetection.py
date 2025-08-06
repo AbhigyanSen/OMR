@@ -278,8 +278,22 @@ def process_batch(base_folder, omr_template_name, date, batch_name, save_anchor_
                     warning_path = os.path.join(warning_dir, filename)
                     cv2.imwrite(warning_path, deskewed_img_result if deskewed_img_result is not None else processor.original_image)
                     logger.error(f"Anchor count mismatch for {filename}, saved to warnings folder.")
+                    # all_image_anchor_data[filename] = {
+                    #     "anchors": {a['class_name']: a['center'] for a in detected_anchors},
+                    #     "skew_angle": None,
+                    #     "valid_for_option_mapping": False
+                    # }
+                    
+                    # Keep structure consistent (center + bbox)
+                    anchor_data_mismatch = {
+                        a['class_name']: {
+                            "center": list(a['center']),
+                            "bbox": list(a['bbox'])
+                        } for a in detected_anchors
+                    }
+
                     all_image_anchor_data[filename] = {
-                        "anchors": {a['class_name']: a['center'] for a in detected_anchors},
+                        "anchors": anchor_data_mismatch,
                         "skew_angle": None,
                         "valid_for_option_mapping": False
                     }

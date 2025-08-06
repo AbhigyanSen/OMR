@@ -13,7 +13,6 @@ def setup_logger(batch_name):
     logs_dir = "logs"
     os.makedirs(logs_dir, exist_ok=True)
 
-    # Single log file for this run
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_filename = f"{batch_name}_{timestamp}.log"
     log_path = os.path.join(logs_dir, log_filename)
@@ -21,13 +20,16 @@ def setup_logger(batch_name):
     logger = logging.getLogger("RunRequest")
     logger.setLevel(logging.INFO)
 
-    # File handler (no terminal logging)
-    fh = logging.FileHandler(log_path, mode='w')
-    fh.setFormatter(logging.Formatter('%(asctime)s |%(levelname)s| %(message)s'))
+    # Remove any handlers (console included)
+    logger.handlers.clear()
 
-    if logger.hasHandlers():
-        logger.handlers.clear()
+    # ---- Add only file handler ----
+    fh = logging.FileHandler(log_path, mode='w', encoding='utf-8')
+    fh.setFormatter(logging.Formatter('%(asctime)s |%(levelname)s| %(message)s'))
     logger.addHandler(fh)
+
+    # ---- Prevent propagation to root logger ----
+    logger.propagate = False
 
     return logger, log_path
 
@@ -68,6 +70,15 @@ def call_icr_api(images_to_process, all_extracted_data, logger):
                 logger.info(f"Extracted: {image_name} | {category} -> {value}")
                 if isinstance(value, str) and "error:" in value.lower():
                     all_extracted_data[image_name]["ERROR"] = _detect_error_code(value)
+                    
+                # ---- NEW: handle Unicode error gracefully ----
+                try:
+                    log_msg = f"Extracted: {image_name} | {category} -> {value}"
+                    log_msg.encode('cp1252')  # test encoding for Windows console
+                except UnicodeEncodeError:
+                    log_msg = f"Extracted: {image_name} | {category} -> UTF-8 Encoding Error"
+                logger.info(log_msg)
+                
             else:
                 msg = f"Error: {response.status_code}"
                 all_extracted_data[image_name][category] = msg

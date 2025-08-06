@@ -54,13 +54,13 @@ def process_omr_data(json_file_path, key_fields_path, template_name, output_file
                 if isinstance(item, str):
                     key_fields_list.append(item)
 
-    print("Info: Key fields list:", key_fields_list)
+    # print("Info: Key fields list:", key_fields_list)
     
     key_fields_icr_list = []
     for i, key in enumerate(key_fields_list):
         key_fields_icr_list.append(key + " ICR")
 
-    print("Info: Key fields list with 'ICR' suffix:", key_fields_icr_list)
+    # print("Info: Key fields list with 'ICR' suffix:", key_fields_icr_list)
 
     # Iterate through each image
     if "IMAGES" in processed_json_data and isinstance(processed_json_data["IMAGES"], list):
@@ -138,7 +138,7 @@ def process_omr_data(json_file_path, key_fields_path, template_name, output_file
     with open(output_file_path, 'w') as f:
         json.dump(processed_json_data, f, indent=4)
     
-    print(f"Output: Successfully processed data and saved the output to '{output_file_path}'.")
+    # print(f"Output: Successfully processed data and saved the output to '{output_file_path}'.")
     return output_file_path
 
 
@@ -225,7 +225,7 @@ def process_key_coordinates(field_mappings_path, key_fields_path, output_path):
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
 
-    print(f"Output: Successfully extracted key field coordinates and saved to '{output_path}'.")
+    # print(f"Output: Successfully extracted key field coordinates and saved to '{output_path}'.")
     return output_path
 
 
@@ -297,89 +297,11 @@ def update_key_field_dimensions(output_json_path, key_field_coordinates_path, ke
     try:
         with open(output_json_path, 'w') as f:
             json.dump(output_data, f, indent=4)
-        print(f"Output: Successfully updated key field dimensions and saved to '{output_json_path}'.")
+        # print(f"Output: Successfully updated key field dimensions and saved to '{output_json_path}'.")
     except Exception as e:
         print(f"Error: Could not save the updated file. {e}")
     
     return output_json_path
-
-
-# def main():
-#     """
-#     Main function to handle user input and call the processing functions.
-#     """
-#     # template_choices = ["HSOMR", "ASSAMOMR"]
-    
-#     # print("Please select a template name:")
-#     # for i, choice in enumerate(template_choices):
-#     #     print(f"{i+1}. {choice}")
-    
-#     # # The interactive input section has been commented out to prevent execution errors.
-#     # # A default choice is used for demonstration.
-#     # while True:
-#     #     try:
-#     #         user_choice = int(input("Input: Enter the number corresponding to the template: "))
-#     #         if 1 <= user_choice <= len(template_choices):
-#     #             template_to_use = template_choices[user_choice - 1]
-#     #             break
-#     #         else:
-#     #             print("Error: Invalid choice. Please enter a number from the list.")
-#     #     except ValueError:
-#     #         print("Error: Invalid input. Please enter a number.")
-#     # template_to_use = "HSOMR"
-
-#     omr_template_name = "HSOMR"  # Default template name for demonstration
-            
-#     # Take the full path to the json file and the output folder path
-#     json_file_path = "D:/OMR_DEV/abhigyan/BATCH018 copy.json"
-#     output_folder = "D:/OMR_DEV/abhigyan/final_output"
-#     key_fields_path = "D:/OMR_DEV/abhigyan/key_fields.json"
-
-#     # Define the output file path by getting just the filename from the full path
-#     base_filename = os.path.basename(json_file_path)
-#     output_file_path = os.path.join(output_folder, base_filename)
-    
-#     # # Call the main processing function
-#     # process_omr_data(json_file_path, key_fields_path, omr_template_name, output_file_path)
-
-#     # Take the full paths to the json files and the output folder path
-#     field_mappings_path = "D:/OMR_DEV/abhigyan/field_mappings.json"
-#     key_fields_path = "D:/OMR_DEV/abhigyan/key_fields.json"
-#     output_folder = "D:/OMR_DEV/abhigyan/"
-    
-#     # Define the output file path
-#     coordinates_output_path = os.path.join(output_folder, "key_field_coordinates.json")
-    
-#     # Call the main processing function
-#     # process_key_coordinates(field_mappings_path, key_fields_path, coordinates_output_path)
-
-#     output_file_path = process_omr_data(
-#         json_file_path=json_file_path, 
-#         key_fields_path=key_fields_path, 
-#         template_name=omr_template_name, 
-#         output_file_path=json_file_path)
-#     print(f"Debug: Output File Path: {output_file_path}")
-
-#     coordinates_output_path = process_key_coordinates(
-#         field_mappings_path=field_mappings_path, 
-#         key_fields_path=key_fields_path, 
-#         output_path=coordinates_output_path)
-#     print(f"Debug: Coordinates Output Path: {coordinates_output_path}")
-
-#     key_fields_path = "D:/OMR_DEV/abhigyan/key_fields.json"
-
-#     # NEW: Call the function to update the dimensions in the output JSON
-#     path = update_key_field_dimensions(
-#         output_json_path=output_file_path,
-#         key_field_coordinates_path=coordinates_output_path,
-#         key_fields_path=key_fields_path
-#     )
-#     print(f"Debug: Fully Updated Output File Path: {path}")
-
-
-# if __name__ == "__main__":
-#     main()
-
 
 def json_restructure(base_folder, omr_template_name, date, batch_name):
     

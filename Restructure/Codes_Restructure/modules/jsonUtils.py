@@ -309,7 +309,7 @@ def json_restructure(base_folder, omr_template_name, date, batch_name):
     output_json_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, f"{batch_name}.json")
     field_mappings_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "field_mappings.json")
     key_fields_path = os.path.join(base_folder, "Annotations", omr_template_name, "key_fields.json")
-    key_fields_coordinates_output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + "batch_name", "key_fields_coordinates.json")
+    key_fields_coordinates_output_path = os.path.join(base_folder, "Images", omr_template_name, date, "Output", batch_name, "annotate_" + batch_name, "key_fields_coordinates.json")
     
     # Function calls
     output_file_path = process_omr_data(

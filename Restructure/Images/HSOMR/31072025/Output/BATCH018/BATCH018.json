@@ -1,7 +1,7 @@
 {
     "TEMPLATE": "HSOMR",
     "BATCHNAME": "BATCH018",
-    "PROCESSDT": "2025-08-04 13:44:34",
+    "PROCESSDT": "2025-08-07 13:16:02",
     "COUNT": 3,
     "IMAGES": [
         {
@@ -11,16 +11,40 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "REGISTRATION NUMBER",
-                    "XCORD": "109",
-                    "YCORD": "592",
-                    "WIDTH": "401",
-                    "HEIGHT": "458",
-                    "FIELDDATA": "32457~890*",
+                    "FIELD": "OMR SHEET NUMBER",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000046",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
                     "SEQUENCE": 1
+                },
+                {
+                    "FIELD": "OMR SHEET NUMBER BARCODE",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000046",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 2
+                },
+                {
+                    "FIELD": "REGISTRATION NUMBER",
+                    "XCORD": "109",
+                    "YCORD": "592",
+                    "WIDTH": "403",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "32457~890*",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 3
                 },
                 {
                     "FIELD": "REGISTRATION NUMBER ICR",
@@ -32,19 +56,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 2
+                    "SEQUENCE": 4
                 },
                 {
                     "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
-                    "WIDTH": "441",
-                    "HEIGHT": "459",
-                    "FIELDDATA": "563211 5629",
+                    "WIDTH": "444",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "5632115629",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 3
+                    "SEQUENCE": 5
                 },
                 {
                     "FIELD": "ROLL NUMBER ICR",
@@ -56,19 +80,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 4
+                    "SEQUENCE": 6
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
-                    "WIDTH": "400",
-                    "HEIGHT": "460",
-                    "FIELDDATA": "12-3456789",
+                    "WIDTH": "403",
+                    "HEIGHT": "52",
+                    "FIELDDATA": "123456789",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 5
+                    "SEQUENCE": 7
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER ICR",
@@ -80,7 +104,7 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 6
+                    "SEQUENCE": 8
                 },
                 {
                     "FIELD": "Q1",
@@ -92,7 +116,7 @@
                     "CONFIDENCE": "38.81",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 7
+                    "SEQUENCE": 9
                 },
                 {
                     "FIELD": "Q2",
@@ -104,7 +128,7 @@
                     "CONFIDENCE": "40.24",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 8
+                    "SEQUENCE": 10
                 },
                 {
                     "FIELD": "Q3",
@@ -116,7 +140,7 @@
                     "CONFIDENCE": "42.4",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 9
+                    "SEQUENCE": 11
                 },
                 {
                     "FIELD": "Q4",
@@ -128,7 +152,7 @@
                     "CONFIDENCE": "39.93",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 10
+                    "SEQUENCE": 12
                 },
                 {
                     "FIELD": "Q5",
@@ -140,7 +164,7 @@
                     "CONFIDENCE": "38.27",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 11
+                    "SEQUENCE": 13
                 },
                 {
                     "FIELD": "Q6",
@@ -152,7 +176,7 @@
                     "CONFIDENCE": "39.32",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 12
+                    "SEQUENCE": 14
                 },
                 {
                     "FIELD": "Q7",
@@ -164,7 +188,7 @@
                     "CONFIDENCE": "38.71",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 13
+                    "SEQUENCE": 15
                 },
                 {
                     "FIELD": "Q8",
@@ -176,7 +200,7 @@
                     "CONFIDENCE": "41.49",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 14
+                    "SEQUENCE": 16
                 },
                 {
                     "FIELD": "Q9",
@@ -188,7 +212,7 @@
                     "CONFIDENCE": "26.2",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 15
+                    "SEQUENCE": 17
                 },
                 {
                     "FIELD": "Q10",
@@ -200,7 +224,7 @@
                     "CONFIDENCE": "32.58",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 16
+                    "SEQUENCE": 18
                 },
                 {
                     "FIELD": "Q11",
@@ -212,7 +236,7 @@
                     "CONFIDENCE": "48.21",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 17
+                    "SEQUENCE": 19
                 },
                 {
                     "FIELD": "Q12",
@@ -224,7 +248,7 @@
                     "CONFIDENCE": "38.9",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 18
+                    "SEQUENCE": 20
                 },
                 {
                     "FIELD": "Q13",
@@ -236,7 +260,7 @@
                     "CONFIDENCE": "30.85",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 19
+                    "SEQUENCE": 21
                 },
                 {
                     "FIELD": "Q14",
@@ -248,7 +272,7 @@
                     "CONFIDENCE": "29.92",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 20
+                    "SEQUENCE": 22
                 },
                 {
                     "FIELD": "Q15",
@@ -260,7 +284,7 @@
                     "CONFIDENCE": "43.66",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 21
+                    "SEQUENCE": 23
                 },
                 {
                     "FIELD": "Q16",
@@ -272,7 +296,7 @@
                     "CONFIDENCE": "41.06",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 22
+                    "SEQUENCE": 24
                 },
                 {
                     "FIELD": "Q17",
@@ -284,7 +308,7 @@
                     "CONFIDENCE": "38.99",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 23
+                    "SEQUENCE": 25
                 },
                 {
                     "FIELD": "Q18",
@@ -296,7 +320,7 @@
                     "CONFIDENCE": "38.63",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 24
+                    "SEQUENCE": 26
                 },
                 {
                     "FIELD": "Q19",
@@ -308,7 +332,7 @@
                     "CONFIDENCE": "41.9",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 25
+                    "SEQUENCE": 27
                 },
                 {
                     "FIELD": "Q20",
@@ -320,7 +344,7 @@
                     "CONFIDENCE": "33.99",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 26
+                    "SEQUENCE": 28
                 },
                 {
                     "FIELD": "Q21",
@@ -332,7 +356,7 @@
                     "CONFIDENCE": "44.57",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 27
+                    "SEQUENCE": 29
                 },
                 {
                     "FIELD": "Q22",
@@ -344,7 +368,7 @@
                     "CONFIDENCE": "33.89",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 28
+                    "SEQUENCE": 30
                 },
                 {
                     "FIELD": "Q23",
@@ -356,7 +380,7 @@
                     "CONFIDENCE": "32.92",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 29
+                    "SEQUENCE": 31
                 },
                 {
                     "FIELD": "Q24",
@@ -368,7 +392,7 @@
                     "CONFIDENCE": "37.25",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 30
+                    "SEQUENCE": 32
                 },
                 {
                     "FIELD": "Q25",
@@ -380,7 +404,7 @@
                     "CONFIDENCE": "37.75",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 31
+                    "SEQUENCE": 33
                 },
                 {
                     "FIELD": "Q26",
@@ -392,7 +416,7 @@
                     "CONFIDENCE": "38.55",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 32
+                    "SEQUENCE": 34
                 },
                 {
                     "FIELD": "Q27",
@@ -404,7 +428,7 @@
                     "CONFIDENCE": "41.01",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 33
+                    "SEQUENCE": 35
                 },
                 {
                     "FIELD": "Q28",
@@ -416,7 +440,7 @@
                     "CONFIDENCE": "43.69",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 34
+                    "SEQUENCE": 36
                 },
                 {
                     "FIELD": "Q29",
@@ -428,7 +452,7 @@
                     "CONFIDENCE": "40.64",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 35
+                    "SEQUENCE": 37
                 },
                 {
                     "FIELD": "Q30",
@@ -440,7 +464,7 @@
                     "CONFIDENCE": "52.29",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 36
+                    "SEQUENCE": 38
                 },
                 {
                     "FIELD": "Q31",
@@ -452,7 +476,7 @@
                     "CONFIDENCE": "24.34",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 37
+                    "SEQUENCE": 39
                 },
                 {
                     "FIELD": "Q32",
@@ -464,7 +488,7 @@
                     "CONFIDENCE": "35.72",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 38
+                    "SEQUENCE": 40
                 },
                 {
                     "FIELD": "Q33",
@@ -476,7 +500,7 @@
                     "CONFIDENCE": "32.24",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 39
+                    "SEQUENCE": 41
                 },
                 {
                     "FIELD": "Q34",
@@ -488,7 +512,7 @@
                     "CONFIDENCE": "34.12",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 40
+                    "SEQUENCE": 42
                 },
                 {
                     "FIELD": "Q35",
@@ -500,7 +524,7 @@
                     "CONFIDENCE": "30.02",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 41
+                    "SEQUENCE": 43
                 },
                 {
                     "FIELD": "Q36",
@@ -512,7 +536,7 @@
                     "CONFIDENCE": "29.45",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 42
+                    "SEQUENCE": 44
                 },
                 {
                     "FIELD": "Q37",
@@ -524,7 +548,7 @@
                     "CONFIDENCE": "35.78",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 43
+                    "SEQUENCE": 45
                 },
                 {
                     "FIELD": "Q38",
@@ -536,7 +560,7 @@
                     "CONFIDENCE": "40.23",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 44
+                    "SEQUENCE": 46
                 },
                 {
                     "FIELD": "Q39",
@@ -548,7 +572,7 @@
                     "CONFIDENCE": "33.35",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 45
+                    "SEQUENCE": 47
                 },
                 {
                     "FIELD": "Q40",
@@ -560,19 +584,7 @@
                     "CONFIDENCE": "36.74",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 46
-                },
-                {
-                    "FIELD": "OMR Sheet Number",
-                    "XCORD": "1184",
-                    "YCORD": "418",
-                    "WIDTH": "226",
-                    "HEIGHT": "44",
-                    "FIELDDATA": "00000046",
-                    "CONFIDENCE": "100",
-                    "SUCCESS": "Y",
-                    "ERRORICR": "",
-                    "SEQUENCE": 47
+                    "SEQUENCE": 48
                 }
             ]
         },
@@ -583,16 +595,40 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "REGISTRATION NUMBER",
-                    "XCORD": "109",
-                    "YCORD": "592",
-                    "WIDTH": "401",
-                    "HEIGHT": "458",
-                    "FIELDDATA": "4867003452",
+                    "FIELD": "OMR SHEET NUMBER",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000045",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
                     "SEQUENCE": 1
+                },
+                {
+                    "FIELD": "OMR SHEET NUMBER BARCODE",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000045",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 2
+                },
+                {
+                    "FIELD": "REGISTRATION NUMBER",
+                    "XCORD": "109",
+                    "YCORD": "592",
+                    "WIDTH": "403",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "4867003452",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 3
                 },
                 {
                     "FIELD": "REGISTRATION NUMBER ICR",
@@ -604,19 +640,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 2
+                    "SEQUENCE": 4
                 },
                 {
                     "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
-                    "WIDTH": "441",
-                    "HEIGHT": "459",
-                    "FIELDDATA": "056114 7734",
+                    "WIDTH": "444",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "0561147734",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 3
+                    "SEQUENCE": 5
                 },
                 {
                     "FIELD": "ROLL NUMBER ICR",
@@ -628,19 +664,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 4
+                    "SEQUENCE": 6
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
-                    "WIDTH": "400",
-                    "HEIGHT": "460",
-                    "FIELDDATA": "06-2135946",
+                    "WIDTH": "403",
+                    "HEIGHT": "52",
+                    "FIELDDATA": "062135946",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 5
+                    "SEQUENCE": 7
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER ICR",
@@ -652,7 +688,7 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 6
+                    "SEQUENCE": 8
                 },
                 {
                     "FIELD": "Q1",
@@ -664,7 +700,7 @@
                     "CONFIDENCE": "43.76",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 7
+                    "SEQUENCE": 9
                 },
                 {
                     "FIELD": "Q2",
@@ -672,11 +708,11 @@
                     "YCORD": "1656",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 8
+                    "SEQUENCE": 10
                 },
                 {
                     "FIELD": "Q3",
@@ -684,11 +720,11 @@
                     "YCORD": "1696",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 9
+                    "SEQUENCE": 11
                 },
                 {
                     "FIELD": "Q4",
@@ -700,7 +736,7 @@
                     "CONFIDENCE": "41.98",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 10
+                    "SEQUENCE": 12
                 },
                 {
                     "FIELD": "Q5",
@@ -712,7 +748,7 @@
                     "CONFIDENCE": "38.34",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 11
+                    "SEQUENCE": 13
                 },
                 {
                     "FIELD": "Q6",
@@ -724,7 +760,7 @@
                     "CONFIDENCE": "45.82",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 12
+                    "SEQUENCE": 14
                 },
                 {
                     "FIELD": "Q7",
@@ -736,7 +772,7 @@
                     "CONFIDENCE": "39.53",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 13
+                    "SEQUENCE": 15
                 },
                 {
                     "FIELD": "Q8",
@@ -744,11 +780,11 @@
                     "YCORD": "1896",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 14
+                    "SEQUENCE": 16
                 },
                 {
                     "FIELD": "Q9",
@@ -760,7 +796,7 @@
                     "CONFIDENCE": "39.88",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 15
+                    "SEQUENCE": 17
                 },
                 {
                     "FIELD": "Q10",
@@ -768,11 +804,11 @@
                     "YCORD": "1977",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 16
+                    "SEQUENCE": 18
                 },
                 {
                     "FIELD": "Q11",
@@ -780,11 +816,11 @@
                     "YCORD": "1617",
                     "WIDTH": "346",
                     "HEIGHT": "36",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 17
+                    "SEQUENCE": 19
                 },
                 {
                     "FIELD": "Q12",
@@ -796,7 +832,7 @@
                     "CONFIDENCE": "35.74",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 18
+                    "SEQUENCE": 20
                 },
                 {
                     "FIELD": "Q13",
@@ -808,7 +844,7 @@
                     "CONFIDENCE": "41.59",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 19
+                    "SEQUENCE": 21
                 },
                 {
                     "FIELD": "Q14",
@@ -820,7 +856,7 @@
                     "CONFIDENCE": "37.4",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 20
+                    "SEQUENCE": 22
                 },
                 {
                     "FIELD": "Q15",
@@ -832,7 +868,7 @@
                     "CONFIDENCE": "37.75",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 21
+                    "SEQUENCE": 23
                 },
                 {
                     "FIELD": "Q16",
@@ -840,11 +876,11 @@
                     "YCORD": "1818",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 22
+                    "SEQUENCE": 24
                 },
                 {
                     "FIELD": "Q17",
@@ -852,11 +888,11 @@
                     "YCORD": "1858",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 23
+                    "SEQUENCE": 25
                 },
                 {
                     "FIELD": "Q18",
@@ -868,7 +904,7 @@
                     "CONFIDENCE": "44.64",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 24
+                    "SEQUENCE": 26
                 },
                 {
                     "FIELD": "Q19",
@@ -876,11 +912,11 @@
                     "YCORD": "1938",
                     "WIDTH": "346",
                     "HEIGHT": "36",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 25
+                    "SEQUENCE": 27
                 },
                 {
                     "FIELD": "Q20",
@@ -892,7 +928,7 @@
                     "CONFIDENCE": "39.49",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 26
+                    "SEQUENCE": 28
                 },
                 {
                     "FIELD": "Q21",
@@ -904,7 +940,7 @@
                     "CONFIDENCE": "42.16",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 27
+                    "SEQUENCE": 29
                 },
                 {
                     "FIELD": "Q22",
@@ -912,11 +948,11 @@
                     "YCORD": "1659",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 28
+                    "SEQUENCE": 30
                 },
                 {
                     "FIELD": "Q23",
@@ -924,11 +960,11 @@
                     "YCORD": "1699",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 29
+                    "SEQUENCE": 31
                 },
                 {
                     "FIELD": "Q24",
@@ -936,11 +972,11 @@
                     "YCORD": "1739",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 30
+                    "SEQUENCE": 32
                 },
                 {
                     "FIELD": "Q25",
@@ -948,11 +984,11 @@
                     "YCORD": "1780",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 31
+                    "SEQUENCE": 33
                 },
                 {
                     "FIELD": "Q26",
@@ -964,7 +1000,7 @@
                     "CONFIDENCE": "39.01",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 32
+                    "SEQUENCE": 34
                 },
                 {
                     "FIELD": "Q27",
@@ -976,7 +1012,7 @@
                     "CONFIDENCE": "43.0",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 33
+                    "SEQUENCE": 35
                 },
                 {
                     "FIELD": "Q28",
@@ -988,7 +1024,7 @@
                     "CONFIDENCE": "39.15",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 34
+                    "SEQUENCE": 36
                 },
                 {
                     "FIELD": "Q29",
@@ -1000,7 +1036,7 @@
                     "CONFIDENCE": "40.31",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 35
+                    "SEQUENCE": 37
                 },
                 {
                     "FIELD": "Q30",
@@ -1012,7 +1048,7 @@
                     "CONFIDENCE": "35.83",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 36
+                    "SEQUENCE": 38
                 },
                 {
                     "FIELD": "Q31",
@@ -1024,7 +1060,7 @@
                     "CONFIDENCE": "34.3",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 37
+                    "SEQUENCE": 39
                 },
                 {
                     "FIELD": "Q32",
@@ -1036,7 +1072,7 @@
                     "CONFIDENCE": "39.32",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 38
+                    "SEQUENCE": 40
                 },
                 {
                     "FIELD": "Q33",
@@ -1048,7 +1084,7 @@
                     "CONFIDENCE": "45.95",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 39
+                    "SEQUENCE": 41
                 },
                 {
                     "FIELD": "Q34",
@@ -1060,7 +1096,7 @@
                     "CONFIDENCE": "47.84",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 40
+                    "SEQUENCE": 42
                 },
                 {
                     "FIELD": "Q35",
@@ -1072,7 +1108,7 @@
                     "CONFIDENCE": "30.85",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 41
+                    "SEQUENCE": 43
                 },
                 {
                     "FIELD": "Q36",
@@ -1084,7 +1120,7 @@
                     "CONFIDENCE": "41.18",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 42
+                    "SEQUENCE": 44
                 },
                 {
                     "FIELD": "Q37",
@@ -1096,7 +1132,7 @@
                     "CONFIDENCE": "35.54",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 43
+                    "SEQUENCE": 45
                 },
                 {
                     "FIELD": "Q38",
@@ -1108,7 +1144,7 @@
                     "CONFIDENCE": "39.05",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 44
+                    "SEQUENCE": 46
                 },
                 {
                     "FIELD": "Q39",
@@ -1120,7 +1156,7 @@
                     "CONFIDENCE": "35.97",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 45
+                    "SEQUENCE": 47
                 },
                 {
                     "FIELD": "Q40",
@@ -1132,19 +1168,7 @@
                     "CONFIDENCE": "35.17",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 46
-                },
-                {
-                    "FIELD": "OMR Sheet Number",
-                    "XCORD": "1184",
-                    "YCORD": "418",
-                    "WIDTH": "226",
-                    "HEIGHT": "44",
-                    "FIELDDATA": "00000045",
-                    "CONFIDENCE": "100",
-                    "SUCCESS": "Y",
-                    "ERRORICR": "",
-                    "SEQUENCE": 47
+                    "SEQUENCE": 48
                 }
             ]
         },
@@ -1155,16 +1179,40 @@
             "ERROR": "N",
             "FIELDS": [
                 {
-                    "FIELD": "REGISTRATION NUMBER",
-                    "XCORD": "109",
-                    "YCORD": "592",
-                    "WIDTH": "401",
-                    "HEIGHT": "458",
-                    "FIELDDATA": "7850964121",
+                    "FIELD": "OMR SHEET NUMBER",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000042",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
                     "SEQUENCE": 1
+                },
+                {
+                    "FIELD": "OMR SHEET NUMBER BARCODE",
+                    "XCORD": "1099",
+                    "YCORD": "307",
+                    "WIDTH": "410",
+                    "HEIGHT": "170",
+                    "FIELDDATA": "00000042",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 2
+                },
+                {
+                    "FIELD": "REGISTRATION NUMBER",
+                    "XCORD": "109",
+                    "YCORD": "592",
+                    "WIDTH": "403",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "7850964121",
+                    "CONFIDENCE": "100",
+                    "SUCCESS": "Y",
+                    "ERRORICR": "",
+                    "SEQUENCE": 3
                 },
                 {
                     "FIELD": "REGISTRATION NUMBER ICR",
@@ -1176,19 +1224,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 2
+                    "SEQUENCE": 4
                 },
                 {
                     "FIELD": "ROLL NUMBER",
                     "XCORD": "589",
                     "YCORD": "592",
-                    "WIDTH": "441",
-                    "HEIGHT": "459",
-                    "FIELDDATA": "300568 8604",
+                    "WIDTH": "444",
+                    "HEIGHT": "50",
+                    "FIELDDATA": "3005688604",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 3
+                    "SEQUENCE": 5
                 },
                 {
                     "FIELD": "ROLL NUMBER ICR",
@@ -1200,19 +1248,19 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 4
+                    "SEQUENCE": 6
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER",
                     "XCORD": "1111",
                     "YCORD": "589",
-                    "WIDTH": "400",
-                    "HEIGHT": "460",
-                    "FIELDDATA": "17-0045672",
+                    "WIDTH": "403",
+                    "HEIGHT": "52",
+                    "FIELDDATA": "170045672",
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 5
+                    "SEQUENCE": 7
                 },
                 {
                     "FIELD": "QUESTION BOOKLET NUMBER ICR",
@@ -1224,7 +1272,7 @@
                     "CONFIDENCE": "100",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 6
+                    "SEQUENCE": 8
                 },
                 {
                     "FIELD": "Q1",
@@ -1232,11 +1280,11 @@
                     "YCORD": "1615",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 7
+                    "SEQUENCE": 9
                 },
                 {
                     "FIELD": "Q2",
@@ -1248,7 +1296,7 @@
                     "CONFIDENCE": "39.6",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 8
+                    "SEQUENCE": 10
                 },
                 {
                     "FIELD": "Q3",
@@ -1256,11 +1304,11 @@
                     "YCORD": "1696",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 9
+                    "SEQUENCE": 11
                 },
                 {
                     "FIELD": "Q4",
@@ -1272,7 +1320,7 @@
                     "CONFIDENCE": "44.93",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 10
+                    "SEQUENCE": 12
                 },
                 {
                     "FIELD": "Q5",
@@ -1284,7 +1332,7 @@
                     "CONFIDENCE": "39.72",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 11
+                    "SEQUENCE": 13
                 },
                 {
                     "FIELD": "Q6",
@@ -1292,11 +1340,11 @@
                     "YCORD": "1817",
                     "WIDTH": "346",
                     "HEIGHT": "36",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 12
+                    "SEQUENCE": 14
                 },
                 {
                     "FIELD": "Q7",
@@ -1308,7 +1356,7 @@
                     "CONFIDENCE": "39.32",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 13
+                    "SEQUENCE": 15
                 },
                 {
                     "FIELD": "Q8",
@@ -1320,7 +1368,7 @@
                     "CONFIDENCE": "41.37",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 14
+                    "SEQUENCE": 16
                 },
                 {
                     "FIELD": "Q9",
@@ -1332,7 +1380,7 @@
                     "CONFIDENCE": "44.59",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 15
+                    "SEQUENCE": 17
                 },
                 {
                     "FIELD": "Q10",
@@ -1344,7 +1392,7 @@
                     "CONFIDENCE": "41.39",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 16
+                    "SEQUENCE": 18
                 },
                 {
                     "FIELD": "Q11",
@@ -1356,7 +1404,7 @@
                     "CONFIDENCE": "40.97",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 17
+                    "SEQUENCE": 19
                 },
                 {
                     "FIELD": "Q12",
@@ -1364,11 +1412,11 @@
                     "YCORD": "1658",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 18
+                    "SEQUENCE": 20
                 },
                 {
                     "FIELD": "Q13",
@@ -1380,7 +1428,7 @@
                     "CONFIDENCE": "35.88",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 19
+                    "SEQUENCE": 21
                 },
                 {
                     "FIELD": "Q14",
@@ -1392,7 +1440,7 @@
                     "CONFIDENCE": "40.29",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 20
+                    "SEQUENCE": 22
                 },
                 {
                     "FIELD": "Q15",
@@ -1400,11 +1448,11 @@
                     "YCORD": "1779",
                     "WIDTH": "346",
                     "HEIGHT": "36",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 21
+                    "SEQUENCE": 23
                 },
                 {
                     "FIELD": "Q16",
@@ -1412,11 +1460,11 @@
                     "YCORD": "1818",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 22
+                    "SEQUENCE": 24
                 },
                 {
                     "FIELD": "Q17",
@@ -1424,11 +1472,11 @@
                     "YCORD": "1858",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 23
+                    "SEQUENCE": 25
                 },
                 {
                     "FIELD": "Q18",
@@ -1436,11 +1484,11 @@
                     "YCORD": "1896",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 24
+                    "SEQUENCE": 26
                 },
                 {
                     "FIELD": "Q19",
@@ -1452,7 +1500,7 @@
                     "CONFIDENCE": "47.76",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 25
+                    "SEQUENCE": 27
                 },
                 {
                     "FIELD": "Q20",
@@ -1464,7 +1512,7 @@
                     "CONFIDENCE": "49.29",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 26
+                    "SEQUENCE": 28
                 },
                 {
                     "FIELD": "Q21",
@@ -1476,7 +1524,7 @@
                     "CONFIDENCE": "37.65",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 27
+                    "SEQUENCE": 29
                 },
                 {
                     "FIELD": "Q22",
@@ -1488,7 +1536,7 @@
                     "CONFIDENCE": "46.53",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 28
+                    "SEQUENCE": 30
                 },
                 {
                     "FIELD": "Q23",
@@ -1496,11 +1544,11 @@
                     "YCORD": "1699",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 29
+                    "SEQUENCE": 31
                 },
                 {
                     "FIELD": "Q24",
@@ -1512,7 +1560,7 @@
                     "CONFIDENCE": "37.78",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 30
+                    "SEQUENCE": 32
                 },
                 {
                     "FIELD": "Q25",
@@ -1520,11 +1568,11 @@
                     "YCORD": "1780",
                     "WIDTH": "346",
                     "HEIGHT": "37",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 31
+                    "SEQUENCE": 33
                 },
                 {
                     "FIELD": "Q26",
@@ -1536,7 +1584,7 @@
                     "CONFIDENCE": "43.84",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 32
+                    "SEQUENCE": 34
                 },
                 {
                     "FIELD": "Q27",
@@ -1548,7 +1596,7 @@
                     "CONFIDENCE": "46.58",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 33
+                    "SEQUENCE": 35
                 },
                 {
                     "FIELD": "Q28",
@@ -1556,11 +1604,11 @@
                     "YCORD": "1898",
                     "WIDTH": "346",
                     "HEIGHT": "36",
-                    "FIELDDATA": "",
+                    "FIELDDATA": " ",
                     "CONFIDENCE": "",
                     "SUCCESS": "N",
                     "ERRORICR": "",
-                    "SEQUENCE": 34
+                    "SEQUENCE": 36
                 },
                 {
                     "FIELD": "Q29",
@@ -1572,7 +1620,7 @@
                     "CONFIDENCE": "46.13",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 35
+                    "SEQUENCE": 37
                 },
                 {
                     "FIELD": "Q30",
@@ -1584,7 +1632,7 @@
                     "CONFIDENCE": "49.17",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 36
+                    "SEQUENCE": 38
                 },
                 {
                     "FIELD": "Q31",
@@ -1596,7 +1644,7 @@
                     "CONFIDENCE": "48.75",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 37
+                    "SEQUENCE": 39
                 },
                 {
                     "FIELD": "Q32",
@@ -1608,7 +1656,7 @@
                     "CONFIDENCE": "38.78",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 38
+                    "SEQUENCE": 40
                 },
                 {
                     "FIELD": "Q33",
@@ -1620,7 +1668,7 @@
                     "CONFIDENCE": "42.71",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 39
+                    "SEQUENCE": 41
                 },
                 {
                     "FIELD": "Q34",
@@ -1632,7 +1680,7 @@
                     "CONFIDENCE": "42.87",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 40
+                    "SEQUENCE": 42
                 },
                 {
                     "FIELD": "Q35",
@@ -1644,7 +1692,7 @@
                     "CONFIDENCE": "41.66",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 41
+                    "SEQUENCE": 43
                 },
                 {
                     "FIELD": "Q36",
@@ -1656,7 +1704,7 @@
                     "CONFIDENCE": "46.11",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 42
+                    "SEQUENCE": 44
                 },
                 {
                     "FIELD": "Q37",
@@ -1668,7 +1716,7 @@
                     "CONFIDENCE": "48.31",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 43
+                    "SEQUENCE": 45
                 },
                 {
                     "FIELD": "Q38",
@@ -1680,7 +1728,7 @@
                     "CONFIDENCE": "42.6",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 44
+                    "SEQUENCE": 46
                 },
                 {
                     "FIELD": "Q39",
@@ -1692,7 +1740,7 @@
                     "CONFIDENCE": "48.11",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 45
+                    "SEQUENCE": 47
                 },
                 {
                     "FIELD": "Q40",
@@ -1704,19 +1752,7 @@
                     "CONFIDENCE": "39.99",
                     "SUCCESS": "Y",
                     "ERRORICR": "",
-                    "SEQUENCE": 46
-                },
-                {
-                    "FIELD": "OMR Sheet Number",
-                    "XCORD": "1184",
-                    "YCORD": "418",
-                    "WIDTH": "226",
-                    "HEIGHT": "44",
-                    "FIELDDATA": "00000042",
-                    "CONFIDENCE": "100",
-                    "SUCCESS": "Y",
-                    "ERRORICR": "",
-                    "SEQUENCE": 47
+                    "SEQUENCE": 48
                 }
             ]
         }

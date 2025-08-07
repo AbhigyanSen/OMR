@@ -451,13 +451,13 @@ class OMRFieldMapper:
             x1, y1, x2, y2 = max(0, x1), max(0, y1), min(w, x2), min(h, y2)
             if x2 > x1 and y2 > y1:
                 cropped = deskewed_image[y1:y2, x1:x2]
-                field_folder = os.path.join(output_base_dir, "OMR Sheet Number")
+                field_folder = os.path.join(output_base_dir, "OMR SHEET NUMBER")
                 os.makedirs(field_folder, exist_ok=True)
 
                 save_name = os.path.splitext(image_filename)[0] + ".jpg"
                 save_path = os.path.join(field_folder, save_name)
                 cv2.imwrite(save_path, cropped)
-                logger.info(f"Cropped field 'OMR Sheet Number' saved to {save_path}")
+                logger.info(f"Cropped field 'OMR SHEET NUMBER' saved to {save_path}")
             else:
                 logger.warning(f"Invalid bbox for omr_sheet_no in {image_filename}, skipping.")
 

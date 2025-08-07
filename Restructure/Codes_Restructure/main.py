@@ -60,8 +60,8 @@ if __name__ == "__main__":
     
     # ----- Wrishav's utils.py usage -----
     
-    json_restructure(base_folder, omr_template_name, date, batch_name)
-    print(f"|INFO| JSON restructuring completed for {batch_name}.")
+    # json_restructure(base_folder, omr_template_name, date, batch_name)
+    # print(f"|INFO| JSON restructuring completed for {batch_name}.")
     
     
     

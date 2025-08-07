@@ -153,9 +153,9 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
                 q_num = field_name.split("_")[-1]
                 f["FIELD"] = f"Q{q_num}"
 
-            # 5) Static OMR Sheet Number
+            # 5) Static OMR SHEET NUMBER
             elif field_name == "omr_sheet_no":
-                f["FIELD"] = "OMR Sheet Number"
+                f["FIELD"] = "OMR SHEET NUMBER"
                 
             # Ensure ERRORICR present
             if "ERRORICR" not in f:
@@ -170,9 +170,33 @@ def merge_icr_fields_with_generalized_json(base_json_path, icr_json_path, output
         json.dump(gen_data, f, indent=4)
     logger.info(f"ICR keys merged (with human-readable field names) and saved to {output_path}")
     
-# Handling the OMR Sheet Number
-def update_omr_sheet_number(base_json_path, icr_json_path, logger):
-    # Load JSON files
+# Handling the OMR SHEET NUMBER
+def update_omr_sheet_number(base_json_path, icr_json_path, logger, omr_template_name):
+    import re
+
+    from pyzbar.pyzbar import decode
+    import cv2
+
+    def read_barcode_from_image(image_path, crop_box=None):
+        image = cv2.imread(image_path)
+        if image is None:
+            print(f"[ERROR] Failed to load image: {image_path}")
+            return ""
+
+        if crop_box:
+            x, y, w, h = crop_box
+            image = image[y:y + h, x:x + w]
+
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        resized = cv2.resize(thresh, (thresh.shape[1]*2, thresh.shape[0]*2), interpolation=cv2.INTER_LINEAR)
+        decoded_objects = decode(resized)
+
+        if not decoded_objects:
+            return ""
+
+        return decoded_objects[0].data.decode('utf-8')
+
     with open(base_json_path, "r", encoding="utf-8") as f:
         gen_data = json.load(f)
     with open(icr_json_path, "r", encoding="utf-8") as f:
@@ -180,25 +204,78 @@ def update_omr_sheet_number(base_json_path, icr_json_path, logger):
 
     for image in gen_data.get("IMAGES", []):
         img_name = os.path.splitext(os.path.basename(image["IMAGENAME"]))[0]
-        omr_value = icr_data.get(img_name, {}).get("OMR Sheet Number", "")
+        omr_value = icr_data.get(img_name, {}).get("OMR SHEET NUMBER", "")
 
-        # Detect error code
         error_code = "" if not isinstance(omr_value, str) or "error:" not in omr_value.lower() else _detect_error_code(omr_value)
         if error_code:
             omr_value = ""
 
-        # Find OMR Sheet Number field in generalized JSON
+        # Update "OMR SHEET NUMBER" and also read barcode
         for field in image["FIELDS"]:
-            if field["FIELD"] == "OMR Sheet Number":
+            if field["FIELD"] == "OMR SHEET NUMBER":
                 field["FIELDDATA"] = omr_value
                 field["CONFIDENCE"] = "100" if omr_value.strip() else ""
                 field["SUCCESS"] = "Y" if omr_value.strip() else "N"
                 field["ERRORICR"] = error_code
+
+                # --- Barcode Handling ---
+                if omr_template_name != "ASSAMOMR":
+                    image_path = image["IMAGENAME"]
+                    try:
+                        x = int(field["XCORD"])
+                        y = int(field["YCORD"])
+                        w = int(field["WIDTH"])
+                        h = int(field["HEIGHT"])
+                        barcode_value = read_barcode_from_image(image_path, crop_box=(x, y, w, h))
+                        barcode_value = barcode_value.strip() if isinstance(barcode_value, str) else ""
+                    except Exception as e:
+                        logger.warning(f"Barcode read failed for {image_path}: {e}")
+                        barcode_value = ""
+
+                    # Print and log the result
+                    print(f"{img_name}: {barcode_value}")
+                    logger.info(f"Barcode for {img_name}: {barcode_value}")
+
+                    # Add new field
+                    barcode_field = {
+                        "FIELD": "OMR SHEET NUMBER BARCODE",
+                        "XCORD": field.get("XCORD", ""),
+                        "YCORD": field.get("YCORD", ""),
+                        "WIDTH": field.get("WIDTH", ""),
+                        "HEIGHT": field.get("HEIGHT", ""),
+                        "FIELDDATA": barcode_value,
+                        "CONFIDENCE": "100" if barcode_value else "",
+                        "SUCCESS": "Y" if barcode_value else "N",
+                        "ERRORICR": "",
+                        "SEQUENCE": 0  # will be set next
+                    }
+
+                    image["FIELDS"].append(barcode_field)
+
                 break
+            
+        # ---- Reorder so "OMR SHEET NUMBER" and its barcode (if any) come first ----
+        omr_fields = []
+        other_fields = []
+        for f in image["FIELDS"]:
+            if f["FIELD"] == "OMR SHEET NUMBER" or f["FIELD"] == "OMR SHEET NUMBER BARCODE":
+                omr_fields.append(f)
+            else:
+                other_fields.append(f)
+
+        # Merge in desired order
+        image["FIELDS"] = omr_fields + other_fields
+
+        # Resequence after reordering
+        for idx, f in enumerate(image["FIELDS"], start=1):
+            f["SEQUENCE"] = idx
+
 
     with open(base_json_path, "w", encoding="utf-8") as f:
         json.dump(gen_data, f, indent=4)
-    logger.info(f"Updated OMR Sheet Number values from ICR into {base_json_path}")
+
+    logger.info(f"Updated OMR SHEET NUMBER and Barcode values in {base_json_path}")
+
 
 def merge_icr_with_ed_results(icr_results, ed_json_path, ed_csv_path, logger):
     with open(ed_json_path, 'r', encoding='utf-8') as f:
@@ -267,6 +344,7 @@ def process_icr_requests(base_folder, omr_template_name, date, batch_name):
     update_omr_sheet_number(
         base_json_path=generalized_json_path,
         icr_json_path=icr_output_json,
+        omr_template_name=omr_template_name,
         logger=logger
     )
 
